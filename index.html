@@ -677,7 +677,7 @@
         <h2 class="text-lg font-extrabold text-slate-900 mb-1">サポーターチャット</h2>
         <p class="text-xs text-slate-500 mb-4">試合の感想や期待を共有しよう</p>
 
-        <form id="chat-form" class="space-y-3 mb-6">
+        <form id="chat-form-old" class="space-y-3 mb-6">
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <input id="chat-author" type="text" maxlength="24" placeholder="ニックネーム（例: FoxFan99）" class="rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#003090]" />
             <input id="chat-message" type="text" maxlength="240" placeholder="メッセージを入力..." class="sm:col-span-2 rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#003090]" />
@@ -2543,5 +2543,137 @@
       init();
     }
   </script>
-</body>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import {
+      getFirestore,
+      collection,
+      addDoc,
+      query,
+      orderBy,
+      limit,
+      onSnapshot,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCzsf1zx7DJCK-Dwwy3xRlheIYYIZQUNHg",
+      authDomain: "foxes-report.firebaseapp.com",
+      projectId: "foxes-report",
+      storageBucket: "foxes-report.firebasestorage.app",
+      messagingSenderId: "614541918859",
+      appId: "1:614541918859:web:a2b0726e6f47fddc2cca8e",
+      measurementId: "G-W8RY61ENL4"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const chatCollection = collection(db, "foxes_chat_messages");
+
+    function formatFirestoreTime(timestamp) {
+      if (!timestamp || typeof timestamp.toDate !== "function") {
+        return "たった今";
+      }
+      const d = timestamp.toDate();
+      const mm = String(d.getMonth() + 1).padStart(2, "0");
+      const dd = String(d.getDate()).padStart(2, "0");
+      const hh = String(d.getHours()).padStart(2, "0");
+      const min = String(d.getMinutes()).padStart(2, "0");
+      return `${mm}/${dd} ${hh}:${min}`;
+    }
+
+    function renderFirestoreChat(messages) {
+      const container = document.getElementById("chat-messages-container");
+      if (!container) return;
+      container.innerHTML = "";
+
+      messages.forEach(msg => {
+        const box = document.createElement("div");
+        box.className = "rounded-xl border border-slate-200 bg-slate-50 p-3.5";
+
+        const header = document.createElement("div");
+        header.className = "flex items-center justify-between gap-2 text-xs mb-1";
+
+        const author = document.createElement("span");
+        author.className = "font-bold text-[#003090]";
+        author.textContent = msg.author || "FoxesSupporter";
+
+        const time = document.createElement("span");
+        time.className = "text-slate-400";
+        time.textContent = msg.timeText || "たった今";
+
+        header.appendChild(author);
+        header.appendChild(time);
+
+        const body = document.createElement("p");
+        body.className = "text-sm text-slate-800 whitespace-pre-wrap";
+        body.textContent = msg.text || "";
+
+        box.appendChild(header);
+        box.appendChild(body);
+        container.appendChild(box);
+      });
+    }
+
+    const q = query(chatCollection, orderBy("createdAt", "desc"), limit(100));
+    onSnapshot(q, (snapshot) => {
+      const messages = [];
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        messages.push({
+          id: doc.id,
+          author: data.author || "FoxesSupporter",
+          text: data.text || "",
+          timeText: formatFirestoreTime(data.createdAt)
+        });
+      });
+      renderFirestoreChat(messages);
+    }, (error) => {
+      console.error("Firestore chat listener error:", error);
+      if (typeof showBanner === "function") {
+        showBanner("チャットのリアルタイム同期に失敗しました。", "error");
+      }
+    });
+
+    const chatForm = document.getElementById("chat-form-old");
+    if (chatForm) {
+      chatForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const authorInput = document.getElementById("chat-author");
+        const msgInput = document.getElementById("chat-message");
+        const submitBtn = chatForm.querySelector('button[type="submit"]');
+
+        const author = (authorInput?.value || "").trim() || "FoxesSupporter";
+        const text = (msgInput?.value || "").trim();
+
+        if (!text) {
+          if (typeof showBanner === "function") {
+            showBanner("メッセージを入力してください。", "error");
+          }
+          return;
+        }
+
+        if (submitBtn) submitBtn.disabled = true;
+        try {
+          await addDoc(chatCollection, {
+            author,
+            text,
+            createdAt: serverTimestamp()
+          });
+          if (msgInput) msgInput.value = "";
+          if (typeof showBanner === "function") {
+            showBanner("メッセージを投稿しました。", "success");
+          }
+        } catch (err) {
+          console.error("Failed to post chat message:", err);
+          if (typeof showBanner === "function") {
+            showBanner("メッセージの投稿に失敗しました。", "error");
+          }
+        } finally {
+          if (submitBtn) submitBtn.disabled = false;
+        }
+      });
+    }
+  </script>
+  </body>
 </html>
