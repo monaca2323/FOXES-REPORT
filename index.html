@@ -1,0 +1,2336 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Foxes Report — Leicester City FC</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #f4f6fb;
+      color: #0f172a;
+    }
+    .lcfc-gradient {
+      background: linear-gradient(135deg, #002878 0%, #003899 55%, #0047b3 100%);
+    }
+    .fox-gold {
+      color: #fdbe11;
+    }
+    .fox-gold-bg {
+      background-color: #fdbe11;
+    }
+    .tab-active {
+      background-color: #fdbe11;
+      color: #002060;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.22);
+    }
+    .card-surface {
+      background-color: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 1rem;
+      box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+    }
+    .match-hero-gradient {
+      background: linear-gradient(180deg, #003b99 0%, #003087 58%, #00256b 100%);
+    }
+    .gold-pill-btn {
+      background-color: #fdbe11;
+      color: #002060;
+      box-shadow: 0 3px 10px rgba(253, 190, 17, 0.28);
+    }
+    .gold-pill-btn:hover {
+      background-color: #fcd34d;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+  <!-- Mobile Slide-out Menu Drawer -->
+  <div id="mobile-drawer-backdrop" class="hidden fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-xs">
+    <aside id="mobile-drawer" class="w-72 max-w-[82vw] h-full bg-[#002878] text-white p-5 flex flex-col justify-between shadow-2xl border-r border-white/15">
+      <div>
+        <div class="flex items-center justify-between pb-4 border-b border-white/15">
+          <div class="flex items-center gap-2.5">
+            <span class="w-9 h-9 rounded-full bg-[#002878] flex items-center justify-center shrink-0 overflow-hidden shadow-xs">
+              <svg class="w-9 h-9" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+                <circle cx="32" cy="32" r="29.5" stroke="#fdbe11" stroke-width="3" />
+                <circle cx="32" cy="32" r="24" stroke="#ffffff" stroke-width="1.6" stroke-dasharray="3.2 3.2" />
+                <polygon points="19,17 27,25 20,30" fill="#f59e0b" />
+                <polygon points="45,17 37,25 44,30" fill="#f59e0b" />
+                <polygon points="20,30 27,25 32,30 25,35" fill="#fbbf24" />
+                <polygon points="44,30 37,25 32,30 39,35" fill="#f59e0b" />
+                <polygon points="27,25 37,25 32,30" fill="#fcd34d" />
+                <polygon points="20,30 25,35 32,48" fill="#f59e0b" />
+                <polygon points="44,30 39,35 32,48" fill="#d97706" />
+                <polygon points="25,35 39,35 32,48" fill="#fbbf24" />
+                <polygon points="24.5,33 28.5,34.5 26,36.5" fill="#0f172a" />
+                <polygon points="39.5,33 35.5,34.5 38,36.5" fill="#0f172a" />
+                <circle cx="32" cy="46.5" r="2.2" fill="#0f172a" />
+              </svg>
+            </span>
+            <div>
+              <p class="text-sm font-extrabold">Foxes Report</p>
+              <p class="text-[11px] text-blue-200">2026-27 Season</p>
+            </div>
+          </div>
+          <button id="close-drawer-btn" type="button" class="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-bold">
+            閉じる
+          </button>
+        </div>
+
+        <div class="mt-4 space-y-1.5">
+          <p class="text-[11px] font-bold uppercase tracking-wider text-blue-300 px-2 mb-1">メニュー</p>
+          <button type="button" data-drawer-tab="home" class="w-full text-left px-3 py-2.5 rounded-xl text-sm font-bold hover:bg-white/10 transition">ホーム</button>
+          <button type="button" data-drawer-tab="fixtures" class="w-full text-left px-3 py-2.5 rounded-xl text-sm font-bold hover:bg-white/10 transition">日程・試合</button>
+          <button type="button" data-drawer-tab="standings" class="w-full text-left px-3 py-2.5 rounded-xl text-sm font-bold hover:bg-white/10 transition">順位表</button>
+          <button type="button" data-drawer-tab="squad" class="w-full text-left px-3 py-2.5 rounded-xl text-sm font-bold hover:bg-white/10 transition">選手名鑑</button>
+          <button type="button" data-drawer-tab="news" class="w-full text-left px-3 py-2.5 rounded-xl text-sm font-bold hover:bg-white/10 transition">ニュース</button>
+          <button type="button" data-drawer-tab="chat" class="w-full text-left px-3 py-2.5 rounded-xl text-sm font-bold hover:bg-white/10 transition">ファンチャット</button>
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-white/15 space-y-2">
+          <p class="text-[11px] font-bold uppercase tracking-wider text-blue-300 px-2">データ管理</p>
+          <button id="drawer-fotmob-btn" type="button" class="w-full text-left px-3 py-2.5 rounded-xl text-xs font-bold bg-white/10 hover:bg-white/20 transition">
+            FotMob取込（JSONを開く）
+          </button>
+          <button id="drawer-editor-btn" type="button" class="w-full text-left px-3 py-2.5 rounded-xl text-xs font-bold bg-white/10 hover:bg-white/20 transition">
+            データ編集パネル切替
+          </button>
+        </div>
+      </div>
+      <p class="text-[11px] text-blue-200/80 pt-3 border-t border-white/10">Foxes Report</p>
+    </aside>
+  </div>
+
+  <!-- Header -->
+  <header class="lcfc-gradient text-white shadow-md sticky top-0 z-30">
+    <div class="max-w-5xl mx-auto px-3 sm:px-5 pt-3 pb-2.5">
+      <div class="flex items-center justify-between gap-2">
+        <div class="flex items-center gap-2 min-w-0">
+          <!-- Hamburger Button -->
+          <button id="open-drawer-btn" type="button" aria-label="メニューを開く" class="w-9 h-9 rounded-xl bg-white/15 hover:bg-white/25 border border-white/20 flex flex-col items-center justify-center gap-1 shrink-0 transition">
+            <span class="w-4 h-0.5 bg-white rounded-full"></span>
+            <span class="w-4 h-0.5 bg-white rounded-full"></span>
+            <span class="w-4 h-0.5 bg-white rounded-full"></span>
+          </button>
+
+          <!-- Fox Crest Circle -->
+          <div class="w-9 h-9 rounded-full bg-[#002878] flex items-center justify-center shrink-0 overflow-hidden shadow-xs">
+            <svg class="w-9 h-9" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+              <circle cx="32" cy="32" r="29.5" stroke="#fdbe11" stroke-width="3" />
+              <circle cx="32" cy="32" r="24" stroke="#ffffff" stroke-width="1.6" stroke-dasharray="3.2 3.2" />
+              <polygon points="19,17 27,25 20,30" fill="#f59e0b" />
+              <polygon points="45,17 37,25 44,30" fill="#f59e0b" />
+              <polygon points="20,30 27,25 32,30 25,35" fill="#fbbf24" />
+              <polygon points="44,30 37,25 32,30 39,35" fill="#f59e0b" />
+              <polygon points="27,25 37,25 32,30" fill="#fcd34d" />
+              <polygon points="20,30 25,35 32,48" fill="#f59e0b" />
+              <polygon points="44,30 39,35 32,48" fill="#d97706" />
+              <polygon points="25,35 39,35 32,48" fill="#fbbf24" />
+              <polygon points="24.5,33 28.5,34.5 26,36.5" fill="#0f172a" />
+              <polygon points="39.5,33 35.5,34.5 38,36.5" fill="#0f172a" />
+              <circle cx="32" cy="46.5" r="2.2" fill="#0f172a" />
+            </svg>
+          </div>
+
+          <!-- Title & Season Badge -->
+          <div class="min-w-0">
+            <div class="flex items-center gap-1.5">
+              <h1 class="text-base sm:text-lg font-black tracking-tight truncate">FOXES REPORT</h1>
+            </div>
+            <p id="season-subtitle" class="text-[11px] text-blue-100 truncate">Leicester City FC • EFL League One</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Pill Tabs -->
+      <nav aria-label="メインナビゲーション" class="mt-2.5 flex items-center gap-1.5 overflow-x-auto pb-0.5">
+        <button data-tab="home" type="button" class="tab-btn tab-active px-3.5 py-1.5 rounded-full text-xs font-extrabold whitespace-nowrap transition inline-flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 10.5L12 3l9 7.5" />
+            <path d="M5 9.5V20h14V9.5" />
+          </svg>
+          <span>ホーム</span>
+        </button>
+        <button data-tab="fixtures" type="button" class="tab-btn px-3.5 py-1.5 rounded-full text-xs font-bold bg-white/15 text-white hover:bg-white/25 whitespace-nowrap transition inline-flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="4" width="18" height="17" rx="2" />
+            <path d="M16 2v4M8 2v4M3 10h18" />
+          </svg>
+          <span>日程・試合</span>
+        </button>
+        <button data-tab="standings" type="button" class="tab-btn px-3.5 py-1.5 rounded-full text-xs font-bold bg-white/15 text-white hover:bg-white/25 whitespace-nowrap transition inline-flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M8 21h8M12 17v4" />
+            <path d="M7 4h10v5a5 5 0 0 1-10 0V4Z" />
+            <path d="M7 6H4a2 2 0 0 0 0 4h3M17 6h3a2 2 0 0 1 0 4h-3" />
+          </svg>
+          <span>順位表</span>
+        </button>
+        <button data-tab="squad" type="button" class="tab-btn px-3.5 py-1.5 rounded-full text-xs font-bold bg-white/15 text-white hover:bg-white/25 whitespace-nowrap transition inline-flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M8 4l4 2 4-2 4 4-2.5 3.5L16 10v10H8V10l-1.5 1.5L4 8l4-4Z" />
+          </svg>
+          <span>選手</span>
+        </button>
+        <button data-tab="news" type="button" class="tab-btn px-3.5 py-1.5 rounded-full text-xs font-bold bg-white/15 text-white hover:bg-white/25 whitespace-nowrap transition inline-flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 5h14a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5Z" />
+            <path d="M8 9h8M8 13h8M8 17h5" />
+          </svg>
+          <span>ニュース</span>
+        </button>
+        <button data-tab="chat" type="button" class="tab-btn px-3.5 py-1.5 rounded-full text-xs font-bold bg-white/15 text-white hover:bg-white/25 whitespace-nowrap transition inline-flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12a8 8 0 0 1-8 8H5l-2 2v-8a8 8 0 0 1 8-8h2a8 8 0 0 1 8 6Z" />
+          </svg>
+          <span>チャット</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Notification Toast / Banner -->
+  <div id="status-banner" class="hidden max-w-5xl w-full mx-auto px-3 sm:px-5 pt-3">
+    <div id="status-banner-inner" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium flex items-center justify-between gap-3 border">
+      <span id="status-banner-text"></span>
+      <button id="close-banner-btn" type="button" class="text-xs font-bold opacity-75 hover:opacity-100">閉じる</button>
+    </div>
+  </div>
+
+  <!-- News Full Article Modal -->
+  <div id="news-modal-backdrop" class="hidden fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-xs p-4 flex items-center justify-center">
+    <div role="dialog" aria-modal="true" aria-labelledby="news-modal-title" class="w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-2xl bg-white border border-slate-200 shadow-2xl p-5 sm:p-6">
+      <div class="flex items-center justify-between gap-3 pb-3 border-b border-slate-100">
+        <div class="flex items-center gap-2">
+          <span id="news-modal-tag" class="px-2.5 py-0.5 rounded-md text-xs font-extrabold bg-blue-50 text-[#003090]"></span>
+          <span id="news-modal-date" class="text-xs text-slate-500"></span>
+        </div>
+        <button id="close-news-modal-btn" type="button" class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold transition">
+          閉じる
+        </button>
+      </div>
+
+      <h3 id="news-modal-title" class="text-lg sm:text-xl font-black text-slate-900 mt-4 leading-snug"></h3>
+      <p id="news-modal-summary" class="mt-2.5 text-xs sm:text-sm font-semibold text-slate-600 bg-slate-50 border border-slate-200/80 rounded-xl p-3.5 leading-relaxed"></p>
+      <div id="news-modal-body" class="mt-4 space-y-3 text-sm text-slate-800 leading-relaxed"></div>
+      <div class="mt-4 pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2">
+        <p id="news-modal-source" class="text-[11px] text-slate-400"></p>
+        <a id="news-modal-source-link" href="#" target="_blank" rel="noopener noreferrer" class="hidden px-3 py-1.5 rounded-xl bg-blue-50 hover:bg-blue-100 text-[#003090] text-xs font-bold transition">
+          参照サイトを開く →
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="flex-1 max-w-5xl w-full mx-auto px-2.5 sm:px-5 py-4">
+    <!-- JSON Editor Panel (Toggled via FotMob取込 / Drawer) -->
+    <div id="data-editor-panel" class="hidden card-surface p-4 sm:p-5 mb-4 border-2 border-[#003090]/25">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-2.5">
+        <div>
+          <h2 class="text-sm sm:text-base font-extrabold text-slate-900">JSONデータ編集・手動取込</h2>
+          <p class="text-xs text-slate-500">JSONを直接貼り付けて反映したり、保存内容を編集したりできます。</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="apply-json-btn" type="button" class="px-3.5 py-1.5 rounded-xl bg-[#003090] hover:bg-blue-900 text-white text-xs font-bold transition">
+            反映して保存
+          </button>
+          <button id="close-editor-btn" type="button" class="px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition">
+            閉じる
+          </button>
+        </div>
+      </div>
+      <textarea id="json-editor-textarea" rows="10" class="w-full rounded-xl border border-slate-300 bg-slate-950 text-emerald-300 font-mono text-xs p-3 focus:outline-none focus:ring-2 focus:ring-[#003090]"></textarea>
+    </div>
+
+    <!-- HOME TAB -->
+    <section id="tab-home" class="tab-panel space-y-4">
+      <!-- Data Sync & Auto-Update Bar -->
+      <div class="card-surface p-4 sm:p-5 space-y-3.5">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+          <div class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 leading-snug">
+            <span id="auto-sync-dot" class="w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0 mt-1"></span>
+            <div>
+              <p>
+                <span class="font-extrabold text-slate-900">data/lcfc.json 同期・自動更新</span>
+                <span class="mx-1.5 text-slate-300">|</span>
+                <span id="auto-sync-status-text" class="text-slate-600 font-medium">自動更新: 待機中</span>
+              </p>
+              <p class="text-[11px] text-slate-500 mt-0.5">
+                Next Match・直近5試合・順位表・日程＆カレンダー・ニュース・選手名鑑を一括反映
+              </p>
+              <p id="last-sync-time" class="text-[11px] text-slate-400 mt-0.5">最終同期: 初期ベースラインデータ</p>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2">
+            <button id="reload-json-btn" type="button" class="px-3.5 py-2 rounded-xl bg-[#003090] hover:bg-blue-900 text-white text-xs sm:text-sm font-bold transition inline-flex items-center gap-1.5 shadow-xs">
+              <span>↻</span>
+              <span>今すぐ更新</span>
+            </button>
+            <button id="export-json-btn" type="button" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs sm:text-sm font-bold border border-slate-200 transition inline-flex items-center gap-1.5">
+              <span>⬇</span>
+              <span>JSON出力</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Auto-Sync URL & Interval Controls -->
+        <div class="pt-3 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-12 gap-2.5 items-center">
+          <div class="sm:col-span-7">
+            <label for="auto-sync-url-input" class="sr-only">取得元JSON URL</label>
+            <input
+              id="auto-sync-url-input"
+              type="text"
+              placeholder="./data/lcfc.json または JSON の URL"
+              class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2 text-xs text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#003090]"
+            />
+          </div>
+          <div class="sm:col-span-3">
+            <label for="auto-sync-interval-select" class="sr-only">自動更新の間隔</label>
+            <select
+              id="auto-sync-interval-select"
+              class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#003090]"
+            >
+              <option value="0">手動のみ（自動更新OFF）</option>
+              <option value="600000">10分ごと（試合中におすすめ）</option>
+              <option value="900000">15分ごと</option>
+              <option value="1800000">30分ごと</option>
+              <option value="3600000" selected>1時間ごと（ニュース・順位表）</option>
+              <option value="10800000">3時間ごと（通常時）</option>
+            </select>
+          </div>
+          <div class="sm:col-span-2 flex justify-end">
+            <button id="save-sync-config-btn" type="button" class="w-full px-3 py-2 rounded-xl bg-amber-100 hover:bg-amber-200 text-[#002878] text-xs font-extrabold transition">
+              設定を保存
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Next Match Hero Card -->
+      <div class="match-hero-gradient text-white rounded-2xl p-5 sm:p-6 shadow-xl">
+        <div class="flex items-center justify-center gap-2 mb-2.5">
+          <span class="px-3 py-1 rounded-md text-xs font-black bg-[#fdbe11] text-[#002878] tracking-wide">
+            NEXT MATCH
+          </span>
+          <span id="next-match-comp" class="px-3 py-1 rounded-md text-xs font-bold bg-white/15 text-white border border-white/20"></span>
+        </div>
+
+        <p id="next-match-venue" class="text-center text-xs sm:text-sm font-medium text-blue-100 mb-5"></p>
+
+        <!-- Teams VS Block -->
+        <div class="grid grid-cols-3 items-start gap-2 sm:gap-4 text-center">
+          <!-- Home Team -->
+          <div class="flex flex-col items-center">
+            <div id="home-team-badge" class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-[#f97316] border-[3px] border-white shadow-lg flex items-center justify-center text-lg sm:text-xl font-black tracking-tight text-white">
+              BFC
+            </div>
+            <span id="home-team-role-rank" class="mt-2.5 text-[11px] font-bold tracking-wider uppercase text-blue-200"></span>
+            <p id="home-team-name" class="text-base sm:text-lg font-extrabold text-white mt-0.5"></p>
+            <p id="home-team-record" class="text-[11px] text-blue-100/90 mt-0.5"></p>
+          </div>
+
+          <!-- VS -->
+          <div class="flex flex-col items-center justify-center pt-4 sm:pt-5">
+            <span class="text-2xl sm:text-3xl font-black italic text-[#fdbe11] tracking-wider">VS</span>
+            <span id="next-match-side-label" class="mt-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-white/15 text-blue-100 uppercase"></span>
+          </div>
+
+          <!-- Away Team -->
+          <div class="flex flex-col items-center">
+            <div id="away-team-badge" class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-[#002878] border-[3px] border-white shadow-lg flex items-center justify-center text-base sm:text-lg font-black tracking-tight text-[#fdbe11]">
+              LCFC
+            </div>
+            <span id="away-team-role-rank" class="mt-2.5 text-[11px] font-bold tracking-wider uppercase text-blue-200"></span>
+            <p id="away-team-name" class="text-base sm:text-lg font-extrabold text-white mt-0.5"></p>
+            <p id="away-team-record" class="text-[11px] text-blue-100/90 mt-0.5"></p>
+          </div>
+        </div>
+
+        <!-- Dual Action Buttons -->
+        <div class="mt-6 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
+          <button id="open-calendar-btn" type="button" class="gold-pill-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold transition inline-flex items-center gap-1.5">
+            <span>📅</span>
+            <span>カレンダーへ移動</span>
+          </button>
+          <button id="download-ics-btn" type="button" class="px-4 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 text-white text-xs sm:text-sm font-bold border border-white/25 transition inline-flex items-center gap-1.5">
+            <span>🗓️</span>
+            <span>予定保存 (.ics)</span>
+          </button>
+        </div>
+
+        <!-- Kickoff & Countdown Box -->
+        <div class="mt-6 rounded-2xl bg-black/25 backdrop-blur border border-white/15 p-4 sm:p-5 text-center">
+          <p class="text-xs font-semibold text-blue-100">日本時間 (JST) キックオフ</p>
+          <p id="next-match-jst" class="text-lg sm:text-2xl font-extrabold text-white mt-1"></p>
+          <p id="next-match-local" class="text-xs text-blue-200 mt-1 pb-3 border-b border-white/15"></p>
+
+          <!-- 4-Block Countdown -->
+          <div class="grid grid-cols-4 gap-2 sm:gap-3 mt-4 max-w-md mx-auto">
+            <div class="rounded-xl bg-white/10 py-2.5 px-1">
+              <div id="cd-days" class="text-xl sm:text-2xl font-black text-[#fdbe11] tabular-nums">00</div>
+              <div class="text-[10px] font-bold tracking-wider text-blue-100 uppercase mt-0.5">DAYS</div>
+            </div>
+            <div class="rounded-xl bg-white/10 py-2.5 px-1">
+              <div id="cd-hours" class="text-xl sm:text-2xl font-black text-[#fdbe11] tabular-nums">00</div>
+              <div class="text-[10px] font-bold tracking-wider text-blue-100 uppercase mt-0.5">HRS</div>
+            </div>
+            <div class="rounded-xl bg-white/10 py-2.5 px-1">
+              <div id="cd-mins" class="text-xl sm:text-2xl font-black text-[#fdbe11] tabular-nums">00</div>
+              <div class="text-[10px] font-bold tracking-wider text-blue-100 uppercase mt-0.5">MIN</div>
+            </div>
+            <div class="rounded-xl bg-white/10 py-2.5 px-1">
+              <div id="cd-secs" class="text-xl sm:text-2xl font-black text-[#fdbe11] tabular-nums">00</div>
+              <div class="text-[10px] font-bold tracking-wider text-blue-100 uppercase mt-0.5">SEC</div>
+            </div>
+          </div>
+
+          <!-- Latest Result Highlight Pill -->
+          <div id="latest-result-highlight" class="mt-4 inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/10 text-xs font-bold text-blue-50"></div>
+        </div>
+        <p id="next-match-source" class="mt-3 text-center text-[10px] text-blue-200/75">参照: LCFC Match Centre / Sky Sports</p>
+      </div>
+
+      <!-- Club Snapshot Card -->
+      <div class="card-surface p-5 flex items-center justify-between gap-4">
+        <div>
+          <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider">現在のリーグ位置</h2>
+          <div class="mt-1.5 flex items-baseline gap-3">
+            <span id="home-rank-badge" class="text-3xl font-extrabold text-[#003090]"></span>
+            <div>
+              <p id="home-pts-summary" class="text-sm font-bold text-slate-800"></p>
+              <p id="home-record-summary" class="text-xs text-slate-500 mt-0.5"></p>
+            </div>
+          </div>
+          <p id="home-rank-source" class="text-[10px] text-slate-400 mt-1.5">参照: EFL League One / LCFC / 外部ソース参考</p>
+        </div>
+        <button type="button" data-jump-tab="standings" class="px-3.5 py-2 rounded-xl bg-blue-50 hover:bg-blue-100 text-xs font-bold text-[#003090] shrink-0 transition">
+          順位表 →
+        </button>
+      </div>
+
+      <!-- Recent 5 Form -->
+      <div class="card-surface p-3.5 sm:p-5">
+        <div class="flex items-center justify-between gap-2 mb-3.5">
+          <div>
+            <h2 class="text-base sm:text-lg font-extrabold text-slate-900">直近5試合</h2>
+            <p class="text-xs text-slate-500">右が最新試合</p>
+            <p id="recent-five-source" class="text-[10px] text-slate-400 mt-0.5">参照: LCFC Match Centre / Sky Sports / 外部ソース参考</p>
+          </div>
+          <button type="button" data-jump-tab="fixtures" class="text-xs font-bold text-[#003090] hover:underline">試合結果一覧 →</button>
+        </div>
+        <div id="recent-five-container" class="grid grid-cols-5 gap-1.5 sm:gap-3"></div>
+      </div>
+
+      <!-- Latest News Preview -->
+      <div class="card-surface p-5">
+        <div class="flex items-center justify-between gap-2 mb-3.5">
+          <h2 class="text-base sm:text-lg font-extrabold text-slate-900">最新ニュース</h2>
+          <button type="button" data-jump-tab="news" class="text-xs font-bold text-[#003090] hover:underline">すべて見る →</button>
+        </div>
+        <div id="home-news-container" class="space-y-3"></div>
+      </div>
+    </section>
+
+    <!-- FIXTURES TAB -->
+    <section id="tab-fixtures" class="tab-panel hidden space-y-5">
+      <div class="card-surface p-5 sm:p-6">
+        <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">2026-27 日程・試合結果＆カレンダー</h2>
+        <p class="text-xs sm:text-sm text-slate-500 mt-1.5 leading-relaxed">
+          リーグ戦・EFLカップ・FAカップ・EFLトロフィーを掲載
+        </p>
+        <p id="fixtures-results-source" class="text-[10px] text-slate-400 mt-0.5">
+          参照: LCFC Match Centre / Sky Sports / 外部ソース参考
+        </p>
+
+        <!-- View Switcher: 日程・試合 / カレンダー -->
+        <div class="mt-4 inline-flex items-center p-1 rounded-2xl bg-slate-100 border border-slate-200/80">
+          <button id="fixtures-mode-list-btn" type="button" class="px-4 py-2 rounded-xl bg-[#002878] text-white text-xs sm:text-sm font-extrabold shadow-xs transition inline-flex items-center gap-2">
+            <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="8" y1="6" x2="21" y2="6" />
+              <line x1="8" y1="12" x2="21" y2="12" />
+              <line x1="8" y1="18" x2="21" y2="18" />
+              <circle cx="4" cy="6" r="1" fill="currentColor" />
+              <circle cx="4" cy="12" r="1" fill="currentColor" />
+              <circle cx="4" cy="18" r="1" fill="currentColor" />
+            </svg>
+            <span>日程・試合</span>
+          </button>
+          <button id="fixtures-mode-calendar-btn" type="button" class="px-4 py-2 rounded-xl text-slate-700 hover:text-slate-900 text-xs sm:text-sm font-bold transition inline-flex items-center gap-2">
+            <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="4" width="18" height="17" rx="2" />
+              <path d="M16 2v4M8 2v4M3 10h18" />
+            </svg>
+            <span>カレンダー</span>
+          </button>
+        </div>
+
+        <!-- Filter Pills: 結果 / 今後の日程 -->
+        <div id="fixtures-filter-row" class="mt-3 inline-flex items-center p-1 rounded-2xl bg-slate-100 border border-slate-200/80 gap-1">
+          <button type="button" data-fixture-filter="RESULTS" class="fixture-filter-btn px-4 py-1.5 rounded-xl bg-[#002878] text-white text-xs sm:text-sm font-extrabold shadow-xs transition">
+            結果
+          </button>
+          <button type="button" data-fixture-filter="UPCOMING" class="fixture-filter-btn px-4 py-1.5 rounded-xl text-slate-700 hover:text-slate-900 text-xs sm:text-sm font-bold transition">
+            今後の日程
+          </button>
+        </div>
+
+        <hr class="my-5 border-slate-200/80" />
+
+        <!-- List View -->
+        <div id="fixtures-list-view" class="space-y-6">
+          <div id="fixtures-upcoming-block">
+            <h3 class="text-base sm:text-lg font-extrabold text-slate-900 mb-3">今後の日程</h3>
+            <div id="upcoming-fixtures-container" class="space-y-3"></div>
+          </div>
+
+          <div id="fixtures-results-block">
+            <div class="mb-3">
+              <h3 class="text-base sm:text-lg font-extrabold text-slate-900">過去の結果</h3>
+            </div>
+            <div id="past-results-container" class="space-y-3"></div>
+          </div>
+        </div>
+
+        <!-- Calendar View -->
+        <div id="fixtures-calendar-view" class="hidden">
+          <div class="flex items-center justify-between gap-2 mb-4">
+            <button id="cal-prev-month-btn" type="button" class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold transition">
+              ← 前月
+            </button>
+            <h3 id="cal-month-label" class="text-base font-extrabold text-slate-900"></h3>
+            <button id="cal-next-month-btn" type="button" class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold transition">
+              次月 →
+            </button>
+          </div>
+          <div class="grid grid-cols-7 gap-1 text-center text-[11px] font-bold text-slate-500 mb-1.5">
+            <div>日</div>
+            <div>月</div>
+            <div>火</div>
+            <div>水</div>
+            <div>木</div>
+            <div>金</div>
+            <div>土</div>
+          </div>
+          <div id="fixtures-calendar-grid" class="grid grid-cols-7 gap-1.5"></div>
+          <div id="calendar-match-detail" class="hidden mt-4 rounded-2xl border border-blue-200 bg-blue-50/60 p-4">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <div class="flex flex-wrap items-center gap-2 text-xs font-bold">
+                  <span id="cal-detail-outcome" class="px-2 py-0.5 rounded-md"></span>
+                  <span id="cal-detail-date" class="text-slate-700"></span>
+                  <span id="cal-detail-comp" class="text-slate-500"></span>
+                </div>
+                <h4 id="cal-detail-title" class="text-base sm:text-lg font-black text-slate-900 mt-1.5"></h4>
+                <p id="cal-detail-score-venue" class="text-xs sm:text-sm font-semibold text-slate-700 mt-1"></p>
+              </div>
+              <button id="cal-detail-close-btn" type="button" class="px-2.5 py-1 rounded-lg bg-white hover:bg-slate-100 border border-slate-200 text-xs font-bold text-slate-700 shrink-0 transition">
+                閉じる
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STANDINGS TAB -->
+    <section id="tab-standings" class="tab-panel hidden">
+      <div class="card-surface p-3 sm:p-6">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2.5 mb-4">
+          <div>
+            <h2 class="text-base sm:text-lg font-extrabold text-slate-900">EFL League One 順位表</h2>
+            <p class="text-[11px] sm:text-xs text-slate-500 mt-0.5">昇格・プレーオフ・降格の目安ゾーンを表示しています</p>
+            <p class="text-[10px] text-slate-400 mt-0.5">参照: EFL League One / LCFC / 外部ソース参考</p>
+          </div>
+          <!-- Zone Legend -->
+          <div class="flex flex-wrap items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs font-semibold">
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
+              <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-500"></span>
+              1-2位 自動昇格
+            </span>
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-sky-50 text-sky-800 border border-sky-200">
+              <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-sky-500"></span>
+              3-6位 プレーオフ
+            </span>
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-rose-50 text-rose-800 border border-rose-200">
+              <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-rose-500"></span>
+              21-24位 降格
+            </span>
+          </div>
+        </div>
+
+        <div class="w-full">
+          <table class="w-full text-left border-collapse table-fixed">
+            <thead>
+              <tr class="border-b border-slate-200 text-[10px] sm:text-xs font-bold text-slate-500 uppercase">
+                <th class="py-2 sm:py-3 px-1 sm:px-2 w-8 sm:w-12 text-center">順位</th>
+                <th class="py-2 sm:py-3 px-1 sm:px-2">クラブ</th>
+                <th class="py-2 sm:py-3 px-0.5 sm:px-1.5 w-6 sm:w-9 text-center">試</th>
+                <th class="py-2 sm:py-3 px-0.5 sm:px-1.5 w-6 sm:w-9 text-center">勝</th>
+                <th class="py-2 sm:py-3 px-0.5 sm:px-1.5 w-6 sm:w-9 text-center">分</th>
+                <th class="py-2 sm:py-3 px-0.5 sm:px-1.5 w-6 sm:w-9 text-center">負</th>
+                <th class="py-2 sm:py-3 px-0.5 sm:px-1.5 w-7 sm:w-11 text-center">得失</th>
+                <th class="py-2 sm:py-3 px-1 sm:px-2 w-8 sm:w-12 text-right">勝点</th>
+              </tr>
+            </thead>
+            <tbody id="standings-tbody" class="divide-y divide-slate-100 text-[11px] sm:text-sm"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEWS TAB -->
+    <section id="tab-news" class="tab-panel hidden">
+      <div class="card-surface p-5 sm:p-6">
+        <h2 class="text-lg font-extrabold text-slate-900 mb-4">クラブニュース</h2>
+        <div id="all-news-container" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+      </div>
+    </section>
+
+    <!-- SQUAD TAB -->
+    <section id="tab-squad" class="tab-panel hidden">
+      <div class="card-surface p-5 sm:p-6">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
+          <div>
+            <h2 class="text-lg font-extrabold text-slate-900">トップチーム選手名鑑</h2>
+            <p id="squad-source" class="text-[10px] text-slate-400 mt-0.5">参照: LCFC Squad / 外部ソース参考</p>
+          </div>
+          <div id="position-filter-group" class="flex flex-wrap gap-1.5">
+            <button type="button" data-pos="ALL" class="pos-filter-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-[#003090] text-white">全員</button>
+            <button type="button" data-pos="FW" class="pos-filter-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200">FW</button>
+            <button type="button" data-pos="MF" class="pos-filter-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200">MF</button>
+            <button type="button" data-pos="DF" class="pos-filter-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200">DF</button>
+            <button type="button" data-pos="GK" class="pos-filter-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200">GK</button>
+          </div>
+        </div>
+        <div id="squad-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+      </div>
+    </section>
+
+    <!-- CHAT TAB -->
+    <section id="tab-chat" class="tab-panel hidden">
+      <div class="card-surface p-5 sm:p-6 max-w-3xl mx-auto">
+        <h2 class="text-lg font-extrabold text-slate-900 mb-1">サポーターチャット</h2>
+        <p class="text-xs text-slate-500 mb-4">試合の感想や期待を共有しよう</p>
+
+        <form id="chat-form" class="space-y-3 mb-6">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <input id="chat-author" type="text" maxlength="24" placeholder="ニックネーム（例: FoxFan99）" class="rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#003090]" />
+            <input id="chat-message" type="text" maxlength="240" placeholder="メッセージを入力..." class="sm:col-span-2 rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#003090]" />
+          </div>
+          <div class="flex justify-end">
+            <button type="submit" class="px-5 py-2.5 rounded-xl bg-[#003090] hover:bg-blue-900 text-white text-sm font-bold transition">
+              投稿する
+            </button>
+          </div>
+        </form>
+
+        <div id="chat-messages-container" class="space-y-3"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-slate-200 bg-white py-5 mt-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500">
+      <span>Foxes Report — 非公式サポーターダッシュボード</span>
+      <span>データはブラウザ内に保存されます</span>
+    </div>
+  </footer>
+
+  <script>
+    const STORAGE_KEY = 'lcfc_fan_hub_data_v1';
+    const CHAT_STORAGE_KEY = 'lcfc_fan_hub_chat_v1';
+    const SYNC_CONFIG_KEY = 'lcfc_fan_hub_sync_config_v1';
+
+    const DEFAULT_SYNC_CONFIG = {
+      url: './data/lcfc.json',
+      intervalMs: 3600000,
+      lastSyncedAt: ''
+    };
+
+    const DEFAULT_DATA = {
+      seasonLabel: 'Leicester City FC • EFL League One',
+      nextMatch: {
+        competition: 'EFLリーグ1',
+        opponent: 'ブラックプール',
+        opponentCode: 'BFC',
+        opponentRank: 22,
+        opponentRecord: '勝点 12 (3勝3分8敗)',
+        lcfcRank: 10,
+        lcfcRecord: '勝点 22 (6勝4分4敗)',
+        isHome: false,
+        date: '2026-11-25 04:45 (JST)',
+        kickoffIso: '2026-11-25T04:45:00+09:00',
+        jstText: '2026年11月25日 (水) 04:45',
+        localText: '現地: 11月24日 (火) 19:45 GMT',
+        venue: 'Bloomfield Road (Away)',
+        highlightText: '直近のハダースフィールド戦は 1 - 0 で勝利！'
+      },
+      recentFiveForm: [
+        { leagueCode: 'EFL1', competition: 'EFLリーグ1', opponent: 'ハダースフィールド', isHome: false, outcome: 'W', score: '0 - 1' },
+        { leagueCode: 'EFLT', competition: 'EFLトロフィー', opponent: 'ウォルソール', isHome: true, outcome: 'W', score: '2 - 1' },
+        { leagueCode: 'FA', competition: 'FAカップ', opponent: 'オックスフォード・シティ', isHome: false, outcome: 'W', score: '2 - 4' },
+        { leagueCode: 'EFL1', competition: 'EFLリーグ1', opponent: 'スティヴネイジ', isHome: true, outcome: 'D', score: '2 - 2' },
+        { leagueCode: 'EFL1', competition: 'EFLリーグ1', opponent: 'ウィガン', isHome: true, outcome: 'W', score: '3 - 0' }
+      ],
+      upcomingFixtures: [
+        { date: '2026-11-25', competition: 'EFL1 (EFLリーグ1)', opponent: 'Blackpool', isHome: false, venue: 'Bloomfield Road' },
+        { date: '2026-11-29', competition: 'EFL1 (EFLリーグ1)', opponent: 'Mansfield Town', isHome: true, venue: 'King Power Stadium' },
+        { date: '2026-12-02', competition: 'EFL1 (EFLリーグ1)', opponent: 'Cambridge United', isHome: false, venue: 'Cledara Abbey Stadium' },
+        { date: '2026-12-06', competition: 'FA (FAカップ)', opponent: 'Dover Athletic', isHome: false, venue: 'Crabble Athletic Ground' },
+        { date: '2026-12-11', competition: 'EFL1 (EFLリーグ1)', opponent: 'Sheffield Wednesday', isHome: true, venue: 'King Power Stadium' },
+        { date: '2026-12-20', competition: 'EFL1 (EFLリーグ1)', opponent: 'Reading', isHome: false, venue: 'Select Car Leasing Stadium' },
+        { date: '2026-12-27', competition: 'EFL1 (EFLリーグ1)', opponent: 'AFC Wimbledon', isHome: true, venue: 'King Power Stadium' },
+        { date: '2026-12-30', competition: 'EFL1 (EFLリーグ1)', opponent: 'Leyton Orient', isHome: false, venue: 'Brisbane Road' },
+        { date: '2027-01-02', competition: 'EFL1 (EFLリーグ1)', opponent: 'Wycombe Wanderers', isHome: false, venue: 'Adams Park' },
+        { date: '2027-01-10', competition: 'EFL1 (EFLリーグ1)', opponent: 'Reading', isHome: true, venue: 'King Power Stadium' },
+        { date: '2027-01-17', competition: 'EFL1 (EFLリーグ1)', opponent: 'Doncaster Rovers', isHome: false, venue: 'Eco-Power Stadium' },
+        { date: '2027-01-20', competition: 'EFL1 (EFLリーグ1)', opponent: 'Bromley', isHome: true, venue: 'King Power Stadium' },
+        { date: '2027-01-24', competition: 'EFL1 (EFLリーグ1)', opponent: 'Luton Town', isHome: true, venue: 'King Power Stadium' },
+        { date: '2027-01-31', competition: 'EFL1 (EFLリーグ1)', opponent: 'Stevenage', isHome: false, venue: 'Lamex Stadium' }
+      ],
+      pastResults: [
+        { date: '2026-11-22', competition: 'EFL1 (EFLリーグ1)', opponent: 'Huddersfield Town', isHome: false, score: '0 - 1', outcome: 'W' },
+        { date: '2026-11-11', competition: 'EFLT (EFLトロフィー)', opponent: 'Walsall', isHome: true, score: '2 - 1', outcome: 'W' },
+        { date: '2026-11-07', competition: 'FA (FAカップ)', opponent: 'Oxford City', isHome: false, score: '2 - 4', outcome: 'W' },
+        { date: '2026-11-01', competition: 'EFL1 (EFLリーグ1)', opponent: 'Stevenage', isHome: true, score: '2 - 2', outcome: 'D' },
+        { date: '2026-10-28', competition: 'EFL1 (EFLリーグ1)', opponent: 'Wigan Athletic', isHome: true, score: '3 - 0', outcome: 'W' },
+        { date: '2026-10-24', competition: 'EFL1 (EFLリーグ1)', opponent: 'Luton Town', isHome: false, score: '2 - 1', outcome: 'L' },
+        { date: '2026-10-21', competition: 'EFL1 (EFLリーグ1)', opponent: 'Bromley', isHome: false, score: '0 - 4', outcome: 'W' },
+        { date: '2026-10-18', competition: 'EFL1 (EFLリーグ1)', opponent: 'Doncaster Rovers', isHome: true, score: '2 - 1', outcome: 'W' },
+        { date: '2026-10-11', competition: 'EFL1 (EFLリーグ1)', opponent: 'Peterborough United', isHome: true, score: '1 - 3', outcome: 'L' },
+        { date: '2026-10-07', competition: 'EFLT (EFLトロフィー)', opponent: 'Stevenage', isHome: false, score: '2 - 1', outcome: 'L' },
+        { date: '2026-09-23', competition: 'EFLT (EFLトロフィー)', opponent: 'Fulham U21', isHome: true, score: '6 - 1', outcome: 'W' },
+        { date: '2026-09-19', competition: 'EFL1 (EFLリーグ1)', opponent: 'Barnsley', isHome: false, score: '1 - 1', outcome: 'D' },
+        { date: '2026-09-13', competition: 'EFL1 (EFLリーグ1)', opponent: 'Stockport County', isHome: false, score: '3 - 4', outcome: 'W' },
+        { date: '2026-09-06', competition: 'EFL1 (EFLリーグ1)', opponent: 'Oxford United', isHome: true, score: '0 - 4', outcome: 'L' },
+        { date: '2026-09-02', competition: 'EFL1 (EFLリーグ1)', opponent: 'Plymouth Argyle', isHome: true, score: '2 - 0', outcome: 'W' },
+        { date: '2026-08-29', competition: 'EFL1 (EFLリーグ1)', opponent: 'MK Dons', isHome: false, score: '0 - 0', outcome: 'D' },
+        { date: '2026-08-23', competition: 'EFL1 (EFLリーグ1)', opponent: 'Burton Albion', isHome: true, score: '1 - 2', outcome: 'L' },
+        { date: '2026-08-15', competition: 'EFL1 (EFLリーグ1)', opponent: 'Notts County', isHome: false, score: '1 - 1', outcome: 'D' }
+      ],
+      standings: [
+        { pos: 1, team: 'Stockport County', played: 16, won: 10, drawn: 2, lost: 4, gd: 17, pts: 32 },
+        { pos: 2, team: 'Huddersfield Town', played: 15, won: 8, drawn: 5, lost: 2, gd: 15, pts: 29 },
+        { pos: 3, team: 'Oxford United', played: 14, won: 8, drawn: 5, lost: 1, gd: 12, pts: 29 },
+        { pos: 4, team: 'Luton Town', played: 15, won: 8, drawn: 3, lost: 4, gd: 7, pts: 27 },
+        { pos: 5, team: 'Sheffield Wednesday', played: 15, won: 7, drawn: 5, lost: 3, gd: 12, pts: 26 },
+        { pos: 6, team: 'Bradford City', played: 14, won: 6, drawn: 5, lost: 3, gd: 2, pts: 23 },
+        { pos: 7, team: 'Plymouth Argyle', played: 16, won: 7, drawn: 2, lost: 7, gd: -3, pts: 23 },
+        { pos: 8, team: 'Reading', played: 16, won: 6, drawn: 4, lost: 6, gd: 7, pts: 22 },
+        { pos: 9, team: 'MK Dons', played: 15, won: 5, drawn: 7, lost: 3, gd: 6, pts: 22 },
+        { pos: 10, team: 'Leicester City', played: 14, won: 6, drawn: 4, lost: 4, gd: 4, pts: 22 },
+        { pos: 11, team: 'Cambridge United', played: 15, won: 5, drawn: 6, lost: 4, gd: -3, pts: 21 },
+        { pos: 12, team: 'Leyton Orient', played: 14, won: 6, drawn: 2, lost: 6, gd: 8, pts: 20 },
+        { pos: 13, team: 'Mansfield Town', played: 14, won: 5, drawn: 5, lost: 4, gd: 2, pts: 20 },
+        { pos: 14, team: 'Stevenage', played: 13, won: 5, drawn: 4, lost: 4, gd: 5, pts: 19 },
+        { pos: 15, team: 'Wycombe Wanderers', played: 14, won: 4, drawn: 6, lost: 4, gd: -3, pts: 18 },
+        { pos: 16, team: 'Burton Albion', played: 16, won: 4, drawn: 5, lost: 7, gd: -8, pts: 17 },
+        { pos: 17, team: 'Wigan Athletic', played: 16, won: 5, drawn: 2, lost: 9, gd: -9, pts: 17 },
+        { pos: 18, team: 'AFC Wimbledon', played: 15, won: 4, drawn: 4, lost: 7, gd: -14, pts: 16 },
+        { pos: 19, team: 'Notts County', played: 13, won: 3, drawn: 5, lost: 5, gd: -2, pts: 14 },
+        { pos: 20, team: 'Doncaster Rovers', played: 14, won: 3, drawn: 4, lost: 7, gd: -8, pts: 13 },
+        { pos: 21, team: 'Peterborough United', played: 14, won: 3, drawn: 4, lost: 7, gd: -10, pts: 13 },
+        { pos: 22, team: 'Blackpool', played: 14, won: 3, drawn: 3, lost: 8, gd: -6, pts: 12 },
+        { pos: 23, team: 'Bromley', played: 14, won: 3, drawn: 3, lost: 8, gd: -19, pts: 12 },
+        { pos: 24, team: 'Barnsley', played: 14, won: 2, drawn: 3, lost: 9, gd: -12, pts: 9 }
+      ],
+      news: [
+        {
+          id: 'ext-n1',
+          tag: 'EFL1 MATCH REPORT',
+          date: '2026-11-22',
+          source: 'Yorkshire Post / LCFC（外部ソース参考）',
+          sourceUrl: 'https://www.yorkshirepost.co.uk/sport/football/huddersfield-town-martin-drury-leicester-city-9366030',
+          title: 'アウェイでハダースフィールドに1-0勝利、勝点22で10位浮上',
+          summary: 'ルイス・ペイジの決勝ゴールで敵地ジョン・スミスズ・スタジアムから勝ち点3を持ち帰った。',
+          body: [
+            '11月21日（現地時間・日本時間11月22日）に行われたEFLリーグ1のアウェイ戦、ハダースフィールド・タウン戦はレスター・シティが1-0で勝利した。',
+            'この結果を受けてリーグ戦績は6勝4分4敗の勝点22（得失点+4）となり、順位表でも10位へ浮上している。'
+          ]
+        },
+        {
+          id: 'ext-n1b',
+          tag: 'MANAGER REACTION',
+          date: '2026-11-22',
+          source: 'LCFC / Yorkshire Post（外部ソース参考）',
+          sourceUrl: 'https://www.yorkshirepost.co.uk/sport/football/huddersfield-town-martin-drury-leicester-city-9366030',
+          title: '「大きな努力だった」——ハダースフィールド戦勝利後に監督がコメント',
+          summary: 'アウェイでの接戦を勝ち切った選手たちの集中力と献身性を称賛し、次の試合へ視線を向けた。',
+          body: [
+            'ハダースフィールド・タウン戦での1-0の勝利を受け、監督はアウェイでの厳しい戦いを乗り切った選手たちの働きを「大きな努力だった（A Huge Effort）」と評価した。',
+            '中盤から前線までの連動と粘り強い守備で勝ち点3を持ち帰った手応えを語りつつ、中2日〜3日で迎える次戦に向けた準備へ意識を切り替えた。'
+          ]
+        },
+        {
+          id: 'ext-n1c',
+          tag: 'CLUB ANNOUNCEMENT',
+          date: '2026-11-20',
+          source: 'Leicestershire Live（外部ソース参考）',
+          sourceUrl: 'https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-announce-new-front-11249535',
+          title: 'レスター・シティが新メインパートナー「Bossjob」を発表',
+          summary: 'クラブ公式発表により、新たなプリンシパルパートナーとしてBossjobとの提携が発表された。',
+          body: [
+            'レスター・シティは11月20日（現地時間）、新たなメインパートナー（Principal Partner）としてBossjobを迎えることを公式発表した。',
+            'クラブの商業面での新たなパートナーシップとして発表され、今後の取り組みや展開が注目される。'
+          ]
+        },
+        {
+          id: 'ext-n2',
+          tag: 'NEXT FIXTURE',
+          date: '2026-11-23',
+          source: 'LCFC Match Centre（外部ソース参考）',
+          sourceUrl: 'https://www.lcfc.com/match-centre?gameId=2647900',
+          title: '次戦は11月25日（JST）アウェイのブラックプール戦',
+          summary: '現地11月24日19:45（日本時間11月25日04:45）キックオフ予定のブルームフィールド・ロード戦へ向かう。',
+          body: [
+            '次節はアウェイのブルームフィールド・ロードでブラックプールと対戦する。',
+            '連戦のなか、アウェイでの勝ち点積み上げが焦点となる。'
+          ]
+        },
+        {
+          id: 'ext-n3',
+          tag: 'CUP & FORM',
+          date: '2026-11-12',
+          source: 'LCFC / EFL（外部ソース参考）',
+          sourceUrl: 'https://www.lcfc.com/media-article/leicester-city-statement-bc-game',
+          title: 'オックスフォード・シティ戦（FA杯4-2）とウォルソール戦（EFL杯2-1）を連勝',
+          summary: 'カップ戦でも勝ち上がり、公式戦の流れをリーグ戦へつなげている。',
+          body: [
+            '11月7日のFAカップ1回戦ではオックスフォード・シティに4-2で勝利し、続くEFLトロフィーでもウォルソールに2-1で競り勝った。',
+            '複数の大会を並行して戦う中、チーム全体の総合力が問われる時期を迎えている。'
+          ]
+        }
+      ],
+      squad: [
+        { number: 17, name: 'Emil Riis', position: 'FW', nationality: 'DEN' },
+        { number: 11, name: 'Liam Cullen', position: 'FW', nationality: 'WAL' },
+        { number: 14, name: 'Bobby De Cordova-Reid', position: 'FW', nationality: 'JAM' },
+        { number: 9, name: 'Admir Bristrić', position: 'FW', nationality: 'BIH' },
+        { number: 23, name: 'Tom Watson', position: 'FW', nationality: 'ENG' },
+        { number: 6, name: 'John Lundstram', position: 'MF', nationality: 'ENG' },
+        { number: 8, name: 'Conor Chaplin', position: 'MF', nationality: 'ENG' },
+        { number: 7, name: 'Wes Burns', position: 'MF', nationality: 'WAL' },
+        { number: 12, name: 'Will Smallbone', position: 'MF', nationality: 'IRL' },
+        { number: 20, name: 'Harry Howell', position: 'MF', nationality: 'ENG' },
+        { number: 25, name: 'Louis Page', position: 'MF', nationality: 'ENG' },
+        { number: 27, name: 'Kamari Doyle', position: 'MF', nationality: 'ENG' },
+        { number: 36, name: 'Sammy Braybrooke', position: 'MF', nationality: 'ENG' },
+        { number: 37, name: 'William Alves', position: 'MF', nationality: 'ENG' },
+        { number: 5, name: 'Caleb Okoli', position: 'DF', nationality: 'ITA' },
+        { number: 15, name: 'Harry Souttar', position: 'DF', nationality: 'AUS' },
+        { number: 4, name: 'Ben Nelson', position: 'DF', nationality: 'ENG' },
+        { number: 33, name: 'Luke Thomas', position: 'DF', nationality: 'ENG' },
+        { number: 26, name: 'Woyo Coulibaly', position: 'DF', nationality: 'FRA' },
+        { number: 16, name: 'Warren O\'Hora', position: 'DF', nationality: 'IRL' },
+        { number: 18, name: 'Christian McFarlane', position: 'DF', nationality: 'ENG' },
+        { number: 2, name: 'Jayden Joseph', position: 'DF', nationality: 'ENG' },
+        { number: 24, name: 'Ilari Kangasniemi', position: 'DF', nationality: 'FIN' },
+        { number: 32, name: 'Olabade Aluko', position: 'DF', nationality: 'ENG' },
+        { number: 1, name: 'Jakub Stolarczyk', position: 'GK', nationality: 'POL' },
+        { number: 13, name: 'David Cornell', position: 'GK', nationality: 'WAL' },
+        { number: 21, name: 'Franco Ravizzoli', position: 'GK', nationality: 'ARG' },
+        { number: 29, name: 'Alex McCarthy', position: 'GK', nationality: 'ENG' }
+      ]
+    };
+
+    const DEFAULT_CHAT = [
+      { id: 'c1', author: 'KingPowerBlue', time: '2時間前', text: 'オックスフォード戦の4ゴール最高だった！この勢いでコヴェントリー戦も勝とう！' },
+      { id: 'c2', author: 'FoxesJapan', time: '45分前', text: '自動昇格圏まであと少し。中盤のビルドアップが安定してきたのが大きい。' }
+    ];
+
+    let appData = loadAppData();
+    let chatMessages = loadChatMessages();
+    let syncConfig = loadSyncConfig();
+    let activePositionFilter = 'ALL';
+    let fixtureViewMode = 'list'; // 'list' | 'calendar'
+    let fixtureStatusFilter = 'RESULTS'; // 'RESULTS' | 'UPCOMING'
+    let calendarMonthDate = new Date(2026, 10, 1); // November 2026
+    let countdownTimerId = null;
+    let autoSyncTimerId = null;
+
+    function mergeAppData(base, incoming) {
+      const merged = { ...structuredClone(base), ...(incoming || {}) };
+      if (incoming && incoming.nextMatch && typeof incoming.nextMatch === 'object') {
+        merged.nextMatch = { ...structuredClone(base.nextMatch), ...incoming.nextMatch };
+      }
+      return merged;
+    }
+
+    function loadAppData() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return structuredClone(DEFAULT_DATA);
+        const parsed = JSON.parse(raw);
+        return mergeAppData(DEFAULT_DATA, parsed);
+      } catch (err) {
+        console.error('Failed to load app data:', err);
+        return structuredClone(DEFAULT_DATA);
+      }
+    }
+
+    function saveAppData(nextData) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(nextData));
+      } catch (err) {
+        console.error('Failed to save app data:', err);
+      }
+    }
+
+    function loadChatMessages() {
+      try {
+        const raw = localStorage.getItem(CHAT_STORAGE_KEY);
+        if (!raw) return structuredClone(DEFAULT_CHAT);
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) ? parsed : structuredClone(DEFAULT_CHAT);
+      } catch (err) {
+        console.error('Failed to load chat messages:', err);
+        return structuredClone(DEFAULT_CHAT);
+      }
+    }
+
+    function saveChatMessages(msgs) {
+      try {
+        localStorage.setItem(CHAT_STORAGE_KEY, JSON.stringify(msgs));
+      } catch (err) {
+        console.error('Failed to save chat messages:', err);
+      }
+    }
+
+    function loadSyncConfig() {
+      try {
+        const raw = localStorage.getItem(SYNC_CONFIG_KEY);
+        if (!raw) return structuredClone(DEFAULT_SYNC_CONFIG);
+        const parsed = JSON.parse(raw);
+        return {
+          ...structuredClone(DEFAULT_SYNC_CONFIG),
+          ...parsed,
+          intervalMs: Number(parsed?.intervalMs ?? DEFAULT_SYNC_CONFIG.intervalMs)
+        };
+      } catch (err) {
+        return structuredClone(DEFAULT_SYNC_CONFIG);
+      }
+    }
+
+    function saveSyncConfig(nextCfg) {
+      try {
+        localStorage.setItem(SYNC_CONFIG_KEY, JSON.stringify(nextCfg));
+      } catch (err) {
+        console.error('Failed to save sync config:', err);
+      }
+    }
+
+    function formatIntervalLabel(ms) {
+      const map = {
+        600000: '10分ごと',
+        900000: '15分ごと',
+        1800000: '30分ごと',
+        3600000: '1時間ごと',
+        10800000: '3時間ごと'
+      };
+      return map[Number(ms)] || `${Math.max(1, Math.round(Number(ms) / 60000))}分ごと`;
+    }
+
+    function renderSyncStatusUi() {
+      const urlInput = document.getElementById('auto-sync-url-input');
+      const intervalSelect = document.getElementById('auto-sync-interval-select');
+      const statusText = document.getElementById('auto-sync-status-text');
+      const lastSyncEl = document.getElementById('last-sync-time');
+      const dotEl = document.getElementById('auto-sync-dot');
+
+      if (urlInput && document.activeElement !== urlInput) {
+        urlInput.value = syncConfig.url || './data/lcfc.json';
+      }
+      if (intervalSelect) {
+        intervalSelect.value = String(syncConfig.intervalMs ?? 3600000);
+      }
+
+      const enabled = Number(syncConfig.intervalMs) > 0 && Boolean((syncConfig.url || '').trim());
+      if (statusText) {
+        statusText.textContent = enabled
+          ? `自動更新: ${formatIntervalLabel(syncConfig.intervalMs)}（${syncConfig.url}）`
+          : '自動更新: 手動のみ（OFF）';
+      }
+      if (dotEl) {
+        dotEl.className = `w-2.5 h-2.5 rounded-full shrink-0 mt-1 ${enabled ? 'bg-emerald-500' : 'bg-slate-400'}`;
+      }
+      if (lastSyncEl) {
+        lastSyncEl.textContent = syncConfig.lastSyncedAt
+          ? `最終同期: ${syncConfig.lastSyncedAt}`
+          : '最終同期: 初期ベースラインデータ';
+      }
+    }
+
+    async function fetchAndApplyJson({ silent = false } = {}) {
+      const targetUrl = (syncConfig.url || './data/lcfc.json').trim();
+      if (!targetUrl) {
+        if (!silent) showBanner('取得元のJSON URLを入力してください。', 'error');
+        return;
+      }
+
+      try {
+        const res = await fetch(targetUrl, { cache: 'no-store' });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const remoteData = await res.json();
+        if (!remoteData || typeof remoteData !== 'object') {
+          throw new Error('Invalid JSON structure');
+        }
+
+        appData = mergeAppData(DEFAULT_DATA, remoteData);
+        saveAppData(appData);
+
+        const nowLabel = new Date().toLocaleString('ja-JP', { hour12: false });
+        syncConfig = { ...syncConfig, lastSyncedAt: nowLabel };
+        saveSyncConfig(syncConfig);
+
+        renderAll();
+        if (!silent) {
+          showBanner(`${targetUrl} から Next Match・直近5試合・順位表・日程＆カレンダー・ニュース・選手名鑑を更新しました（${nowLabel}）。`, 'success');
+        }
+      } catch (err) {
+        if (!silent) {
+          appData = loadAppData();
+          renderAll();
+          showBanner(`${targetUrl} からの取得に失敗したため、ローカル保存データを表示しています。`, 'info');
+        }
+      }
+    }
+
+    function restartAutoSyncTimer() {
+      if (autoSyncTimerId) {
+        clearInterval(autoSyncTimerId);
+        autoSyncTimerId = null;
+      }
+      const intervalMs = Number(syncConfig.intervalMs || 0);
+      const url = (syncConfig.url || '').trim();
+      if (intervalMs > 0 && url) {
+        autoSyncTimerId = setInterval(() => {
+          fetchAndApplyJson({ silent: true });
+        }, intervalMs);
+      }
+      renderSyncStatusUi();
+    }
+
+    function showBanner(message, type = 'info') {
+      const banner = document.getElementById('status-banner');
+      const inner = document.getElementById('status-banner-inner');
+      const text = document.getElementById('status-banner-text');
+      if (!banner || !inner || !text) return;
+
+      inner.className = 'px-4 py-3 rounded-xl text-sm font-medium flex items-center justify-between gap-3 border ';
+      if (type === 'success') {
+        inner.className += 'bg-emerald-50 text-emerald-900 border-emerald-200';
+      } else if (type === 'error') {
+        inner.className += 'bg-rose-50 text-rose-900 border-rose-200';
+      } else {
+        inner.className += 'bg-blue-50 text-blue-900 border-blue-200';
+      }
+
+      text.textContent = message;
+      banner.classList.remove('hidden');
+    }
+
+    function hideBanner() {
+      const banner = document.getElementById('status-banner');
+      if (!banner) return;
+      banner.classList.add('hidden');
+    }
+
+    function formatLeicesterLeftScore(scoreStr, isHome, outcome) {
+      if (!scoreStr || typeof scoreStr !== 'string') return '';
+      const parts = scoreStr.split('-').map(s => s.trim());
+      if (parts.length !== 2) return scoreStr;
+      const a = Number(parts[0]);
+      const b = Number(parts[1]);
+      if (!Number.isNaN(a) && !Number.isNaN(b)) {
+        if (outcome === 'W') return `${Math.max(a, b)} - ${Math.min(a, b)}`;
+        if (outcome === 'L') return `${Math.min(a, b)} - ${Math.max(a, b)}`;
+        if (outcome === 'D') return `${a} - ${b}`;
+      }
+      return isHome ? `${parts[0]} - ${parts[1]}` : `${parts[1]} - ${parts[0]}`;
+    }
+
+    function formatLeicesterRightScore(scoreStr, isHome, outcome) {
+      return formatLeicesterLeftScore(scoreStr, isHome, outcome);
+    }
+
+    function normalizeLeagueShortCode(item) {
+      const raw = String(item?.leagueCode || item?.competition || '').toUpperCase();
+      if (raw.includes('FA') && !raw.includes('EFL')) return 'FA';
+      if (raw.includes('EFLT') || raw.includes('TROPHY') || raw.includes('EFLトロフィー')) return 'EFLT';
+      if (raw.includes('EFL1') || raw.includes('LEAGUE ONE') || raw.includes('リーグ1')) return 'EFL1';
+      return raw || 'EFL1';
+    }
+
+    function extractOpponentName(item) {
+      if (item?.opponent) return String(item.opponent);
+      const label = String(item?.matchLabel || '');
+      if (label.includes(' vs ')) {
+        return label.split(' vs ')[1].trim();
+      }
+      return label;
+    }
+
+    function updateCountdown() {
+      const daysEl = document.getElementById('cd-days');
+      const hoursEl = document.getElementById('cd-hours');
+      const minsEl = document.getElementById('cd-mins');
+      const secsEl = document.getElementById('cd-secs');
+      if (!daysEl || !hoursEl || !minsEl || !secsEl) return;
+
+      const iso = appData?.nextMatch?.kickoffIso;
+      const targetTime = iso ? new Date(iso).getTime() : NaN;
+      if (Number.isNaN(targetTime)) {
+        daysEl.textContent = '00';
+        hoursEl.textContent = '00';
+        minsEl.textContent = '00';
+        secsEl.textContent = '00';
+        return;
+      }
+
+      const diffMs = Math.max(0, targetTime - Date.now());
+      const totalSeconds = Math.floor(diffMs / 1000);
+      const days = Math.floor(totalSeconds / 86400);
+      const hours = Math.floor((totalSeconds % 86400) / 3600);
+      const mins = Math.floor((totalSeconds % 3600) / 60);
+      const secs = totalSeconds % 60;
+
+      daysEl.textContent = String(days).padStart(2, '0');
+      hoursEl.textContent = String(hours).padStart(2, '0');
+      minsEl.textContent = String(mins).padStart(2, '0');
+      secsEl.textContent = String(secs).padStart(2, '0');
+    }
+
+    function downloadMatchIcs() {
+      const nm = appData?.nextMatch || {};
+      const dtStart = nm.kickoffIso ? new Date(nm.kickoffIso) : new Date('2026-11-25T04:45:00+09:00');
+      if (Number.isNaN(dtStart.getTime())) {
+        showBanner('試合日時データが正しくありません。', 'error');
+        return;
+      }
+      const dtEnd = new Date(dtStart.getTime() + 2 * 60 * 60 * 1000);
+      const toIcsUtc = d =>
+        d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z');
+
+      const homeName = nm.isHome ? 'Leicester City' : (nm.opponent || 'Blackpool');
+      const awayName = nm.isHome ? (nm.opponent || 'Blackpool') : 'Leicester City';
+      const summary = `${homeName} vs ${awayName} (${nm.competition || 'EFL League One'})`;
+      const location = nm.venue || 'Bloomfield Road';
+
+      const icsContent = [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//Leicester City FC Fan Hub//JP',
+        'BEGIN:VEVENT',
+        `UID:lcfc-${dtStart.getTime()}@fanhub.local`,
+        `DTSTAMP:${toIcsUtc(new Date())}`,
+        `DTSTART:${toIcsUtc(dtStart)}`,
+        `DTEND:${toIcsUtc(dtEnd)}`,
+        `SUMMARY:${summary}`,
+        `LOCATION:${location}`,
+        'END:VEVENT',
+        'END:VCALENDAR'
+      ].join('\r\n');
+
+      try {
+        const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'lcfc-next-match.ics';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        showBanner('試合予定（.ics）をダウンロードしました。', 'success');
+      } catch (err) {
+        console.error('Failed to download .ics:', err);
+        showBanner('.icsファイルの生成に失敗しました。', 'error');
+      }
+    }
+
+    function exportJsonData() {
+      try {
+        const jsonText = JSON.stringify(appData, null, 2);
+        const blob = new Blob([jsonText], { type: 'application/json;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'lcfc.json';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        showBanner('lcfc.json を出力しました。', 'success');
+      } catch (err) {
+        console.error('Failed to export JSON:', err);
+        showBanner('JSONの出力に失敗しました。', 'error');
+      }
+    }
+
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab-panel').forEach(panel => {
+        panel.classList.toggle('hidden', panel.id !== `tab-${tabName}`);
+      });
+
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        const isCurrent = btn.dataset.tab === tabName;
+        btn.classList.toggle('tab-active', isCurrent);
+        btn.classList.toggle('bg-white/15', !isCurrent);
+        btn.classList.toggle('text-white', !isCurrent);
+        btn.classList.toggle('hover:bg-white/25', !isCurrent);
+      });
+    }
+
+    function setDrawerOpen(open) {
+      const backdrop = document.getElementById('mobile-drawer-backdrop');
+      if (!backdrop) return;
+      backdrop.classList.toggle('hidden', !open);
+    }
+
+    function openNewsModal(item) {
+      if (!item) return;
+      const backdrop = document.getElementById('news-modal-backdrop');
+      const tagEl = document.getElementById('news-modal-tag');
+      const dateEl = document.getElementById('news-modal-date');
+      const titleEl = document.getElementById('news-modal-title');
+      const summaryEl = document.getElementById('news-modal-summary');
+      const bodyEl = document.getElementById('news-modal-body');
+      const sourceEl = document.getElementById('news-modal-source');
+      const sourceLinkEl = document.getElementById('news-modal-source-link');
+      if (!backdrop || !titleEl || !bodyEl) return;
+
+      if (tagEl) tagEl.textContent = item.tag || 'NEWS';
+      if (dateEl) dateEl.textContent = item.date || '';
+      titleEl.textContent = item.title || '';
+
+      if (summaryEl) {
+        const hasSummary = Boolean(item.summary);
+        summaryEl.classList.toggle('hidden', !hasSummary);
+        summaryEl.textContent = item.summary || '';
+      }
+
+      bodyEl.innerHTML = '';
+      const paragraphs = Array.isArray(item.body) && item.body.length > 0
+        ? item.body
+        : [item.summary || '本文データは準備中です。'];
+
+      paragraphs.forEach(text => {
+        const p = document.createElement('p');
+        p.textContent = text;
+        bodyEl.appendChild(p);
+      });
+
+      if (sourceEl) {
+        sourceEl.textContent = `参照: ${item.source || '外部ソース参考'}`;
+      }
+      if (sourceLinkEl) {
+        const safeUrl = sanitizeExternalUrl(item.sourceUrl || item.url);
+        if (safeUrl) {
+          sourceLinkEl.href = safeUrl;
+          sourceLinkEl.classList.remove('hidden');
+        } else {
+          sourceLinkEl.removeAttribute('href');
+          sourceLinkEl.classList.add('hidden');
+        }
+      }
+
+      backdrop.classList.remove('hidden');
+    }
+
+    function sanitizeExternalUrl(rawUrl) {
+      if (!rawUrl || typeof rawUrl !== 'string') return '';
+      const trimmed = rawUrl.trim();
+      try {
+        const parsed = new URL(trimmed);
+        if (parsed.protocol === 'https:' || parsed.protocol === 'http:') {
+          return parsed.href;
+        }
+      } catch (err) {
+        return '';
+      }
+      return '';
+    }
+
+    function closeNewsModal() {
+      const backdrop = document.getElementById('news-modal-backdrop');
+      if (!backdrop) return;
+      backdrop.classList.add('hidden');
+    }
+
+    function openInAppCalendarForMatch() {
+      fixtureViewMode = 'calendar';
+      const nmMonth = appData?.nextMatch?.kickoffIso ? new Date(appData.nextMatch.kickoffIso) : null;
+      if (nmMonth && !Number.isNaN(nmMonth.getTime())) {
+        calendarMonthDate = new Date(nmMonth.getFullYear(), nmMonth.getMonth(), 1);
+      }
+      document.getElementById('calendar-match-detail')?.classList.add('hidden');
+      switchTab('fixtures');
+      updateFixtureControlsUi();
+      renderFixtures();
+      document.getElementById('fixtures-calendar-view')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function renderHome() {
+      const subtitle = document.getElementById('season-subtitle');
+      if (subtitle) subtitle.textContent = appData.seasonLabel || '';
+
+      renderSyncStatusUi();
+
+      const nm = appData.nextMatch || {};
+      const compEl = document.getElementById('next-match-comp');
+      const venueEl = document.getElementById('next-match-venue');
+      const sideLabelEl = document.getElementById('next-match-side-label');
+      const jstEl = document.getElementById('next-match-jst');
+      const localEl = document.getElementById('next-match-local');
+      const highlightEl = document.getElementById('latest-result-highlight');
+
+      const homeBadgeEl = document.getElementById('home-team-badge');
+      const homeRoleRankEl = document.getElementById('home-team-role-rank');
+      const homeNameEl = document.getElementById('home-team-name');
+      const homeRecordEl = document.getElementById('home-team-record');
+
+      const awayBadgeEl = document.getElementById('away-team-badge');
+      const awayRoleRankEl = document.getElementById('away-team-role-rank');
+      const awayNameEl = document.getElementById('away-team-name');
+      const awayRecordEl = document.getElementById('away-team-record');
+
+      if (compEl) compEl.textContent = nm.competition || '';
+      if (venueEl) venueEl.textContent = nm.venue || '';
+
+      const isHome = Boolean(nm.isHome);
+      if (sideLabelEl) sideLabelEl.textContent = isHome ? 'HOME' : 'AWAY';
+
+      const oppName = nm.opponent || 'ブラックプール';
+      const oppCode = nm.opponentCode || 'BFC';
+      const oppRank = nm.opponentRank ? `${nm.opponentRank}位` : '';
+      const oppRecord = nm.opponentRecord || '';
+      const lcfcRank = nm.lcfcRank ? `${nm.lcfcRank}位` : '';
+      const lcfcRecord = nm.lcfcRecord || '';
+
+      if (isHome) {
+        if (homeBadgeEl) {
+          homeBadgeEl.textContent = 'LCFC';
+          homeBadgeEl.className = 'w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-[#002878] border-[3px] border-white shadow-lg flex items-center justify-center text-base sm:text-lg font-black tracking-tight text-[#fdbe11]';
+        }
+        if (homeRoleRankEl) homeRoleRankEl.textContent = lcfcRank ? `HOME・${lcfcRank}` : 'HOME';
+        if (homeNameEl) homeNameEl.textContent = 'レスター・シティ';
+        if (homeRecordEl) homeRecordEl.textContent = lcfcRecord;
+
+        if (awayBadgeEl) {
+          awayBadgeEl.textContent = oppCode;
+          awayBadgeEl.className = 'w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-[#f97316] border-[3px] border-white shadow-lg flex items-center justify-center text-lg sm:text-xl font-black tracking-tight text-white';
+        }
+        if (awayRoleRankEl) awayRoleRankEl.textContent = oppRank ? `AWAY・${oppRank}` : 'AWAY';
+        if (awayNameEl) awayNameEl.textContent = oppName;
+        if (awayRecordEl) awayRecordEl.textContent = oppRecord;
+      } else {
+        if (homeBadgeEl) {
+          homeBadgeEl.textContent = oppCode;
+          homeBadgeEl.className = 'w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-[#f97316] border-[3px] border-white shadow-lg flex items-center justify-center text-lg sm:text-xl font-black tracking-tight text-white';
+        }
+        if (homeRoleRankEl) homeRoleRankEl.textContent = oppRank ? `HOME・${oppRank}` : 'HOME';
+        if (homeNameEl) homeNameEl.textContent = oppName;
+        if (homeRecordEl) homeRecordEl.textContent = oppRecord;
+
+        if (awayBadgeEl) {
+          awayBadgeEl.textContent = 'LCFC';
+          awayBadgeEl.className = 'w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-[#002878] border-[3px] border-white shadow-lg flex items-center justify-center text-base sm:text-lg font-black tracking-tight text-[#fdbe11]';
+        }
+        if (awayRoleRankEl) awayRoleRankEl.textContent = lcfcRank ? `AWAY・${lcfcRank}` : 'AWAY';
+        if (awayNameEl) awayNameEl.textContent = 'レスター・シティ';
+        if (awayRecordEl) awayRecordEl.textContent = lcfcRecord;
+      }
+
+      if (jstEl) jstEl.textContent = nm.jstText || nm.date || '';
+      if (localEl) localEl.textContent = nm.localText || '';
+      if (highlightEl) {
+        const text = nm.highlightText || '';
+        highlightEl.classList.toggle('hidden', !text);
+        highlightEl.textContent = text ? `🔥 ${text}` : '';
+      }
+      const nextMatchSourceEl = document.getElementById('next-match-source');
+      if (nextMatchSourceEl) {
+        nextMatchSourceEl.textContent = `参照: ${nm.source || 'LCFC Match Centre / Sky Sports'}`;
+      }
+      const homeRankSourceEl = document.getElementById('home-rank-source');
+      if (homeRankSourceEl) {
+        homeRankSourceEl.textContent = `参照: ${appData.standingsSource || 'EFL League One / LCFC / 外部ソース参考'}`;
+      }
+      const recentFiveSourceEl = document.getElementById('recent-five-source');
+      if (recentFiveSourceEl) {
+        recentFiveSourceEl.textContent = `参照: ${appData.recentFiveSource || 'LCFC Match Centre / Sky Sports / 外部ソース参考'}`;
+      }
+      updateCountdown();
+
+      const lcfcRow = (appData.standings || []).find(r => r.team === 'Leicester City');
+      const rankBadge = document.getElementById('home-rank-badge');
+      const ptsSummary = document.getElementById('home-pts-summary');
+      const recordSummary = document.getElementById('home-record-summary');
+
+      if (lcfcRow && rankBadge && ptsSummary && recordSummary) {
+        rankBadge.textContent = `${lcfcRow.pos}位`;
+        ptsSummary.textContent = `勝点 ${lcfcRow.pts} pt（得失 ${lcfcRow.gd >= 0 ? '+' + lcfcRow.gd : lcfcRow.gd}）`;
+        recordSummary.textContent = `${lcfcRow.played}試合 ${lcfcRow.won}勝 ${lcfcRow.drawn}分 ${lcfcRow.lost}敗`;
+      }
+
+      renderRecentFiveRow();
+      renderHomeNews();
+    }
+
+    function renderRecentFiveRow() {
+      const container = document.getElementById('recent-five-container');
+      if (!container) return;
+      container.innerHTML = '';
+
+      const items = Array.isArray(appData.recentFiveForm)
+        ? appData.recentFiveForm.slice(0, 5).reverse()
+        : [];
+
+      items.forEach(item => {
+        const outcome = item.outcome || '-';
+        const cardStyle =
+          outcome === 'W'
+            ? 'border-emerald-400 bg-emerald-50/75 text-emerald-950'
+            : outcome === 'L'
+            ? 'border-rose-400 bg-rose-50/75 text-rose-950'
+            : 'border-amber-400 bg-amber-50/80 text-amber-950';
+
+        const card = document.createElement('div');
+        card.className = `rounded-xl sm:rounded-2xl border-2 px-1.5 sm:px-2.5 pt-2 pb-1.5 sm:pt-2.5 sm:pb-2 flex flex-col items-center justify-start text-center gap-1 min-w-0 h-[112px] sm:h-[120px] transition ${cardStyle}`;
+
+        const leagueLine = document.createElement('div');
+        leagueLine.className = 'h-3.5 flex items-center justify-center text-[10px] sm:text-xs font-black tracking-tight opacity-85 w-full truncate leading-none';
+        leagueLine.textContent = normalizeLeagueShortCode(item);
+
+        const scoreLine = document.createElement('div');
+        scoreLine.className = 'h-4 flex items-center justify-center text-xs sm:text-sm font-black tracking-tight tabular-nums leading-none w-full whitespace-nowrap';
+        scoreLine.textContent = formatLeicesterLeftScore(item.score, Boolean(item.isHome), outcome);
+
+        const oppLine = document.createElement('div');
+        oppLine.className = 'flex-1 flex items-center justify-center text-[11px] sm:text-xs font-extrabold leading-[1.15] w-full break-words pb-0.5';
+        oppLine.textContent = extractOpponentName(item);
+
+        card.appendChild(leagueLine);
+        card.appendChild(scoreLine);
+        card.appendChild(oppLine);
+        container.appendChild(card);
+      });
+    }
+
+    function getSortedNewsList() {
+      const list = Array.isArray(appData.news) ? [...appData.news] : [];
+      return list.sort((a, b) => {
+        const timeA = Date.parse(a?.date || '') || 0;
+        const timeB = Date.parse(b?.date || '') || 0;
+        if (timeB !== timeA) return timeB - timeA;
+        return String(b?.date || '').localeCompare(String(a?.date || ''));
+      });
+    }
+
+    function renderHomeNews() {
+      const container = document.getElementById('home-news-container');
+      if (!container) return;
+      container.innerHTML = '';
+
+      const newsList = getSortedNewsList().slice(0, 3);
+      newsList.forEach(item => {
+        const card = document.createElement('article');
+        card.className = 'rounded-xl border border-slate-200 p-4 hover:border-blue-400 hover:bg-blue-50/20 transition bg-white flex flex-col justify-between cursor-pointer';
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
+
+        const top = document.createElement('div');
+        const meta = document.createElement('div');
+        meta.className = 'flex items-center justify-between gap-2 mb-2';
+
+        const tag = document.createElement('span');
+        tag.className = 'px-2 py-0.5 rounded-md text-[11px] font-bold bg-blue-50 text-[#003090]';
+        tag.textContent = item.tag || 'NEWS';
+
+        const date = document.createElement('span');
+        date.className = 'text-xs text-slate-400';
+        date.textContent = item.date || '';
+
+        meta.appendChild(tag);
+        meta.appendChild(date);
+
+        const title = document.createElement('h3');
+        title.className = 'text-sm font-bold text-slate-900 mb-1.5';
+        title.textContent = item.title || '';
+
+        const summary = document.createElement('p');
+        summary.className = 'text-xs text-slate-600 leading-relaxed';
+        summary.textContent = item.summary || '';
+
+        const sourceLine = document.createElement('p');
+        sourceLine.className = 'text-[10px] text-slate-400 mt-1.5';
+        sourceLine.textContent = `参照: ${item.source || '外部ソース参考'}`;
+
+        top.appendChild(meta);
+        top.appendChild(title);
+        top.appendChild(summary);
+        top.appendChild(sourceLine);
+
+        const footerRow = document.createElement('div');
+        footerRow.className = 'mt-2.5 flex items-center justify-between gap-2';
+
+        const safeUrl = sanitizeExternalUrl(item.sourceUrl || item.url);
+        const readMore = document.createElement('a');
+        readMore.className = 'text-[11px] font-bold text-[#003090] hover:underline';
+        readMore.textContent = '全文を読む →';
+        if (safeUrl) {
+          readMore.href = safeUrl;
+          readMore.target = '_blank';
+          readMore.rel = 'noopener noreferrer';
+          readMore.addEventListener('click', e => e.stopPropagation());
+        } else {
+          readMore.href = '#';
+          readMore.addEventListener('click', e => {
+            e.preventDefault();
+            e.stopPropagation();
+            openNewsModal(item);
+          });
+        }
+        footerRow.appendChild(readMore);
+
+        const openModalLink = document.createElement('button');
+        openModalLink.type = 'button';
+        openModalLink.className = 'text-[11px] font-semibold text-slate-500 hover:text-slate-800';
+        openModalLink.textContent = safeUrl ? '要約を見る' : '詳細';
+        openModalLink.addEventListener('click', e => {
+          e.stopPropagation();
+          openNewsModal(item);
+        });
+        footerRow.appendChild(openModalLink);
+
+        card.appendChild(top);
+        card.appendChild(footerRow);
+        card.addEventListener('click', () => {
+          if (safeUrl) {
+            window.open(safeUrl, '_blank', 'noopener,noreferrer');
+          } else {
+            openNewsModal(item);
+          }
+        });
+        card.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            if (safeUrl) {
+              window.open(safeUrl, '_blank', 'noopener,noreferrer');
+            } else {
+              openNewsModal(item);
+            }
+          }
+        });
+        container.appendChild(card);
+      });
+    }
+
+    function createFixtureCardElement(fx, isPastResult) {
+      const row = document.createElement('div');
+      row.className = isPastResult
+        ? 'rounded-xl border border-slate-200 px-3 py-2.5 sm:px-4 sm:py-3 flex items-center justify-between gap-2 bg-white min-w-0'
+        : 'rounded-xl border border-slate-200 p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-white';
+
+      const left = document.createElement('div');
+      left.className = 'min-w-0 flex-1';
+
+      const metaLine = document.createElement('div');
+      metaLine.className = isPastResult
+        ? 'flex items-center gap-1.5 text-[10px] sm:text-xs text-slate-500 truncate'
+        : 'flex items-center gap-2 text-xs text-slate-500';
+
+      const dateSpan = document.createElement('span');
+      dateSpan.className = 'font-semibold text-slate-700 shrink-0';
+      dateSpan.textContent = fx.date || '';
+
+      const compSpan = document.createElement('span');
+      compSpan.className = isPastResult ? 'truncate' : '';
+      compSpan.textContent = fx.competition || '';
+
+      metaLine.appendChild(dateSpan);
+      metaLine.appendChild(compSpan);
+
+      const matchup = document.createElement('p');
+      matchup.className = isPastResult
+        ? 'text-xs sm:text-sm font-extrabold text-slate-900 mt-0.5 truncate'
+        : 'text-base font-extrabold text-slate-900 mt-1';
+      matchup.textContent = `Leicester City vs ${fx.opponent || ''}`;
+
+      left.appendChild(metaLine);
+      left.appendChild(matchup);
+
+      if (!isPastResult && fx.venue) {
+        const venue = document.createElement('p');
+        venue.className = 'text-xs text-slate-500 mt-0.5';
+        venue.textContent = fx.venue;
+        left.appendChild(venue);
+      }
+
+      row.appendChild(left);
+
+      if (isPastResult) {
+        const right = document.createElement('div');
+        right.className = 'flex items-center gap-1.5 sm:gap-2.5 shrink-0';
+
+        const outcome = fx.outcome || '-';
+        const outcomeBadge = document.createElement('span');
+        const badgeTone =
+          outcome === 'W'
+            ? 'bg-emerald-100 text-emerald-800 border-emerald-200'
+            : outcome === 'L'
+            ? 'bg-rose-100 text-rose-800 border-rose-200'
+            : 'bg-amber-100 text-amber-800 border-amber-200';
+        outcomeBadge.className = `px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg border text-[10px] sm:text-xs font-extrabold ${badgeTone}`;
+        outcomeBadge.textContent = outcome === 'W' ? 'WIN' : outcome === 'L' ? 'LOSE' : 'DRAW';
+
+        const scoreBadge = document.createElement('span');
+        scoreBadge.className = 'px-2 py-1 sm:px-3 sm:py-1.5 rounded-xl bg-slate-100 text-slate-900 text-xs sm:text-sm font-extrabold tabular-nums whitespace-nowrap';
+        scoreBadge.textContent = formatLeicesterLeftScore(fx.score, Boolean(fx.isHome), outcome);
+
+        right.appendChild(outcomeBadge);
+        right.appendChild(scoreBadge);
+        row.appendChild(right);
+      }
+
+      return row;
+    }
+
+    function renderFixtures() {
+      const upContainer = document.getElementById('upcoming-fixtures-container');
+      const pastContainer = document.getElementById('past-results-container');
+      const upBlock = document.getElementById('fixtures-upcoming-block');
+      const resBlock = document.getElementById('fixtures-results-block');
+      const listView = document.getElementById('fixtures-list-view');
+      const calView = document.getElementById('fixtures-calendar-view');
+      const resultsSourceEl = document.getElementById('fixtures-results-source');
+      if (!upContainer || !pastContainer) return;
+
+      if (resultsSourceEl) {
+        resultsSourceEl.textContent = `参照: ${appData.resultsSource || 'LCFC Match Centre / Sky Sports / 外部ソース参考'}`;
+      }
+
+      upContainer.innerHTML = '';
+      pastContainer.innerHTML = '';
+
+      (appData.upcomingFixtures || []).forEach(fx => {
+        upContainer.appendChild(createFixtureCardElement(fx, false));
+      });
+
+      (appData.pastResults || []).forEach(fx => {
+        pastContainer.appendChild(createFixtureCardElement(fx, true));
+      });
+
+      if (upBlock) {
+        upBlock.classList.toggle('hidden', fixtureStatusFilter === 'RESULTS');
+      }
+      if (resBlock) {
+        resBlock.classList.toggle('hidden', fixtureStatusFilter === 'UPCOMING');
+      }
+
+      if (listView && calView) {
+        listView.classList.toggle('hidden', fixtureViewMode !== 'list');
+        calView.classList.toggle('hidden', fixtureViewMode !== 'calendar');
+      }
+
+      renderFixturesCalendar();
+    }
+
+    function renderFixturesCalendar() {
+      const labelEl = document.getElementById('cal-month-label');
+      const gridEl = document.getElementById('fixtures-calendar-grid');
+      if (!labelEl || !gridEl) return;
+
+      const year = calendarMonthDate.getFullYear();
+      const month = calendarMonthDate.getMonth();
+      labelEl.textContent = `${year}年${month + 1}月`;
+
+      const eventsByDate = {};
+      const showUpcomingOnCal = fixtureViewMode === 'calendar' || fixtureStatusFilter !== 'RESULTS';
+      const showResultsOnCal = fixtureViewMode === 'calendar' || fixtureStatusFilter !== 'UPCOMING';
+
+      if (showUpcomingOnCal) {
+        (appData.upcomingFixtures || []).forEach(fx => {
+          if (!fx.date) return;
+          eventsByDate[fx.date] = eventsByDate[fx.date] || [];
+          eventsByDate[fx.date].push({
+            label: 'N',
+            type: 'upcoming',
+            fixture: fx
+          });
+        });
+      }
+      if (showResultsOnCal) {
+        (appData.pastResults || []).forEach(fx => {
+          if (!fx.date) return;
+          eventsByDate[fx.date] = eventsByDate[fx.date] || [];
+          const code = fx.outcome === 'W' || fx.outcome === 'L' || fx.outcome === 'D' ? fx.outcome : 'D';
+          eventsByDate[fx.date].push({
+            label: code,
+            type: 'result',
+            outcome: fx.outcome,
+            fixture: fx
+          });
+        });
+      }
+
+      const firstDayIndex = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+      gridEl.innerHTML = '';
+      for (let i = 0; i < firstDayIndex; i++) {
+        const blank = document.createElement('div');
+        blank.className = 'min-h-[68px] rounded-xl bg-slate-50/60 border border-slate-100';
+        gridEl.appendChild(blank);
+      }
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        const mm = String(month + 1).padStart(2, '0');
+        const dd = String(day).padStart(2, '0');
+        const dateKey = `${year}-${mm}-${dd}`;
+        const dayEvents = eventsByDate[dateKey] || [];
+
+        const cell = document.createElement('div');
+        cell.className = `min-h-[76px] sm:min-h-[84px] rounded-xl border border-slate-200 bg-white p-1.5 sm:p-2 flex flex-col justify-between ${
+          dayEvents.length > 0 ? 'cursor-pointer hover:border-blue-400 hover:bg-blue-50/30 transition' : ''
+        }`;
+
+        const dayNum = document.createElement('span');
+        dayNum.className = 'text-xs font-bold text-slate-700';
+        dayNum.textContent = String(day);
+        cell.appendChild(dayNum);
+
+        dayEvents.forEach(ev => {
+          const badge = document.createElement('span');
+          if (ev.type === 'upcoming') {
+            badge.className = 'mt-1 w-full inline-flex items-center justify-center py-1 rounded-lg bg-blue-100 text-[#002878] text-sm sm:text-base font-black leading-none';
+          } else if (ev.outcome === 'W') {
+            badge.className = 'mt-1 w-full inline-flex items-center justify-center py-1 rounded-lg bg-emerald-100 text-emerald-900 text-sm sm:text-base font-black leading-none';
+          } else if (ev.outcome === 'L') {
+            badge.className = 'mt-1 w-full inline-flex items-center justify-center py-1 rounded-lg bg-rose-100 text-rose-900 text-sm sm:text-base font-black leading-none';
+          } else {
+            badge.className = 'mt-1 w-full inline-flex items-center justify-center py-1 rounded-lg bg-amber-100 text-amber-900 text-sm sm:text-base font-black leading-none';
+          }
+          badge.textContent = ev.label;
+          cell.appendChild(badge);
+        });
+
+        if (dayEvents.length > 0) {
+          cell.addEventListener('click', () => openCalendarMatchDetail(dayEvents[0]));
+        }
+
+        gridEl.appendChild(cell);
+      }
+    }
+
+    function openCalendarMatchDetail(ev) {
+      const box = document.getElementById('calendar-match-detail');
+      const outcomeEl = document.getElementById('cal-detail-outcome');
+      const dateEl = document.getElementById('cal-detail-date');
+      const compEl = document.getElementById('cal-detail-comp');
+      const titleEl = document.getElementById('cal-detail-title');
+      const detailEl = document.getElementById('cal-detail-score-venue');
+      if (!box || !ev?.fixture) return;
+
+      const fx = ev.fixture;
+      if (dateEl) dateEl.textContent = fx.date || '';
+      if (compEl) compEl.textContent = fx.competition || '';
+      if (titleEl) titleEl.textContent = `Leicester City vs ${fx.opponent || ''}`;
+
+      if (ev.type === 'upcoming') {
+        if (outcomeEl) {
+          outcomeEl.textContent = '予定';
+          outcomeEl.className = 'px-2 py-0.5 rounded-md bg-blue-100 text-[#002878] font-extrabold';
+        }
+        if (detailEl) {
+          const ha = fx.isHome ? 'HOME' : 'AWAY';
+          detailEl.textContent = `${ha} · 会場: ${fx.venue || '未定'}`;
+        }
+      } else {
+        const outcomeLabel =
+          fx.outcome === 'W' ? 'WIN (勝利)' : fx.outcome === 'L' ? 'LOSE (敗戦)' : 'DRAW (引分)';
+        if (outcomeEl) {
+          outcomeEl.textContent = outcomeLabel;
+          outcomeEl.className =
+            fx.outcome === 'W'
+              ? 'px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-900 font-extrabold'
+              : fx.outcome === 'L'
+              ? 'px-2 py-0.5 rounded-md bg-rose-100 text-rose-900 font-extrabold'
+              : 'px-2 py-0.5 rounded-md bg-amber-100 text-amber-900 font-extrabold';
+        }
+        if (detailEl) {
+          const ha = fx.isHome ? 'HOME' : 'AWAY';
+          const scoreText = formatLeicesterLeftScore(fx.score, Boolean(fx.isHome), fx.outcome);
+          detailEl.textContent = `${ha} · スコア（レスター - 相手）: ${scoreText}`;
+        }
+      }
+
+      box.classList.remove('hidden');
+    }
+
+    function updateFixtureControlsUi() {
+      const listBtn = document.getElementById('fixtures-mode-list-btn');
+      const calBtn = document.getElementById('fixtures-mode-calendar-btn');
+      const filterRow = document.getElementById('fixtures-filter-row');
+      if (listBtn && calBtn) {
+        if (fixtureViewMode === 'list') {
+          listBtn.className = 'px-4 py-2 rounded-xl bg-[#002878] text-white text-xs sm:text-sm font-extrabold shadow-xs transition inline-flex items-center gap-2';
+          calBtn.className = 'px-4 py-2 rounded-xl text-slate-700 hover:text-slate-900 text-xs sm:text-sm font-bold transition inline-flex items-center gap-2';
+        } else {
+          calBtn.className = 'px-4 py-2 rounded-xl bg-[#002878] text-white text-xs sm:text-sm font-extrabold shadow-xs transition inline-flex items-center gap-2';
+          listBtn.className = 'px-4 py-2 rounded-xl text-slate-700 hover:text-slate-900 text-xs sm:text-sm font-bold transition inline-flex items-center gap-2';
+        }
+      }
+
+      if (filterRow) {
+        filterRow.classList.toggle('hidden', fixtureViewMode === 'calendar');
+      }
+
+      document.querySelectorAll('.fixture-filter-btn').forEach(btn => {
+        const active = btn.dataset.fixtureFilter === fixtureStatusFilter;
+        btn.className = active
+          ? 'fixture-filter-btn px-4 py-1.5 rounded-xl bg-[#002878] text-white text-xs sm:text-sm font-extrabold shadow-xs transition'
+          : 'fixture-filter-btn px-4 py-1.5 rounded-xl text-slate-700 hover:text-slate-900 text-xs sm:text-sm font-bold transition';
+      });
+    }
+
+    function getZoneClasses(pos) {
+      if (pos >= 1 && pos <= 2) {
+        return {
+          rowBorder: '',
+          posBadge: 'bg-emerald-100 text-emerald-800'
+        };
+      }
+      if (pos >= 3 && pos <= 6) {
+        return {
+          rowBorder: '',
+          posBadge: 'bg-sky-100 text-sky-800'
+        };
+      }
+      if (pos >= 21 && pos <= 24) {
+        return {
+          rowBorder: '',
+          posBadge: 'bg-rose-100 text-rose-800'
+        };
+      }
+      return {
+        rowBorder: '',
+        posBadge: 'bg-slate-100 text-slate-700'
+      };
+    }
+
+    function renderStandings() {
+      const tbody = document.getElementById('standings-tbody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      const rows = Array.isArray(appData.standings) ? appData.standings : [];
+      rows.forEach(r => {
+        const tr = document.createElement('tr');
+        const zone = getZoneClasses(Number(r.pos));
+        const isLcfc = r.team === 'Leicester City';
+        tr.className = `${isLcfc ? 'font-bold bg-blue-100/90 text-[#002878]' : ''}`;
+
+        const posTd = document.createElement('td');
+        posTd.className = 'py-2 sm:py-3 px-1 sm:px-2 text-center';
+        const posSpan = document.createElement('span');
+        posSpan.className = `inline-flex items-center justify-center w-5 h-5 sm:w-7 sm:h-7 rounded-md sm:rounded-lg text-[10px] sm:text-xs font-extrabold ${zone.posBadge}`;
+        posSpan.textContent = String(r.pos);
+        posTd.appendChild(posSpan);
+
+        const teamTd = document.createElement('td');
+        teamTd.className = `py-2 sm:py-3 px-1 sm:px-2 min-w-0 ${isLcfc ? 'text-[#002878]' : 'text-slate-900'}`;
+        const teamWrap = document.createElement('div');
+        teamWrap.className = 'flex items-center gap-1 min-w-0';
+
+        const teamNameSpan = document.createElement('span');
+        teamNameSpan.className = 'truncate block';
+        teamNameSpan.textContent = r.team;
+        teamWrap.appendChild(teamNameSpan);
+
+        teamTd.appendChild(teamWrap);
+
+        const cells = [r.played, r.won, r.drawn, r.lost, r.gd >= 0 ? `+${r.gd}` : r.gd].map(val => {
+          const td = document.createElement('td');
+          td.className = 'py-2 sm:py-3 px-0.5 sm:px-1.5 text-center text-slate-700 tabular-nums';
+          td.textContent = String(val);
+          return td;
+        });
+
+        const ptsTd = document.createElement('td');
+        ptsTd.className = 'py-2 sm:py-3 px-1 sm:px-2 text-right font-extrabold text-[#003090] tabular-nums';
+        ptsTd.textContent = String(r.pts);
+
+        tr.appendChild(posTd);
+        tr.appendChild(teamTd);
+        cells.forEach(c => tr.appendChild(c));
+        tr.appendChild(ptsTd);
+        tbody.appendChild(tr);
+      });
+    }
+
+    function renderAllNews() {
+      const container = document.getElementById('all-news-container');
+      if (!container) return;
+      container.innerHTML = '';
+
+      getSortedNewsList().forEach(item => {
+        const card = document.createElement('article');
+        card.className = 'rounded-xl border border-slate-200 p-4 bg-white hover:border-blue-400 hover:bg-blue-50/20 transition cursor-pointer flex flex-col justify-between';
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
+
+        const top = document.createElement('div');
+        const meta = document.createElement('div');
+        meta.className = 'flex items-center justify-between gap-2 mb-2';
+
+        const tag = document.createElement('span');
+        tag.className = 'px-2 py-0.5 rounded-md text-[11px] font-bold bg-blue-50 text-[#003090]';
+        tag.textContent = item.tag || 'NEWS';
+
+        const date = document.createElement('span');
+        date.className = 'text-xs text-slate-400';
+        date.textContent = item.date || '';
+
+        meta.appendChild(tag);
+        meta.appendChild(date);
+
+        const title = document.createElement('h3');
+        title.className = 'text-base font-bold text-slate-900 mb-1.5';
+        title.textContent = item.title || '';
+
+        const summary = document.createElement('p');
+        summary.className = 'text-sm text-slate-600 leading-relaxed';
+        summary.textContent = item.summary || '';
+
+        const sourceLine = document.createElement('p');
+        sourceLine.className = 'text-[11px] text-slate-400 mt-2';
+        sourceLine.textContent = `参照: ${item.source || '外部ソース参考'}`;
+
+        top.appendChild(meta);
+        top.appendChild(title);
+        top.appendChild(summary);
+        top.appendChild(sourceLine);
+
+        const footerRow = document.createElement('div');
+        footerRow.className = 'mt-3 flex items-center justify-between gap-2';
+
+        const safeUrl = sanitizeExternalUrl(item.sourceUrl || item.url);
+        const readMore = document.createElement('a');
+        readMore.className = 'text-xs font-bold text-[#003090] hover:underline';
+        readMore.textContent = '全文を読む →';
+        if (safeUrl) {
+          readMore.href = safeUrl;
+          readMore.target = '_blank';
+          readMore.rel = 'noopener noreferrer';
+          readMore.addEventListener('click', e => e.stopPropagation());
+        } else {
+          readMore.href = '#';
+          readMore.addEventListener('click', e => {
+            e.preventDefault();
+            e.stopPropagation();
+            openNewsModal(item);
+          });
+        }
+        footerRow.appendChild(readMore);
+
+        const openModalLink = document.createElement('button');
+        openModalLink.type = 'button';
+        openModalLink.className = 'text-xs font-semibold text-slate-500 hover:text-slate-800';
+        openModalLink.textContent = safeUrl ? '要約を見る' : '詳細';
+        openModalLink.addEventListener('click', e => {
+          e.stopPropagation();
+          openNewsModal(item);
+        });
+        footerRow.appendChild(openModalLink);
+
+        card.appendChild(top);
+        card.appendChild(footerRow);
+        card.addEventListener('click', () => {
+          if (safeUrl) {
+            window.open(safeUrl, '_blank', 'noopener,noreferrer');
+          } else {
+            openNewsModal(item);
+          }
+        });
+        card.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            if (safeUrl) {
+              window.open(safeUrl, '_blank', 'noopener,noreferrer');
+            } else {
+              openNewsModal(item);
+            }
+          }
+        });
+        container.appendChild(card);
+      });
+    }
+
+    function renderSquad() {
+      const squadSourceEl = document.getElementById('squad-source');
+      if (squadSourceEl) {
+        squadSourceEl.textContent = `参照: ${appData.squadSource || 'LCFC Squad / 外部ソース参考'}`;
+      }
+
+      const container = document.getElementById('squad-container');
+      if (!container) return;
+      container.innerHTML = '';
+
+      const list = (appData.squad || []).filter(p =>
+        activePositionFilter === 'ALL' ? true : p.position === activePositionFilter
+      );
+
+      list.forEach(player => {
+        const card = document.createElement('div');
+        card.className = 'rounded-xl border border-slate-200 p-4 bg-white flex items-center justify-between gap-3';
+
+        const left = document.createElement('div');
+        const num = document.createElement('span');
+        num.className = 'inline-block px-2 py-0.5 rounded-md bg-[#003090] text-[#fdbe11] text-xs font-extrabold mr-2';
+        num.textContent = `#${player.number}`;
+
+        const name = document.createElement('span');
+        name.className = 'text-sm font-extrabold text-slate-900';
+        name.textContent = player.name;
+
+        const meta = document.createElement('p');
+        meta.className = 'text-xs text-slate-500 mt-1.5';
+        meta.textContent = `${player.position} · ${player.nationality}`;
+
+        left.appendChild(num);
+        left.appendChild(name);
+        left.appendChild(meta);
+        card.appendChild(left);
+        container.appendChild(card);
+      });
+    }
+
+    function renderChat() {
+      const container = document.getElementById('chat-messages-container');
+      if (!container) return;
+      container.innerHTML = '';
+
+      chatMessages.forEach(msg => {
+        const box = document.createElement('div');
+        box.className = 'rounded-xl border border-slate-200 bg-slate-50 p-3.5';
+
+        const header = document.createElement('div');
+        header.className = 'flex items-center justify-between gap-2 text-xs mb-1';
+
+        const author = document.createElement('span');
+        author.className = 'font-bold text-[#003090]';
+        author.textContent = msg.author || 'Supporter';
+
+        const time = document.createElement('span');
+        time.className = 'text-slate-400';
+        time.textContent = msg.time || '';
+
+        header.appendChild(author);
+        header.appendChild(time);
+
+        const body = document.createElement('p');
+        body.className = 'text-sm text-slate-800 whitespace-pre-wrap';
+        body.textContent = msg.text || '';
+
+        box.appendChild(header);
+        box.appendChild(body);
+        container.appendChild(box);
+      });
+    }
+
+    function syncJsonEditor() {
+      const textarea = document.getElementById('json-editor-textarea');
+      if (textarea) {
+        textarea.value = JSON.stringify(appData, null, 2);
+      }
+    }
+
+    function renderAll() {
+      renderHome();
+      renderFixtures();
+      renderStandings();
+      renderAllNews();
+      renderSquad();
+      renderChat();
+      syncJsonEditor();
+    }
+
+    function init() {
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          switchTab(btn.dataset.tab);
+        });
+      });
+
+      document.querySelectorAll('[data-jump-tab]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          switchTab(btn.dataset.jumpTab);
+        });
+      });
+
+      const openDrawerBtn = document.getElementById('open-drawer-btn');
+      const closeDrawerBtn = document.getElementById('close-drawer-btn');
+      const drawerBackdrop = document.getElementById('mobile-drawer-backdrop');
+      if (openDrawerBtn) openDrawerBtn.addEventListener('click', () => setDrawerOpen(true));
+      if (closeDrawerBtn) closeDrawerBtn.addEventListener('click', () => setDrawerOpen(false));
+      if (drawerBackdrop) {
+        drawerBackdrop.addEventListener('click', e => {
+          if (e.target === drawerBackdrop) setDrawerOpen(false);
+        });
+      }
+
+      document.querySelectorAll('[data-drawer-tab]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          switchTab(btn.dataset.drawerTab);
+          setDrawerOpen(false);
+        });
+      });
+
+      const drawerFotmobBtn = document.getElementById('drawer-fotmob-btn');
+      if (drawerFotmobBtn) {
+        drawerFotmobBtn.addEventListener('click', () => {
+          const panel = document.getElementById('data-editor-panel');
+          if (panel) panel.classList.remove('hidden');
+          syncJsonEditor();
+          setDrawerOpen(false);
+        });
+      }
+
+      const drawerEditorBtn = document.getElementById('drawer-editor-btn');
+      if (drawerEditorBtn) {
+        drawerEditorBtn.addEventListener('click', () => {
+          const panel = document.getElementById('data-editor-panel');
+          if (panel) panel.classList.toggle('hidden');
+          syncJsonEditor();
+          setDrawerOpen(false);
+        });
+      }
+
+      const drawerResetBtn = document.getElementById('drawer-reset-btn');
+      if (drawerResetBtn) {
+        drawerResetBtn.addEventListener('click', () => {
+          document.getElementById('reset-data-btn')?.click();
+          setDrawerOpen(false);
+        });
+      }
+
+      const calendarBtn = document.getElementById('open-calendar-btn');
+      if (calendarBtn) {
+        calendarBtn.addEventListener('click', openInAppCalendarForMatch);
+      }
+
+      const fixturesModeListBtn = document.getElementById('fixtures-mode-list-btn');
+      const fixturesModeCalBtn = document.getElementById('fixtures-mode-calendar-btn');
+      if (fixturesModeListBtn) {
+        fixturesModeListBtn.addEventListener('click', () => {
+          fixtureViewMode = 'list';
+          updateFixtureControlsUi();
+          renderFixtures();
+        });
+      }
+      if (fixturesModeCalBtn) {
+        fixturesModeCalBtn.addEventListener('click', () => {
+          fixtureViewMode = 'calendar';
+          updateFixtureControlsUi();
+          renderFixtures();
+        });
+      }
+
+      document.querySelectorAll('.fixture-filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          fixtureStatusFilter = btn.dataset.fixtureFilter || 'ALL';
+          updateFixtureControlsUi();
+          renderFixtures();
+        });
+      });
+
+      const calPrevBtn = document.getElementById('cal-prev-month-btn');
+      const calNextBtn = document.getElementById('cal-next-month-btn');
+      const calDetailCloseBtn = document.getElementById('cal-detail-close-btn');
+      if (calPrevBtn) {
+        calPrevBtn.addEventListener('click', () => {
+          document.getElementById('calendar-match-detail')?.classList.add('hidden');
+          calendarMonthDate = new Date(calendarMonthDate.getFullYear(), calendarMonthDate.getMonth() - 1, 1);
+          renderFixturesCalendar();
+        });
+      }
+      if (calNextBtn) {
+        calNextBtn.addEventListener('click', () => {
+          document.getElementById('calendar-match-detail')?.classList.add('hidden');
+          calendarMonthDate = new Date(calendarMonthDate.getFullYear(), calendarMonthDate.getMonth() + 1, 1);
+          renderFixturesCalendar();
+        });
+      }
+      if (calDetailCloseBtn) {
+        calDetailCloseBtn.addEventListener('click', () => {
+          document.getElementById('calendar-match-detail')?.classList.add('hidden');
+        });
+      }
+
+      document.querySelectorAll('.pos-filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          activePositionFilter = btn.dataset.pos;
+          document.querySelectorAll('.pos-filter-btn').forEach(b => {
+            const selected = b.dataset.pos === activePositionFilter;
+            b.className = selected
+              ? 'pos-filter-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-[#003090] text-white'
+              : 'pos-filter-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200';
+          });
+          renderSquad();
+        });
+      });
+
+      const toggleEditorBtn = document.getElementById('toggle-editor-btn');
+      const closeEditorBtn = document.getElementById('close-editor-btn');
+      const editorPanel = document.getElementById('data-editor-panel');
+      if (toggleEditorBtn && editorPanel) {
+        toggleEditorBtn.addEventListener('click', () => {
+          editorPanel.classList.toggle('hidden');
+          syncJsonEditor();
+        });
+      }
+      if (closeEditorBtn && editorPanel) {
+        closeEditorBtn.addEventListener('click', () => {
+          editorPanel.classList.add('hidden');
+        });
+      }
+
+      const applyJsonBtn = document.getElementById('apply-json-btn');
+      if (applyJsonBtn) {
+        applyJsonBtn.addEventListener('click', () => {
+          const textarea = document.getElementById('json-editor-textarea');
+          if (!textarea) return;
+          try {
+            const parsed = JSON.parse(textarea.value);
+            appData = mergeAppData(DEFAULT_DATA, parsed);
+            saveAppData(appData);
+            renderAll();
+            showBanner('JSONデータを反映し保存しました。', 'success');
+          } catch (err) {
+            showBanner('JSONの形式が正しくありません。入力内容を確認してください。', 'error');
+          }
+        });
+      }
+
+      const resetBtn = document.getElementById('reset-data-btn');
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+          appData = structuredClone(DEFAULT_DATA);
+          chatMessages = structuredClone(DEFAULT_CHAT);
+          syncConfig = structuredClone(DEFAULT_SYNC_CONFIG);
+          saveAppData(appData);
+          saveChatMessages(chatMessages);
+          saveSyncConfig(syncConfig);
+          renderAll();
+          restartAutoSyncTimer();
+          showBanner('初期データにリセットしました。', 'info');
+        });
+      }
+
+      const closeBannerBtn = document.getElementById('close-banner-btn');
+      if (closeBannerBtn) {
+        closeBannerBtn.addEventListener('click', hideBanner);
+      }
+
+      const newsModalBackdrop = document.getElementById('news-modal-backdrop');
+      const closeNewsModalBtn = document.getElementById('close-news-modal-btn');
+      if (closeNewsModalBtn) {
+        closeNewsModalBtn.addEventListener('click', closeNewsModal);
+      }
+      if (newsModalBackdrop) {
+        newsModalBackdrop.addEventListener('click', e => {
+          if (e.target === newsModalBackdrop) closeNewsModal();
+        });
+      }
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') closeNewsModal();
+      });
+
+      const icsBtn = document.getElementById('download-ics-btn');
+      if (icsBtn) {
+        icsBtn.addEventListener('click', downloadMatchIcs);
+      }
+
+      const reloadJsonBtn = document.getElementById('reload-json-btn');
+      if (reloadJsonBtn) {
+        reloadJsonBtn.addEventListener('click', () => fetchAndApplyJson({ silent: false }));
+      }
+
+      const exportJsonBtn = document.getElementById('export-json-btn');
+      if (exportJsonBtn) {
+        exportJsonBtn.addEventListener('click', exportJsonData);
+      }
+
+      const saveSyncConfigBtn = document.getElementById('save-sync-config-btn');
+      if (saveSyncConfigBtn) {
+        saveSyncConfigBtn.addEventListener('click', () => {
+          const urlInput = document.getElementById('auto-sync-url-input');
+          const intervalSelect = document.getElementById('auto-sync-interval-select');
+          const nextUrl = (urlInput?.value || './data/lcfc.json').trim() || './data/lcfc.json';
+          const nextInterval = Number(intervalSelect?.value ?? 3600000);
+          syncConfig = {
+            ...syncConfig,
+            url: nextUrl,
+            intervalMs: nextInterval
+          };
+          saveSyncConfig(syncConfig);
+          restartAutoSyncTimer();
+          showBanner(
+            nextInterval > 0
+              ? `自動更新設定を保存しました（${formatIntervalLabel(nextInterval)} / ${nextUrl}）。`
+              : '自動更新をOFFにしました（手動更新のみ）。',
+            'success'
+          );
+        });
+      }
+
+      if (countdownTimerId) clearInterval(countdownTimerId);
+      countdownTimerId = setInterval(updateCountdown, 1000);
+
+      const chatForm = document.getElementById('chat-form');
+      if (chatForm) {
+        chatForm.addEventListener('submit', e => {
+          e.preventDefault();
+          const authorInput = document.getElementById('chat-author');
+          const msgInput = document.getElementById('chat-message');
+          const author = (authorInput?.value || '').trim() || 'FoxesSupporter';
+          const text = (msgInput?.value || '').trim();
+          if (!text) {
+            showBanner('メッセージを入力してください。', 'error');
+            return;
+          }
+
+          chatMessages.unshift({
+            id: `c-${Date.now()}`,
+            author,
+            time: 'たった今',
+            text
+          });
+          saveChatMessages(chatMessages);
+          if (msgInput) msgInput.value = '';
+          renderChat();
+          showBanner('メッセージを投稿しました。', 'success');
+        });
+      }
+
+      renderAll();
+      updateFixtureControlsUi();
+      restartAutoSyncTimer();
+      fetchAndApplyJson({ silent: true });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  </script>
+</body>
+</html>
