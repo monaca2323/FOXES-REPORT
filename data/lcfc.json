@@ -1,273 +1,241 @@
 {
-  "seasonLabel": "Leicester City FC • EFL League One",
-  "standingsSource": "EFL League One / LCFC",
-  "recentFiveSource": "LCFC Match Centre / Sky Sports",
-  "resultsSource": "LCFC Match Centre / Sky Sports",
-  "squadSource": "LCFC Squad",
+  "updatedAt": "2026-11-24T22:53:37.788Z",
   "nextMatch": {
     "source": "LCFC Match Centre / Sky Sports"
   },
-  "news": [
+  "standings": [
     {
-      "id": "rss-aHR0cHM6Ly93d3cubGVp",
-      "tag": "LEICESTERSHIRE LIVE",
-      "date": "2026-11-24",
-      "source": "Leicestershire Live / LCFC",
-      "sourceUrl": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-ruthless-streak-missing-11254389",
-      "title": "Leicester City have a ruthless streak missing as frustrating pattern continues",
-      "summary": "Leicester City struggled to take their chances at Blackpool on Tuesday night",
-      "body": [
-        "Leicester City struggled to take their chances at Blackpool on Tuesday night",
-        "詳細は「参照サイトを開く」から元記事をご確認ください。"
-      ]
+      "pos": 1,
+      "team": "Birmingham City",
+      "p": 17,
+      "gd": "+21",
+      "pts": 39
     },
     {
-      "id": "rss-aHR0cHM6Ly93d3cubGVp",
-      "tag": "LEICESTERSHIRE LIVE",
-      "date": "2026-11-24",
-      "source": "Leicestershire Live / LCFC",
-      "sourceUrl": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-player-ratings-blackpool-11254395",
-      "title": "Leicester City player ratings vs Blackpool as 4/10s see wasteful Foxes drop points",
-      "summary": "Josh Holland rates Leicester City's players from Tuesday night's League One clash at Blackpool",
-      "body": [
-        "Josh Holland rates Leicester City's players from Tuesday night's League One clash at Blackpool",
-        "詳細は「参照サイトを開く」から元記事をご確認ください。"
-      ]
+      "pos": 2,
+      "team": "Wycombe Wanderers",
+      "p": 17,
+      "gd": "+18",
+      "pts": 36
     },
     {
-      "id": "rss-aHR0cHM6Ly93d3cubGVp",
-      "tag": "LEICESTERSHIRE LIVE",
-      "date": "2026-11-24",
-      "source": "Leicestershire Live / LCFC",
-      "sourceUrl": "https://www.leicestermercury.co.uk/sport/football/football-news/blackpool-leicester-city-tv-channel-11253354",
-      "title": "How to watch Blackpool vs Leicester City - TV channel, live stream and kick-off time",
-      "summary": "Leicester City travel to Blackpool for the first time since 2013 this evening in League One",
-      "body": [
-        "Leicester City travel to Blackpool for the first time since 2013 this evening in League One",
-        "詳細は「参照サイトを開く」から元記事をご確認ください。"
-      ]
+      "pos": 3,
+      "team": "Leicester City",
+      "p": 17,
+      "gd": "+14",
+      "pts": 34,
+      "isLcfc": true
     },
     {
-      "id": "rss-aHR0cHM6Ly93d3cubGVp",
-      "tag": "LEICESTERSHIRE LIVE",
-      "date": "2026-11-24",
-      "source": "Leicestershire Live / LCFC",
-      "sourceUrl": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-blackpool-lineups-chaplin-11253328",
-      "title": "Cullen and Chaplin decisions, Smallbone replacement - Leicester City line-ups vs Blackpool",
-      "summary": "Our writers have their say on the team that Leicester City should field at Blackpool tonight",
-      "body": [
-        "Our writers have their say on the team that Leicester City should field at Blackpool tonight",
-        "詳細は「参照サイトを開く」から元記事をご確認ください。"
-      ]
+      "pos": 4,
+      "team": "Wrexham",
+      "p": 17,
+      "gd": "+11",
+      "pts": 33
     },
     {
-      "id": "rss-aHR0cHM6Ly93d3cubGVp",
-      "tag": "LEICESTERSHIRE LIVE",
-      "date": "2026-11-24",
-      "source": "Leicestershire Live / LCFC",
-      "sourceUrl": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-blackpool-players-injuries-11252989",
-      "title": "10 players to miss Blackpool vs Leicester City after new injury blows",
-      "summary": "Leicester City and Blackpool will be without regulars for tonight's League One clash at Bloomfield Road",
-      "body": [
-        "Leicester City and Blackpool will be without regulars for tonight's League One clash at Bloomfield Road",
-        "詳細は「参照サイトを開く」から元記事をご確認ください。"
-      ]
+      "pos": 5,
+      "team": "Stevenage",
+      "p": 17,
+      "gd": "+8",
+      "pts": 32
     },
     {
-      "id": "rss-aHR0cHM6Ly93d3cubGVp",
-      "tag": "LEICESTERSHIRE LIVE",
-      "date": "2026-11-23",
-      "source": "Leicestershire Live / LCFC",
-      "sourceUrl": "https://www.leicestermercury.co.uk/sport/football/football-news/ben-nelson-injury-update-contract-11253044",
-      "title": "Ben Nelson shares Leicester City injury update amid contract talks",
-      "summary": "The academy graduate has been out with an ACL injury since pre-season",
-      "body": [
-        "The academy graduate has been out with an ACL injury since pre-season",
-        "詳細は「参照サイトを開く」から元記事をご確認ください。"
-      ]
-    },
-    {
-      "id": "rss-aHR0cHM6Ly93d3cubGVp",
-      "tag": "LEICESTERSHIRE LIVE",
-      "date": "2026-11-23",
-      "source": "Leicestershire Live / LCFC",
-      "sourceUrl": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-smallbone-chaplin-cullen-11252753",
-      "title": "Will Smallbone injury blow gives Leicester City pair chance to kickstart seasons",
-      "summary": "Leicester City's squad will need to come together during the Christmas period after Will Smallbone's injury",
-      "body": [
-        "Leicester City's squad will need to come together during the Christmas period after Will Smallbone's injury",
-        "詳細は「参照サイトを開く」から元記事をご確認ください。"
-      ]
-    },
-    {
-      "id": "rss-aHR0cHM6Ly93d3cubGVp",
-      "tag": "LEICESTERSHIRE LIVE",
-      "date": "2026-11-23",
-      "source": "Leicestershire Live / LCFC",
-      "sourceUrl": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-promotion-asmir-begovic-11252419",
-      "title": "&apos;Absolute failure&apos; - Relegated Leicester City man makes promotion demand",
-      "summary": "Leicester City have beaten League One's two current best teams away from home this season",
-      "body": [
-        "Leicester City have beaten League One's two current best teams away from home this season",
-        "詳細は「参照サイトを開く」から元記事をご確認ください。"
-      ]
-    },
-    {
-      "id": "rss-aHR0cHM6Ly93d3cubGVp",
-      "tag": "LEICESTERSHIRE LIVE",
-      "date": "2026-11-23",
-      "source": "Leicestershire Live / LCFC",
-      "sourceUrl": "https://www.leicestermercury.co.uk/sport/football/football-news/three-leicester-city-academy-players-11252115",
-      "title": "Three Leicester City academy players to get excited about as Jeremy Monga comparison clear",
-      "summary": "Bismark Owusu's fine 2026/27 season continued on Friday night in the FA Youth Cup",
-      "body": [
-        "Bismark Owusu's fine 2026/27 season continued on Friday night in the FA Youth Cup",
-        "詳細は「参照サイトを開く」から元記事をご確認ください。"
-      ]
-    },
-    {
-      "id": "rss-aHR0cHM6Ly93d3cubGVp",
-      "tag": "LEICESTERSHIRE LIVE",
-      "date": "2026-11-23",
-      "source": "Leicestershire Live / LCFC",
-      "sourceUrl": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-blackpool-predicted-lineup-11251977",
-      "title": "Two Leicester City changes for Blackpool as Will Smallbone replacement predicted",
-      "summary": "Russell Martin will be forced into at least one change for Leicester City's trip to Blackpool",
-      "body": [
-        "Russell Martin will be forced into at least one change for Leicester City's trip to Blackpool",
-        "詳細は「参照サイトを開く」から元記事をご確認ください。"
-      ]
-    },
-    {
-      "id": "rss-aHR0cHM6Ly93d3cubGVp",
-      "tag": "LEICESTERSHIRE LIVE",
-      "date": "2026-11-23",
-      "source": "Leicestershire Live / LCFC",
-      "sourceUrl": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-russell-martin-blackpool-11251551",
-      "title": "Russell Martin tells Leicester City squad what they must do to build on Huddersfield win",
-      "summary": "Leicester City travel to Blackpool on Tuesday night looking to pile further misery on the League One strugglers",
-      "body": [
-        "Leicester City travel to Blackpool on Tuesday night looking to pile further misery on the League One strugglers",
-        "詳細は「参照サイトを開く」から元記事をご確認ください。"
-      ]
-    },
-    {
-      "id": "rss-aHR0cHM6Ly93d3cubGVp",
-      "tag": "LEICESTERSHIRE LIVE",
-      "date": "2026-11-22",
-      "source": "Leicestershire Live / LCFC",
-      "sourceUrl": "https://www.leicestermercury.co.uk/sport/football/football-news/inside-leicester-citys-huddersfield-win-11251433",
-      "title": "Inside Leicester City&apos;s Huddersfield win: Page&apos;s rise, decisive tweak and Russell Martin&apos;s frustration",
-      "summary": "Main talking points and moments missed from Leicester City's 1-0 win over League One high-flyers Huddersfield Town",
-      "body": [
-        "Main talking points and moments missed from Leicester City's 1-0 win over League One high-flyers Huddersfield Town",
-        "詳細は「参照サイトを開く」から元記事をご確認ください。"
-      ]
-    },
-    {
-      "id": "rss-aHR0cHM6Ly93d3cubGVp",
-      "tag": "LEICESTERSHIRE LIVE",
-      "date": "2026-11-22",
-      "source": "Leicestershire Live / LCFC",
-      "sourceUrl": "https://www.leicestermercury.co.uk/whats-on/whats-on-news/kasabians-serge-pizzorno-ready-save-11251412",
-      "title": "Kasabian&apos;s Serge Pizzorno &apos;ready to save&apos; Leicester City if Foxes ever hit crisis again",
-      "summary": "The band's frontman did however admit he doesn't have 'Premier League capital'",
-      "body": [
-        "The band's frontman did however admit he doesn't have 'Premier League capital'",
-        "詳細は「参照サイトを開く」から元記事をご確認ください。"
-      ]
-    },
-    {
-      "id": "rss-aHR0cHM6Ly93d3cubGVp",
-      "tag": "LEICESTERSHIRE LIVE",
-      "date": "2026-11-22",
-      "source": "Leicestershire Live / LCFC",
-      "sourceUrl": "https://www.leicestermercury.co.uk/sport/football/football-news/trey-nyoni-leicester-city-liverpool-11250406",
-      "title": "Trey Nyoni reveals what convinced him to leave Leicester City for Liverpool",
-      "summary": "Trey Nyoni left Leicester City for Liverpool in 2023",
-      "body": [
-        "Trey Nyoni left Leicester City for Liverpool in 2023",
-        "詳細は「参照サイトを開く」から元記事をご確認ください。"
-      ]
-    },
-    {
-      "id": "rss-aHR0cHM6Ly93d3cubGVp",
-      "tag": "LEICESTERSHIRE LIVE",
-      "date": "2026-11-21",
-      "source": "Leicestershire Live / LCFC",
-      "sourceUrl": "https://www.leicestermercury.co.uk/sport/football/football-news/will-smallbone-leicester-city-injury-11251118",
-      "title": "Russell Martin provides worrying Will Smallbone injury update after Leicester City win",
-      "summary": "Will Smallbone lasted just 12 minutes in Leicester City's win over Huddersfield Town",
-      "body": [
-        "Will Smallbone lasted just 12 minutes in Leicester City's win over Huddersfield Town",
-        "詳細は「参照サイトを開く」から元記事をご確認ください。"
-      ]
-    },
-    {
-      "id": "rss-aHR0cHM6Ly93d3cubGVp",
-      "tag": "LEICESTERSHIRE LIVE",
-      "date": "2026-11-21",
-      "source": "Leicestershire Live / LCFC",
-      "sourceUrl": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-russell-martin-fans-11250445",
-      "title": "What Russell Martin did straight after Leicester City&apos;s Huddersfield win shows huge step forward",
-      "summary": "Russell Martin and the Leicester City supporters got their moment of togetherness at Huddersfield Town",
-      "body": [
-        "Russell Martin and the Leicester City supporters got their moment of togetherness at Huddersfield Town",
-        "詳細は「参照サイトを開く」から元記事をご確認ください。"
-      ]
-    },
-    {
-      "id": "rss-aHR0cHM6Ly93d3cubGVp",
-      "tag": "LEICESTERSHIRE LIVE",
-      "date": "2026-11-21",
-      "source": "Leicestershire Live / LCFC",
-      "sourceUrl": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-player-ratings-huddersfield-11250444",
-      "title": "Leicester City player ratings vs Huddersfield as Russell Martin&apos;s men record statement victory",
-      "summary": "Josh Holland rates the Leicester City players after their huge win over Huddersfield Town",
-      "body": [
-        "Josh Holland rates the Leicester City players after their huge win over Huddersfield Town",
-        "詳細は「参照サイトを開く」から元記事をご確認ください。"
-      ]
-    },
-    {
-      "id": "rss-aHR0cHM6Ly93d3cubGVp",
-      "tag": "LEICESTERSHIRE LIVE",
-      "date": "2026-11-21",
-      "source": "Leicestershire Live / LCFC",
-      "sourceUrl": "https://www.leicestermercury.co.uk/sport/football/football-news/huddersfield-leicester-city-tv-channel-11250428",
-      "title": "How to watch Huddersfield vs Leicester City - TV channel, live stream and kick-off time",
-      "summary": "Leicester City travel to Huddersfield Town this afternoon in a huge League One clash",
-      "body": [
-        "Leicester City travel to Huddersfield Town this afternoon in a huge League One clash",
-        "詳細は「参照サイトを開く」から元記事をご確認ください。"
-      ]
-    },
-    {
-      "id": "rss-aHR0cHM6Ly93d3cubGVp",
-      "tag": "LEICESTERSHIRE LIVE",
-      "date": "2026-11-21",
-      "source": "Leicestershire Live / LCFC",
-      "sourceUrl": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-huddersfield-miss-illness-11249565",
-      "title": "Seven players could miss Leicester City vs Huddersfield as illness update emerges",
-      "summary": "Leicester City are back in League One action against Huddersfield Town this afternoon",
-      "body": [
-        "Leicester City are back in League One action against Huddersfield Town this afternoon",
-        "詳細は「参照サイトを開く」から元記事をご確認ください。"
-      ]
-    },
-    {
-      "id": "rss-aHR0cHM6Ly93d3cubGVp",
-      "tag": "LEICESTERSHIRE LIVE",
-      "date": "2026-11-21",
-      "source": "Leicestershire Live / LCFC",
-      "sourceUrl": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-huddersfield-town-teams-11250070",
-      "title": "Joseph and Alves disagreement, O&apos;Hora call made - Leicester City line-ups for Huddersfield",
-      "summary": "Leicester City face a tough task this weekend as they take on League One leaders Huddersfield Town and our writers have offered their thoughts on the team that Russell Martin should field",
-      "body": [
-        "Leicester City face a tough task this weekend as they take on League One leaders Huddersfield Town and our writers have offered their thoughts on the team that Russell Martin should field",
-        "詳細は「参照サイトを開く」から元記事をご確認ください。"
-      ]
+      "pos": 6,
+      "team": "Stockport County",
+      "p": 17,
+      "gd": "+7",
+      "pts": 30
     }
   ],
-  "updatedAt": "2026-11-24T22:45:53.513Z"
+  "recentResults": [
+    {
+      "date": "11/21",
+      "comp": "League One",
+      "opponent": "Barnsley (H)",
+      "score": "2 - 0",
+      "result": "W"
+    },
+    {
+      "date": "11/14",
+      "comp": "League One",
+      "opponent": "Charlton Athletic (A)",
+      "score": "1 - 1",
+      "result": "D"
+    },
+    {
+      "date": "11/07",
+      "comp": "FA Cup 1R",
+      "opponent": "Morecambe (H)",
+      "score": "3 - 1",
+      "result": "W"
+    },
+    {
+      "date": "10/31",
+      "comp": "League One",
+      "opponent": "Reading (A)",
+      "score": "2 - 1",
+      "result": "W"
+    }
+  ],
+  "squad": [
+    {
+      "no": 1,
+      "name": "Mads Hermansen",
+      "pos": "GK",
+      "status": "主力・出場可能"
+    },
+    {
+      "no": 2,
+      "name": "James Justin",
+      "pos": "DF",
+      "status": "主力・出場可能"
+    },
+    {
+      "no": 4,
+      "name": "Conor Coady",
+      "pos": "DF",
+      "status": "主力・出場可能"
+    },
+    {
+      "no": 8,
+      "name": "Harry Winks",
+      "pos": "MF",
+      "status": "主力・出場可能"
+    },
+    {
+      "no": 9,
+      "name": "Jamie Vardy",
+      "pos": "FW",
+      "status": "主将・出場可能"
+    },
+    {
+      "no": 10,
+      "name": "Stephy Mavididi",
+      "pos": "FW",
+      "status": "主力・出場可能"
+    },
+    {
+      "no": 11,
+      "name": "Bilal El Khannouss",
+      "pos": "MF",
+      "status": "主力・出場可能"
+    },
+    {
+      "no": 18,
+      "name": "Abdul Fatawu",
+      "pos": "FW",
+      "status": "別メニュー調整中"
+    }
+  ],
+  "news": [
+    {
+      "id": "https://www.yorkshirepost.co.uk/sport/football/bradford-v-barnsley-fc-ratings-some-rough-marks-for-reds-defence-as-ex-oakwell-man-takes-honours-9372212",
+      "source": "YORKSHIRE POST",
+      "title": "Bradford v Barnsley FC ratings: Some rough marks for Reds defence as ex-Oakwell man takes honours",
+      "summary": "HERE are the Bradford City and Barnsley player ratings from Tuesday night’s League One derby at Valley Parade.",
+      "url": "https://www.yorkshirepost.co.uk/sport/football/bradford-v-barnsley-fc-ratings-some-rough-marks-for-reds-defence-as-ex-oakwell-man-takes-honours-9372212",
+      "publishedAt": "2026-11-24T21:41:08.000Z",
+      "originalTitle": "Bradford v Barnsley FC ratings: Some rough marks for Reds defence as ex-Oakwell man takes honours"
+    },
+    {
+      "id": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-player-ratings-blackpool-11254395",
+      "source": "LEICESTERSHIRE LIVE",
+      "title": "Leicester City player ratings vs Blackpool as 4/10s see wasteful Foxes drop points",
+      "summary": "Josh Holland rates Leicester City's players from Tuesday night's League One clash at Blackpool",
+      "url": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-player-ratings-blackpool-11254395",
+      "publishedAt": "2026-11-24T21:40:16.000Z",
+      "originalTitle": "Leicester City player ratings vs Blackpool as 4/10s see wasteful Foxes drop points"
+    },
+    {
+      "id": "https://www.leicestermercury.co.uk/sport/football/football-news/blackpool-leicester-city-tv-channel-11253354",
+      "source": "LEICESTERSHIRE LIVE",
+      "title": "How to watch Blackpool vs Leicester City - TV channel, live stream and kick-off time",
+      "summary": "Leicester City travel to Blackpool for the first time since 2013 this evening in League One",
+      "url": "https://www.leicestermercury.co.uk/sport/football/football-news/blackpool-leicester-city-tv-channel-11253354",
+      "publishedAt": "2026-11-24T13:00:00.000Z",
+      "originalTitle": "How to watch Blackpool vs Leicester City - TV channel, live stream and kick-off time"
+    },
+    {
+      "id": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-blackpool-lineups-chaplin-11253328",
+      "source": "LEICESTERSHIRE LIVE",
+      "title": "Cullen and Chaplin decisions, Smallbone replacement - Leicester City line-ups vs Blackpool",
+      "summary": "Our writers have their say on the team that Leicester City should field at Blackpool tonight",
+      "url": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-blackpool-lineups-chaplin-11253328",
+      "publishedAt": "2026-11-24T10:30:00.000Z",
+      "originalTitle": "Cullen and Chaplin decisions, Smallbone replacement - Leicester City line-ups vs Blackpool"
+    },
+    {
+      "id": "https://www.yorkshirepost.co.uk/sport/football/stevenage-sheffield-wednesday-tv-channel-streaming-league-one-9369817",
+      "source": "YORKSHIRE POST",
+      "title": "Is Stevenage v Sheffield Wednesday on TV? Channel and streaming details ahead of League One clash",
+      "summary": "The key TV and streaming details ahead of Sheffield Wednesday’s trip to Stevenage",
+      "url": "https://www.yorkshirepost.co.uk/sport/football/stevenage-sheffield-wednesday-tv-channel-streaming-league-one-9369817",
+      "publishedAt": "2026-11-24T09:23:42.000Z",
+      "originalTitle": "Is Stevenage v Sheffield Wednesday on TV? Channel and streaming details ahead of League One clash"
+    },
+    {
+      "id": "https://www.yorkshirepost.co.uk/sport/football/bradford-city-barnsley-fc-tv-channel-streaming-yorkshire-derby-league-one-9369771",
+      "source": "YORKSHIRE POST",
+      "title": "Is Bradford City v Barnsley FC on TV? Channel and streaming details for Yorkshire derby in League One",
+      "summary": "The key TV and streaming details ahead of Bradford City v Barnsley in League One",
+      "url": "https://www.yorkshirepost.co.uk/sport/football/bradford-city-barnsley-fc-tv-channel-streaming-yorkshire-derby-league-one-9369771",
+      "publishedAt": "2026-11-24T08:58:20.000Z",
+      "originalTitle": "Is Bradford City v Barnsley FC on TV? Channel and streaming details for Yorkshire derby in League One"
+    },
+    {
+      "id": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-blackpool-players-injuries-11252989",
+      "source": "LEICESTERSHIRE LIVE",
+      "title": "10 players to miss Blackpool vs Leicester City after new injury blows",
+      "summary": "Leicester City and Blackpool will be without regulars for tonight's League One clash at Bloomfield Road",
+      "url": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-blackpool-players-injuries-11252989",
+      "publishedAt": "2026-11-24T07:00:00.000Z",
+      "originalTitle": "10 players to miss Blackpool vs Leicester City after new injury blows"
+    },
+    {
+      "id": "https://www.leicestermercury.co.uk/sport/football/football-news/ben-nelson-injury-update-contract-11253044",
+      "source": "LEICESTERSHIRE LIVE",
+      "title": "Ben Nelson shares Leicester City injury update amid contract talks",
+      "summary": "The academy graduate has been out with an ACL injury since pre-season",
+      "url": "https://www.leicestermercury.co.uk/sport/football/football-news/ben-nelson-injury-update-contract-11253044",
+      "publishedAt": "2026-11-23T17:25:58.000Z",
+      "originalTitle": "Ben Nelson shares Leicester City injury update amid contract talks"
+    },
+    {
+      "id": "https://www.yorkshirepost.co.uk/sport/football/bradford-city-v-barnsley-fc-patrick-kelly-tells-reds-to-stop-using-youth-as-an-excuse-9369239",
+      "source": "YORKSHIRE POST",
+      "title": "Bradford City v Barnsley FC: Patrick Kelly tells Reds to stop using youth as an excuse",
+      "summary": "Much has been made of Barnsley's young team this season, but 22-year-old Patrick Kelly insists that is not why they go to Bradford City on Tuesday bottom of League One.",
+      "url": "https://www.yorkshirepost.co.uk/sport/football/bradford-city-v-barnsley-fc-patrick-kelly-tells-reds-to-stop-using-youth-as-an-excuse-9369239",
+      "publishedAt": "2026-11-23T16:55:59.000Z",
+      "originalTitle": "Bradford City v Barnsley FC: Patrick Kelly tells Reds to stop using youth as an excuse"
+    },
+    {
+      "id": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-smallbone-chaplin-cullen-11252753",
+      "source": "LEICESTERSHIRE LIVE",
+      "title": "Will Smallbone injury blow gives Leicester City pair chance to kickstart seasons",
+      "summary": "Leicester City's squad will need to come together during the Christmas period after Will Smallbone's injury",
+      "url": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-smallbone-chaplin-cullen-11252753",
+      "publishedAt": "2026-11-23T16:35:06.000Z",
+      "originalTitle": "Will Smallbone injury blow gives Leicester City pair chance to kickstart seasons"
+    },
+    {
+      "id": "https://www.yorkshirepost.co.uk/sport/football/sheffield-wednesday/stevenage-v-sheffield-wednesday-dave-challinor-on-key-to-making-jamal-lowe-role-work-9368811",
+      "source": "YORKSHIRE POST",
+      "title": "Stevenage v Sheffield Wednesday: Dave Challinor on key to making Jamal Lowe role work",
+      "summary": "Dave Challinor says keeping the ball better is they key to Sheffield Wednesday getting the best out of Jamal Lowe in an unfamiliar position.",
+      "url": "https://www.yorkshirepost.co.uk/sport/football/sheffield-wednesday/stevenage-v-sheffield-wednesday-dave-challinor-on-key-to-making-jamal-lowe-role-work-9368811",
+      "publishedAt": "2026-11-23T15:33:04.000Z",
+      "originalTitle": "Stevenage v Sheffield Wednesday: Dave Challinor on key to making Jamal Lowe role work"
+    },
+    {
+      "id": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-promotion-asmir-begovic-11252419",
+      "source": "LEICESTERSHIRE LIVE",
+      "title": "'Absolute failure' - Relegated Leicester City man makes promotion demand",
+      "summary": "Leicester City have beaten League One's two current best teams away from home this season",
+      "url": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-promotion-asmir-begovic-11252419",
+      "publishedAt": "2026-11-23T13:18:53.000Z",
+      "originalTitle": "'Absolute failure' - Relegated Leicester City man makes promotion demand"
+    }
+  ]
 }
