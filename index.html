@@ -278,8 +278,8 @@
       <div class="mt-4 pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2">
         <p id="news-modal-source" class="text-[11px] text-slate-400"></p>
         <a id="news-modal-source-link" href="#" target="_blank" rel="noopener noreferrer" class="hidden px-3 py-1.5 rounded-xl bg-blue-50 hover:bg-blue-100 text-[#003090] text-xs font-bold transition">
-          参照サイトを開く →
-        </a>
+  記事へ移動 →
+</a>
       </div>
     </div>
   </div>
@@ -1642,7 +1642,7 @@
         if (safeUrl) {
           const readMore = document.createElement('a');
           readMore.className = 'text-[11px] font-bold text-[#003090] hover:underline';
-          readMore.textContent = '全文を読む →';
+          readMore.textContent = '記事へ移動 →';
           readMore.href = safeUrl;
           readMore.target = '_blank';
           readMore.rel = 'noopener noreferrer';
@@ -2057,7 +2057,7 @@
         if (safeUrl) {
           const readMore = document.createElement('a');
           readMore.className = 'text-xs font-bold text-[#003090] hover:underline';
-          readMore.textContent = '全文を読む →';
+          readMore.textContent = '記事へ移動 →';
           readMore.href = safeUrl;
           readMore.target = '_blank';
           readMore.rel = 'noopener noreferrer';
