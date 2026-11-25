@@ -182,7 +182,10 @@ function formatJstStrings(dateObj) {
 
 function buildStandings(tableJson, fallbackStandings = []) {
   const list = tableJson?.table;
-  if (!Array.isArray(list) || list.length === 0) return fallbackStandings;
+  if (!Array.isArray(list) || list.length < 10) return fallbackStandings;
+
+  const totalPlayed = list.reduce((acc, r) => acc + (Number(r.intPlayed) || 0), 0);
+  if (totalPlayed === 0) return fallbackStandings;
 
   return list
     .map((row, idx) => ({
@@ -232,7 +235,7 @@ function toCountryCode(nat = '') {
 
 function buildSquad(playersJson, fallbackSquad = []) {
   const list = playersJson?.player;
-  if (!Array.isArray(list) || list.length === 0) return fallbackSquad;
+  if (!Array.isArray(list) || list.length < 5) return fallbackSquad;
 
   const mapped = list
     .filter((p) => p?.strPlayer && !/retired/i.test(String(p?.strStatus || '')))
@@ -246,78 +249,101 @@ function buildSquad(playersJson, fallbackSquad = []) {
       };
     });
 
-  return mapped.length > 0 ? mapped : fallbackSquad;
+  return mapped.length >= 5 ? mapped : fallbackSquad;
 }
 
 function buildFixturesAndResults(nextJson, lastJson, standings, fallbackData) {
+  const now = new Date();
   const upcomingRaw = Array.isArray(nextJson?.events) ? nextJson.events : [];
   const pastRaw = Array.isArray(lastJson?.results) ? lastJson.results : [];
 
-  const upcomingFixtures = upcomingRaw.map((ev) => {
-    const home = String(ev.strHomeTeam || '').trim();
-    const away = String(ev.strAwayTeam || '').trim();
-    const isHome = /leicester/i.test(home);
-    const opponent = isHome ? away : home;
-    const dt = parseKickoffDate(ev);
-    const fmt = formatJstStrings(dt);
+  const apiUpcoming = upcomingRaw
+    .map((ev) => {
+      const home = String(ev.strHomeTeam || '').trim();
+      const away = String(ev.strAwayTeam || '').trim();
+      const isHome = /leicester/i.test(home);
+      const opponent = isHome ? away : home;
+      const dt = parseKickoffDate(ev);
+      const fmt = formatJstStrings(dt);
+      return {
+        date: fmt.shortDate || ev.dateEvent || '',
+        competition: toCompetitionLabel(ev.strLeague),
+        opponent,
+        isHome,
+        venue: ev.strVenue || (isHome ? 'King Power Stadium' : 'Away Stadium'),
+        _dt: dt
+      };
+    })
+    .filter((item) => !item._dt || item._dt.getTime() >= now.getTime() - 2 * 60 * 60 * 1000)
+    .map(({ _dt, ...rest }) => rest);
 
-    return {
-      date: fmt.shortDate || ev.dateEvent || '',
-      competition: toCompetitionLabel(ev.strLeague),
-      opponent,
-      isHome,
-      venue: ev.strVenue || (isHome ? 'King Power Stadium' : 'Away Stadium')
-    };
+  // 既存upcomingFixturesから、すでに日付が過ぎた試合を除外して自動繰り上げに活かす
+  const existingUpcoming = (fallbackData.upcomingFixtures || []).filter((fx) => {
+    if (!fx?.date) return true;
+    const endOfDayJst = new Date(`${fx.date}T23:59:59+09:00`);
+    if (Number.isNaN(endOfDayJst.getTime())) return true;
+    return endOfDayJst.getTime() >= now.getTime();
   });
 
-  const pastResults = pastRaw.map((ev) => {
-    const home = String(ev.strHomeTeam || '').trim();
-    const away = String(ev.strAwayTeam || '').trim();
-    const isHome = /leicester/i.test(home);
-    const opponent = isHome ? away : home;
-    const hGoals = Number(ev.intHomeScore);
-    const aGoals = Number(ev.intAwayScore);
-    const lcfcGoals = isHome ? hGoals : aGoals;
-    const oppGoals = isHome ? aGoals : hGoals;
+  const upcomingFixtures =
+    apiUpcoming.length > 0 ? apiUpcoming : existingUpcoming;
 
-    let outcome = 'D';
-    if (!Number.isNaN(lcfcGoals) && !Number.isNaN(oppGoals)) {
-      if (lcfcGoals > oppGoals) outcome = 'W';
-      else if (lcfcGoals < oppGoals) outcome = 'L';
-    }
+  const pastResults =
+    pastRaw.length > 0
+      ? pastRaw.map((ev) => {
+          const home = String(ev.strHomeTeam || '').trim();
+          const away = String(ev.strAwayTeam || '').trim();
+          const isHome = /leicester/i.test(home);
+          const opponent = isHome ? away : home;
+          const hGoals = Number(ev.intHomeScore);
+          const aGoals = Number(ev.intAwayScore);
+          const lcfcGoals = isHome ? hGoals : aGoals;
+          const oppGoals = isHome ? aGoals : hGoals;
 
-    const dt = parseKickoffDate(ev);
-    const fmt = formatJstStrings(dt);
-    const score =
-      !Number.isNaN(hGoals) && !Number.isNaN(aGoals) ? `${hGoals} - ${aGoals}` : '0 - 0';
+          let outcome = 'D';
+          if (!Number.isNaN(lcfcGoals) && !Number.isNaN(oppGoals)) {
+            if (lcfcGoals > oppGoals) outcome = 'W';
+            else if (lcfcGoals < oppGoals) outcome = 'L';
+          }
 
-    return {
-      date: fmt.shortDate || ev.dateEvent || '',
-      competition: toCompetitionLabel(ev.strLeague),
-      opponent,
-      isHome,
-      score,
-      outcome
-    };
-  });
+          const dt = parseKickoffDate(ev);
+          const fmt = formatJstStrings(dt);
+          const score =
+            !Number.isNaN(hGoals) && !Number.isNaN(aGoals) ? `${hGoals} - ${aGoals}` : '0 - 0';
 
-  const recentFiveForm = pastResults.slice(0, 5).map((r) => ({
-    leagueCode: toLeagueShort(r.competition),
-    competition: r.competition,
-    opponent: r.opponent,
-    isHome: r.isHome,
-    outcome: r.outcome,
-    score: r.score
-  }));
+          return {
+            date: fmt.shortDate || ev.dateEvent || '',
+            competition: toCompetitionLabel(ev.strLeague),
+            opponent,
+            isHome,
+            score,
+            outcome
+          };
+        })
+      : fallbackData.pastResults || [];
+
+  const recentFiveForm =
+    pastRaw.length > 0
+      ? pastResults.slice(0, 5).map((r) => ({
+          leagueCode: toLeagueShort(r.competition),
+          competition: r.competition,
+          opponent: r.opponent,
+          isHome: r.isHome,
+          outcome: r.outcome,
+          score: r.score
+        }))
+      : fallbackData.recentFiveForm || [];
 
   let nextMatch = fallbackData.nextMatch;
+
+  // APIに次戦があれば更新
   if (upcomingRaw.length > 0) {
     const first = upcomingRaw[0];
     const home = String(first.strHomeTeam || '').trim();
     const away = String(first.strAwayTeam || '').trim();
     const isHome = /leicester/i.test(home);
     const opponent = isHome ? away : home;
-    const oppCode = String(first.strAwayTeam || first.strHomeTeam || 'OPP')
+    const oppCode = String(opponent || 'OPP')
       .replace(/[^A-Za-z]/g, '')
       .slice(0, 3)
       .toUpperCase();
@@ -356,13 +382,47 @@ function buildFixturesAndResults(nextJson, lastJson, standings, fallbackData) {
       highlightText,
       source: 'TheSportsDB / LCFC Match Centre'
     };
+  } else if (
+    fallbackData.nextMatch?.kickoffIso &&
+    new Date(fallbackData.nextMatch.kickoffIso).getTime() < now.getTime() - 2 * 60 * 60 * 1000 &&
+    upcomingFixtures.length > 0
+  ) {
+    // APIが未反映でもキックオフ時刻を過ぎた次戦があれば、upcomingFixturesの先頭へ自動繰り上げ
+    const nextFx = upcomingFixtures[0];
+    const lcfcRow = standings.find((r) => /leicester/i.test(r.team));
+    const oppRow = standings.find(
+      (r) => r.team.toLowerCase() === String(nextFx.opponent || '').toLowerCase()
+    );
+    nextMatch = {
+      ...(fallbackData.nextMatch || {}),
+      competition: toLeagueShort(nextFx.competition),
+      opponent: nextFx.opponent,
+      opponentCode: String(nextFx.opponent || 'OPP')
+        .replace(/[^A-Za-z]/g, '')
+        .slice(0, 3)
+        .toUpperCase(),
+      opponentRank: oppRow?.pos ?? fallbackData.nextMatch?.opponentRank ?? 0,
+      opponentRecord: oppRow
+        ? `勝点 ${oppRow.pts} (${oppRow.won}勝${oppRow.drawn}分${oppRow.lost}敗)`
+        : fallbackData.nextMatch?.opponentRecord || '',
+      lcfcRank: lcfcRow?.pos ?? fallbackData.nextMatch?.lcfcRank ?? 0,
+      lcfcRecord: lcfcRow
+        ? `勝点 ${lcfcRow.pts} (${lcfcRow.won}勝${lcfcRow.drawn}分${lcfcRow.lost}敗)`
+        : fallbackData.nextMatch?.lcfcRecord || '',
+      isHome: Boolean(nextFx.isHome),
+      date: `${nextFx.date} (JST)`,
+      kickoffIso: `${nextFx.date}T00:00:00+09:00`,
+      jstText: `${nextFx.date}`,
+      localText: '',
+      venue: `${nextFx.venue || 'Stadium'} (${nextFx.isHome ? 'Home' : 'Away'})`
+    };
   }
 
   return {
     nextMatch,
-    recentFiveForm: recentFiveForm.length > 0 ? recentFiveForm : fallbackData.recentFiveForm || [],
-    upcomingFixtures: upcomingFixtures.length > 0 ? upcomingFixtures : fallbackData.upcomingFixtures || [],
-    pastResults: pastResults.length > 0 ? pastResults : fallbackData.pastResults || []
+    recentFiveForm,
+    upcomingFixtures,
+    pastResults
   };
 }
 
@@ -431,6 +491,10 @@ async function fetchTranslatedNews(fallbackNews = []) {
     .sort((a, b) => new Date(b._publishedAt) - new Date(a._publishedAt))
     .slice(0, 12);
 
+  if (sortedNews.length === 0) {
+    return fallbackNews;
+  }
+
   const translatedNews = [];
   for (const item of sortedNews) {
     const jaTitle = await translateToJapanese(item.title);
@@ -484,7 +548,7 @@ async function main() {
   await fs.mkdir(path.dirname(DATA_PATH), { recursive: true });
   await fs.writeFile(DATA_PATH, `${JSON.stringify(nextData, null, 2)}\n`, 'utf8');
   console.log(
-    `Updated all LCFC data -> news:${nextData.news.length}, standings:${nextData.standings.length}, squad:${nextData.squad.length}, upcoming:${nextData.upcomingFixtures.length}, results:${nextData.pastResults.length}`
+    `Updated LCFC data -> news:${nextData.news.length}, standings:${nextData.standings.length}, squad:${nextData.squad.length}, upcoming:${nextData.upcomingFixtures.length}, results:${nextData.pastResults.length}`
   );
 }
 
