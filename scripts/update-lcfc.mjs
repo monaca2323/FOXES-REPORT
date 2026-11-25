@@ -55,20 +55,24 @@ function decodeXml(str = '') {
 }
 
 function decodeHtmlText(str = '') {
-  return str
+  return String(str)
     .replace(/<script[\s\S]*?<\/script>/gi, ' ')
     .replace(/<style[\s\S]*?<\/style>/gi, ' ')
     .replace(/<noscript[\s\S]*?<\/noscript>/gi, ' ')
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<\/(p|div|h[1-6]|li|section|article|blockquote)>/gi, '\n')
+    .replace(/<[^>]+>/g, ' ')
     .replace(/&nbsp;/gi, ' ')
     .replace(/&amp;/gi, '&')
     .replace(/&lt;/gi, '<')
     .replace(/&gt;/gi, '>')
     .replace(/&quot;/gi, '"')
-    .replace(/&#39;/gi, "'")
-    .replace(/&apos;/gi, "'")
-    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(Number(code) || 32))
-    .replace(/&#x([0-9a-f]+);/gi, (_, hex) => String.fromCharCode(parseInt(hex, 16) || 32))
-    .replace(/\s+/g, ' ')
+    .replace(/&#39;|&apos;/gi, "'")
+    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(Number(code)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, hex) => String.fromCharCode(parseInt(hex, 16)))
+    .replace(/<\/?[a-zA-Z][^>]*>/g, ' ')
+    .replace(/[ \t\r\f\v]+/g, ' ')
+    .replace(/\n\s*\n+/g, '\n')
     .trim();
 }
 
