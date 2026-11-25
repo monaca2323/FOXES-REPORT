@@ -158,7 +158,8 @@ async function fetchArticleParagraphs(articleUrl, fallbackSummary = '') {
     const res = await fetch(articleUrl, {
       headers: {
         'User-Agent':
-          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+          'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1',
+        'Accept-Language': 'en-GB,en;q=0.9',
         Accept: 'text/html,application/xhtml+xml'
       }
     });
@@ -168,26 +169,30 @@ async function fetchArticleParagraphs(articleUrl, fallbackSummary = '') {
     const articleMatch =
       html.match(/<article[\s\S]*?<\/article>/i) ||
       html.match(/<main[\s\S]*?<\/main>/i);
-    const targetHtml = articleMatch ? articleMatch[0] : html;
 
-    const pMatches = targetHtml.match(/<p\b[^>]*>[\s\S]*?<\/p>/gi) || [];
+    const sourcesToScan = articleMatch ? [articleMatch[0], html] : [html];
     const paragraphs = [];
     const seen = new Set();
 
-    for (const rawP of pMatches) {
-      const clean = decodeHtmlText(rawP);
-      if (!clean || clean.length < 25) continue;
-      if (
-        /cookie|privacy policy|terms of use|subscribe|newsletter|sign up|advert|all rights reserved|follow us on/i.test(
-          clean
-        )
-      ) {
-        continue;
+    for (const scopeHtml of sourcesToScan) {
+      const pMatches = scopeHtml.match(/<p\b[^>]*>[\s\S]*?<\/p>/gi) || [];
+      for (const rawP of pMatches) {
+        const clean = decodeHtmlText(rawP);
+        if (!clean || clean.length < 30) continue;
+        if (
+          /cookie|privacy policy|terms of use|subscribe|newsletter|sign up|advert|all rights reserved|follow us on|read more:|related articles/i.test(
+            clean
+          )
+        ) {
+          continue;
+        }
+        const key = clean.slice(0, 60).toLowerCase();
+        if (seen.has(key)) continue;
+        seen.add(key);
+        paragraphs.push(clean);
+        if (paragraphs.length >= 30) break;
       }
-      if (seen.has(clean)) continue;
-      seen.add(clean);
-      paragraphs.push(clean);
-      if (paragraphs.length >= 25) break;
+      if (paragraphs.length >= 5) break;
     }
 
     if (paragraphs.length > 0) return paragraphs;
