@@ -1639,57 +1639,31 @@
         footerRow.className = 'mt-2.5 flex items-center justify-between gap-2';
 
         const safeUrl = sanitizeExternalUrl(item.sourceUrl || item.url);
-        const readMore = document.createElement('a');
-        readMore.className = 'text-[11px] font-bold text-[#003090] hover:underline';
-        readMore.textContent = '全文を読む →';
         if (safeUrl) {
+          const readMore = document.createElement('a');
+          readMore.className = 'text-[11px] font-bold text-[#003090] hover:underline';
+          readMore.textContent = '全文を読む →';
           readMore.href = safeUrl;
           readMore.target = '_blank';
           readMore.rel = 'noopener noreferrer';
           readMore.addEventListener('click', e => e.stopPropagation());
-        } else {
-          readMore.href = '#';
-          readMore.addEventListener('click', e => {
-            e.preventDefault();
-            e.stopPropagation();
-            openNewsModal(item);
-          });
+          footerRow.appendChild(readMore);
         }
-        footerRow.appendChild(readMore);
-
-        const openModalLink = document.createElement('button');
-        openModalLink.type = 'button';
-        openModalLink.className = 'text-[11px] font-semibold text-slate-500 hover:text-slate-800';
-        openModalLink.textContent = safeUrl ? '要約を見る' : '詳細';
-        openModalLink.addEventListener('click', e => {
-          e.stopPropagation();
-          openNewsModal(item);
-        });
-        footerRow.appendChild(openModalLink);
 
         card.appendChild(top);
         card.appendChild(footerRow);
         card.addEventListener('click', () => {
-          if (safeUrl) {
-            window.open(safeUrl, '_blank', 'noopener,noreferrer');
-          } else {
-            openNewsModal(item);
-          }
+          openNewsModal(item);
         });
         card.addEventListener('keydown', e => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
-            if (safeUrl) {
-              window.open(safeUrl, '_blank', 'noopener,noreferrer');
-            } else {
-              openNewsModal(item);
-            }
+            openNewsModal(item);
           }
         });
         container.appendChild(card);
       });
     }
-
     function createFixtureCardElement(fx, isPastResult) {
       const row = document.createElement('div');
       row.className = isPastResult
@@ -2033,7 +2007,7 @@
       });
     }
 
-    function renderAllNews() {
+   function renderAllNews() {
       const container = document.getElementById('all-news-container');
       if (!container) return;
       container.innerHTML = '';
@@ -2080,57 +2054,31 @@
         footerRow.className = 'mt-3 flex items-center justify-between gap-2';
 
         const safeUrl = sanitizeExternalUrl(item.sourceUrl || item.url);
-        const readMore = document.createElement('a');
-        readMore.className = 'text-xs font-bold text-[#003090] hover:underline';
-        readMore.textContent = '全文を読む →';
         if (safeUrl) {
+          const readMore = document.createElement('a');
+          readMore.className = 'text-xs font-bold text-[#003090] hover:underline';
+          readMore.textContent = '全文を読む →';
           readMore.href = safeUrl;
           readMore.target = '_blank';
           readMore.rel = 'noopener noreferrer';
           readMore.addEventListener('click', e => e.stopPropagation());
-        } else {
-          readMore.href = '#';
-          readMore.addEventListener('click', e => {
-            e.preventDefault();
-            e.stopPropagation();
-            openNewsModal(item);
-          });
+          footerRow.appendChild(readMore);
         }
-        footerRow.appendChild(readMore);
-
-        const openModalLink = document.createElement('button');
-        openModalLink.type = 'button';
-        openModalLink.className = 'text-xs font-semibold text-slate-500 hover:text-slate-800';
-        openModalLink.textContent = safeUrl ? '要約を見る' : '詳細';
-        openModalLink.addEventListener('click', e => {
-          e.stopPropagation();
-          openNewsModal(item);
-        });
-        footerRow.appendChild(openModalLink);
 
         card.appendChild(top);
         card.appendChild(footerRow);
         card.addEventListener('click', () => {
-          if (safeUrl) {
-            window.open(safeUrl, '_blank', 'noopener,noreferrer');
-          } else {
-            openNewsModal(item);
-          }
+          openNewsModal(item);
         });
         card.addEventListener('keydown', e => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
-            if (safeUrl) {
-              window.open(safeUrl, '_blank', 'noopener,noreferrer');
-            } else {
-              openNewsModal(item);
-            }
+            openNewsModal(item);
           }
         });
         container.appendChild(card);
       });
     }
-
     function renderSquad() {
       const squadSourceEl = document.getElementById('squad-source');
       if (squadSourceEl) {
