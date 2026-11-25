@@ -23,12 +23,6 @@ const RSS_SOURCES = [
     tag: 'LEICESTERSHIRE LIVE',
     url: 'https://www.leicestermercury.co.uk/all-about/leicester-city-fc?service=rss',
     strictTeamFeed: false
-  },
-  {
-    name: 'Yorkshire Post',
-    tag: 'YORKSHIRE POST',
-    url: 'https://www.yorkshirepost.co.uk/sport/football/rss',
-    strictTeamFeed: false
   }
 ];
 
@@ -37,8 +31,7 @@ const INCLUDE_KEYWORDS = [
   'leicester',
   'lcfc',
   'foxes',
-  'king power',
-  'league one'
+  'king power'
 ];
 
 const EXCLUDE_KEYWORDS = [
@@ -49,6 +42,29 @@ const EXCLUDE_KEYWORDS = [
 ];
 
 function decodeXml(str = '') {
+  return str
+    .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&apos;/g, "'")
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function isLcfcRelated(title, summary, strictTeamFeed) {
+  const lowerTitle = String(title || '').toLowerCase();
+  const lowerAll = `${title} ${summary}`.toLowerCase();
+
+  if (EXCLUDE_KEYWORDS.some((kw) => lowerAll.includes(kw))) return false;
+  if (strictTeamFeed) return true;
+
+  // タイトルまたは本文にレスター関連ワードが含まれるものだけ許可
+  return INCLUDE_KEYWORDS.some((kw) => lowerTitle.includes(kw) || lowerAll.includes(kw));
+}
   return str
     .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1')
     .replace(/&amp;/g, '&')
