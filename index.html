@@ -1343,15 +1343,17 @@
         btn.classList.toggle('tab-active', isCurrent);
         btn.classList.toggle('tab-pill-idle', !isCurrent);
       });
-    }
-const activeBtn = document.querySelector(`.tab-btn[data-tab="${tabName}"]`);
-      if (activeBtn) {
-        activeBtn.scrollIntoView({
-          behavior: 'smooth',
-          block: 'nearest',
-          inline: 'center'
+ const activeBtn = document.querySelector(`.tab-btn[data-tab="${tabName}"]`);
+      const tabBar = activeBtn?.closest('nav, .overflow-x-auto, [role="tablist"]') || activeBtn?.parentElement;
+      if (activeBtn && tabBar) {
+        const targetLeft =
+          activeBtn.offsetLeft - (tabBar.clientWidth - activeBtn.offsetWidth) / 2;
+        tabBar.scrollTo({
+          left: Math.max(0, targetLeft),
+          behavior: 'smooth'
         });
-      }
+      }   }
+
    function enableTabSwipe() {
       const TAB_ORDER = ['home', 'fixtures', 'standings', 'squad', 'news', 'chat'];
       let startX = 0;
