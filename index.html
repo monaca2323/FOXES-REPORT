@@ -1344,7 +1344,15 @@
         btn.classList.toggle('tab-pill-idle', !isCurrent);
       });
     }
-function enableTabSwipe() {
+const activeBtn = document.querySelector(`.tab-btn[data-tab="${tabName}"]`);
+      if (activeBtn) {
+        activeBtn.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+          inline: 'center'
+        });
+      }
+   function enableTabSwipe() {
       const TAB_ORDER = ['home', 'fixtures', 'standings', 'squad', 'news', 'chat'];
       let startX = 0;
       let startY = 0;
