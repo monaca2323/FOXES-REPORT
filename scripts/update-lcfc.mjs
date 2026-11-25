@@ -54,6 +54,24 @@ function decodeXml(str = '') {
     .trim();
 }
 
+function decodeHtmlText(str = '') {
+  return str
+    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<noscript[\s\S]*?<\/noscript>/gi, ' ')
+    .replace(/&nbsp;/gi, ' ')
+    .replace(/&amp;/gi, '&')
+    .replace(/&lt;/gi, '<')
+    .replace(/&gt;/gi, '>')
+    .replace(/&quot;/gi, '"')
+    .replace(/&#39;/gi, "'")
+    .replace(/&apos;/gi, "'")
+    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(Number(code) || 32))
+    .replace(/&#x([0-9a-f]+);/gi, (_, hex) => String.fromCharCode(parseInt(hex, 16) || 32))
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 function isLcfcRelated(title, summary, strictTeamFeed) {
   const lowerTitle = String(title || '').toLowerCase();
   const lowerAll = `${title} ${summary}`.toLowerCase();
@@ -119,7 +137,7 @@ async function translateToJapanese(text) {
   let current = '';
 
   for (const s of sentences) {
-    if ((current + s).length > 180) {
+    if ((current + s).length > 220) {
       if (current) chunks.push(current.trim());
       current = s;
     } else {
@@ -133,6 +151,50 @@ async function translateToJapanese(text) {
     results.push(await translateChunkToJa(ch));
   }
   return results.join(' ').trim() || text;
+}
+
+async function fetchArticleParagraphs(articleUrl, fallbackSummary = '') {
+  try {
+    const res = await fetch(articleUrl, {
+      headers: {
+        'User-Agent':
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+        Accept: 'text/html,application/xhtml+xml'
+      }
+    });
+    if (!res.ok) return fallbackSummary ? [fallbackSummary] : [];
+
+    const html = await res.text();
+    const articleMatch =
+      html.match(/<article[\s\S]*?<\/article>/i) ||
+      html.match(/<main[\s\S]*?<\/main>/i);
+    const targetHtml = articleMatch ? articleMatch[0] : html;
+
+    const pMatches = targetHtml.match(/<p\b[^>]*>[\s\S]*?<\/p>/gi) || [];
+    const paragraphs = [];
+    const seen = new Set();
+
+    for (const rawP of pMatches) {
+      const clean = decodeHtmlText(rawP);
+      if (!clean || clean.length < 25) continue;
+      if (
+        /cookie|privacy policy|terms of use|subscribe|newsletter|sign up|advert|all rights reserved|follow us on/i.test(
+          clean
+        )
+      ) {
+        continue;
+      }
+      if (seen.has(clean)) continue;
+      seen.add(clean);
+      paragraphs.push(clean);
+      if (paragraphs.length >= 25) break;
+    }
+
+    if (paragraphs.length > 0) return paragraphs;
+    return fallbackSummary ? [fallbackSummary] : [];
+  } catch {
+    return fallbackSummary ? [fallbackSummary] : [];
+  }
 }
 
 async function fetchJsonSafe(url) {
@@ -482,7 +544,6 @@ function parseRssItems(xmlText, source) {
     if (!title || !link) continue;
     if (!isLcfcRelated(title, rawDesc, source.strictTeamFeed)) continue;
 
-    const summary = rawDesc.length > 180 ? `${rawDesc.slice(0, 177)}...` : rawDesc;
     const parsedDate = pubDateRaw ? new Date(pubDateRaw) : new Date();
     const validDate = Number.isNaN(parsedDate.getTime()) ? new Date() : parsedDate;
     const dateStr = validDate.toISOString().slice(0, 10);
@@ -495,8 +556,7 @@ function parseRssItems(xmlText, source) {
       sourceUrl: link,
       url: link,
       title,
-      summary: summary || `${source.name} によるレスター・シティ関連記事`,
-      body: [summary || `${source.name} によるレスター・シティ関連記事`],
+      rawSummary: rawDesc,
       _publishedAt: validDate.toISOString()
     });
   }
@@ -527,7 +587,7 @@ async function fetchTranslatedNews(fallbackNews = []) {
 
   const sortedNews = Array.from(dedupMap.values())
     .sort((a, b) => new Date(b._publishedAt) - new Date(a._publishedAt))
-    .slice(0, 12);
+    .slice(0, 10);
 
   if (sortedNews.length === 0) {
     return fallbackNews;
@@ -536,13 +596,26 @@ async function fetchTranslatedNews(fallbackNews = []) {
   const translatedNews = [];
   for (const item of sortedNews) {
     const jaTitle = await translateToJapanese(item.title);
-    const jaSummary = await translateToJapanese(item.summary);
-    const { _publishedAt, ...cleanItem } = item;
+    const rawParagraphs = await fetchArticleParagraphs(item.url, item.rawSummary);
+
+    const jaParagraphs = [];
+    for (const para of rawParagraphs) {
+      const jaPara = await translateToJapanese(para);
+      if (jaPara) jaParagraphs.push(jaPara);
+    }
+
+    const finalBody =
+      jaParagraphs.length > 0
+        ? jaParagraphs
+        : [await translateToJapanese(item.rawSummary || item.title)];
+
+    const { rawSummary, _publishedAt, ...cleanItem } = item;
     translatedNews.push({
       ...cleanItem,
       title: jaTitle,
-      summary: jaSummary,
-      body: [jaSummary]
+      summary: finalBody[0] || jaTitle,
+      body: finalBody,
+      fullText: finalBody.join('\n\n')
     });
   }
 
