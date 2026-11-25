@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-25T04:17:20.106Z",
+  "updatedAt": "2026-11-25T04:32:06.142Z",
   "nextMatch": {
     "competition": "EFL LEAGUE ONE",
     "dateLabel": "11月28日（土）24:00 KO（日本時間）",
@@ -137,111 +137,163 @@
   "news": [
     {
       "id": "https://www.yorkshirepost.co.uk/sport/football/barnsley-fc-head-coach-daniel-stendel-on-fans-chants-after-latest-loss-to-bradford-city-9372303",
-      "source": "YORKSHIRE POST",
+      "tag": "YORKSHIRE POST",
+      "date": "2026-11-24",
+      "source": "Yorkshire Post（外部ソース参考）",
+      "sourceUrl": "https://www.yorkshirepost.co.uk/sport/football/barnsley-fc-head-coach-daniel-stendel-on-fans-chants-after-latest-loss-to-bradford-city-9372303",
+      "url": "https://www.yorkshirepost.co.uk/sport/football/barnsley-fc-head-coach-daniel-stendel-on-fans-chants-after-latest-loss-to-bradford-city-9372303",
       "title": "Barnsley FC head coach Daniel Stendel on fans chants after latest loss to Bradford City",
       "summary": "BARNSLEY head coach Daniel Stendel insists he had no issue with supporters having a pop at his side after the final whistle of his side’s 3-0 League One derby loss at Bradford C...",
-      "url": "https://www.yorkshirepost.co.uk/sport/football/barnsley-fc-head-coach-daniel-stendel-on-fans-chants-after-latest-loss-to-bradford-city-9372303",
-      "publishedAt": "2026-11-24T22:51:55.000Z",
-      "originalTitle": "Barnsley FC head coach Daniel Stendel on fans chants after latest loss to Bradford City"
+      "body": [
+        "BARNSLEY head coach Daniel Stendel insists he had no issue with supporters having a pop at his side after the final whistle of his side’s 3-0 League One derby loss at Bradford C..."
+      ]
     },
     {
       "id": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-ruthless-streak-missing-11254389",
-      "source": "LEICESTERSHIRE LIVE",
+      "tag": "LEICESTERSHIRE LIVE",
+      "date": "2026-11-24",
+      "source": "Leicestershire Live（外部ソース参考）",
+      "sourceUrl": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-ruthless-streak-missing-11254389",
+      "url": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-ruthless-streak-missing-11254389",
       "title": "Leicester City have a ruthless streak missing as frustrating pattern continues",
       "summary": "Leicester City struggled to take their chances at Blackpool on Tuesday night",
-      "url": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-ruthless-streak-missing-11254389",
-      "publishedAt": "2026-11-24T22:45:23.000Z",
-      "originalTitle": "Leicester City have a ruthless streak missing as frustrating pattern continues"
+      "body": [
+        "Leicester City struggled to take their chances at Blackpool on Tuesday night"
+      ]
     },
     {
       "id": "https://www.yorkshirepost.co.uk/sport/football/bradford-v-barnsley-fc-ratings-some-rough-marks-for-reds-defence-as-ex-oakwell-man-takes-honours-9372212",
-      "source": "YORKSHIRE POST",
+      "tag": "YORKSHIRE POST",
+      "date": "2026-11-24",
+      "source": "Yorkshire Post（外部ソース参考）",
+      "sourceUrl": "https://www.yorkshirepost.co.uk/sport/football/bradford-v-barnsley-fc-ratings-some-rough-marks-for-reds-defence-as-ex-oakwell-man-takes-honours-9372212",
+      "url": "https://www.yorkshirepost.co.uk/sport/football/bradford-v-barnsley-fc-ratings-some-rough-marks-for-reds-defence-as-ex-oakwell-man-takes-honours-9372212",
       "title": "Bradford v Barnsley FC ratings: Some rough marks for Reds defence as ex-Oakwell man takes honours",
       "summary": "HERE are the Bradford City and Barnsley player ratings from Tuesday night’s League One derby at Valley Parade.",
-      "url": "https://www.yorkshirepost.co.uk/sport/football/bradford-v-barnsley-fc-ratings-some-rough-marks-for-reds-defence-as-ex-oakwell-man-takes-honours-9372212",
-      "publishedAt": "2026-11-24T21:41:08.000Z",
-      "originalTitle": "Bradford v Barnsley FC ratings: Some rough marks for Reds defence as ex-Oakwell man takes honours"
+      "body": [
+        "HERE are the Bradford City and Barnsley player ratings from Tuesday night’s League One derby at Valley Parade."
+      ]
     },
     {
       "id": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-player-ratings-blackpool-11254395",
-      "source": "LEICESTERSHIRE LIVE",
+      "tag": "LEICESTERSHIRE LIVE",
+      "date": "2026-11-24",
+      "source": "Leicestershire Live（外部ソース参考）",
+      "sourceUrl": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-player-ratings-blackpool-11254395",
+      "url": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-player-ratings-blackpool-11254395",
       "title": "Leicester City player ratings vs Blackpool as 4/10s see wasteful Foxes drop points",
       "summary": "Josh Holland rates Leicester City's players from Tuesday night's League One clash at Blackpool",
-      "url": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-player-ratings-blackpool-11254395",
-      "publishedAt": "2026-11-24T21:40:16.000Z",
-      "originalTitle": "Leicester City player ratings vs Blackpool as 4/10s see wasteful Foxes drop points"
+      "body": [
+        "Josh Holland rates Leicester City's players from Tuesday night's League One clash at Blackpool"
+      ]
     },
     {
       "id": "https://www.leicestermercury.co.uk/sport/football/football-news/blackpool-leicester-city-tv-channel-11253354",
-      "source": "LEICESTERSHIRE LIVE",
+      "tag": "LEICESTERSHIRE LIVE",
+      "date": "2026-11-24",
+      "source": "Leicestershire Live（外部ソース参考）",
+      "sourceUrl": "https://www.leicestermercury.co.uk/sport/football/football-news/blackpool-leicester-city-tv-channel-11253354",
+      "url": "https://www.leicestermercury.co.uk/sport/football/football-news/blackpool-leicester-city-tv-channel-11253354",
       "title": "How to watch Blackpool vs Leicester City - TV channel, live stream and kick-off time",
       "summary": "Leicester City travel to Blackpool for the first time since 2013 this evening in League One",
-      "url": "https://www.leicestermercury.co.uk/sport/football/football-news/blackpool-leicester-city-tv-channel-11253354",
-      "publishedAt": "2026-11-24T13:00:00.000Z",
-      "originalTitle": "How to watch Blackpool vs Leicester City - TV channel, live stream and kick-off time"
+      "body": [
+        "Leicester City travel to Blackpool for the first time since 2013 this evening in League One"
+      ]
     },
     {
       "id": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-blackpool-lineups-chaplin-11253328",
-      "source": "LEICESTERSHIRE LIVE",
+      "tag": "LEICESTERSHIRE LIVE",
+      "date": "2026-11-24",
+      "source": "Leicestershire Live（外部ソース参考）",
+      "sourceUrl": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-blackpool-lineups-chaplin-11253328",
+      "url": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-blackpool-lineups-chaplin-11253328",
       "title": "Cullen and Chaplin decisions, Smallbone replacement - Leicester City line-ups vs Blackpool",
       "summary": "Our writers have their say on the team that Leicester City should field at Blackpool tonight",
-      "url": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-blackpool-lineups-chaplin-11253328",
-      "publishedAt": "2026-11-24T10:30:00.000Z",
-      "originalTitle": "Cullen and Chaplin decisions, Smallbone replacement - Leicester City line-ups vs Blackpool"
+      "body": [
+        "Our writers have their say on the team that Leicester City should field at Blackpool tonight"
+      ]
     },
     {
       "id": "https://www.yorkshirepost.co.uk/sport/football/stevenage-sheffield-wednesday-tv-channel-streaming-league-one-9369817",
-      "source": "YORKSHIRE POST",
+      "tag": "YORKSHIRE POST",
+      "date": "2026-11-24",
+      "source": "Yorkshire Post（外部ソース参考）",
+      "sourceUrl": "https://www.yorkshirepost.co.uk/sport/football/stevenage-sheffield-wednesday-tv-channel-streaming-league-one-9369817",
+      "url": "https://www.yorkshirepost.co.uk/sport/football/stevenage-sheffield-wednesday-tv-channel-streaming-league-one-9369817",
       "title": "Is Stevenage v Sheffield Wednesday on TV? Channel and streaming details ahead of League One clash",
       "summary": "The key TV and streaming details ahead of Sheffield Wednesday’s trip to Stevenage",
-      "url": "https://www.yorkshirepost.co.uk/sport/football/stevenage-sheffield-wednesday-tv-channel-streaming-league-one-9369817",
-      "publishedAt": "2026-11-24T09:23:42.000Z",
-      "originalTitle": "Is Stevenage v Sheffield Wednesday on TV? Channel and streaming details ahead of League One clash"
+      "body": [
+        "The key TV and streaming details ahead of Sheffield Wednesday’s trip to Stevenage"
+      ]
     },
     {
       "id": "https://www.yorkshirepost.co.uk/sport/football/bradford-city-barnsley-fc-tv-channel-streaming-yorkshire-derby-league-one-9369771",
-      "source": "YORKSHIRE POST",
+      "tag": "YORKSHIRE POST",
+      "date": "2026-11-24",
+      "source": "Yorkshire Post（外部ソース参考）",
+      "sourceUrl": "https://www.yorkshirepost.co.uk/sport/football/bradford-city-barnsley-fc-tv-channel-streaming-yorkshire-derby-league-one-9369771",
+      "url": "https://www.yorkshirepost.co.uk/sport/football/bradford-city-barnsley-fc-tv-channel-streaming-yorkshire-derby-league-one-9369771",
       "title": "Is Bradford City v Barnsley FC on TV? Channel and streaming details for Yorkshire derby in League One",
       "summary": "The key TV and streaming details ahead of Bradford City v Barnsley in League One",
-      "url": "https://www.yorkshirepost.co.uk/sport/football/bradford-city-barnsley-fc-tv-channel-streaming-yorkshire-derby-league-one-9369771",
-      "publishedAt": "2026-11-24T08:58:20.000Z",
-      "originalTitle": "Is Bradford City v Barnsley FC on TV? Channel and streaming details for Yorkshire derby in League One"
+      "body": [
+        "The key TV and streaming details ahead of Bradford City v Barnsley in League One"
+      ]
     },
     {
       "id": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-blackpool-players-injuries-11252989",
-      "source": "LEICESTERSHIRE LIVE",
+      "tag": "LEICESTERSHIRE LIVE",
+      "date": "2026-11-24",
+      "source": "Leicestershire Live（外部ソース参考）",
+      "sourceUrl": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-blackpool-players-injuries-11252989",
+      "url": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-blackpool-players-injuries-11252989",
       "title": "10 players to miss Blackpool vs Leicester City after new injury blows",
       "summary": "Leicester City and Blackpool will be without regulars for tonight's League One clash at Bloomfield Road",
-      "url": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-blackpool-players-injuries-11252989",
-      "publishedAt": "2026-11-24T07:00:00.000Z",
-      "originalTitle": "10 players to miss Blackpool vs Leicester City after new injury blows"
+      "body": [
+        "Leicester City and Blackpool will be without regulars for tonight's League One clash at Bloomfield Road"
+      ]
     },
     {
       "id": "https://www.leicestermercury.co.uk/sport/football/football-news/ben-nelson-injury-update-contract-11253044",
-      "source": "LEICESTERSHIRE LIVE",
+      "tag": "LEICESTERSHIRE LIVE",
+      "date": "2026-11-23",
+      "source": "Leicestershire Live（外部ソース参考）",
+      "sourceUrl": "https://www.leicestermercury.co.uk/sport/football/football-news/ben-nelson-injury-update-contract-11253044",
+      "url": "https://www.leicestermercury.co.uk/sport/football/football-news/ben-nelson-injury-update-contract-11253044",
       "title": "Ben Nelson shares Leicester City injury update amid contract talks",
       "summary": "The academy graduate has been out with an ACL injury since pre-season",
-      "url": "https://www.leicestermercury.co.uk/sport/football/football-news/ben-nelson-injury-update-contract-11253044",
-      "publishedAt": "2026-11-23T17:25:58.000Z",
-      "originalTitle": "Ben Nelson shares Leicester City injury update amid contract talks"
+      "body": [
+        "The academy graduate has been out with an ACL injury since pre-season"
+      ]
     },
     {
       "id": "https://www.yorkshirepost.co.uk/sport/football/bradford-city-v-barnsley-fc-patrick-kelly-tells-reds-to-stop-using-youth-as-an-excuse-9369239",
-      "source": "YORKSHIRE POST",
+      "tag": "YORKSHIRE POST",
+      "date": "2026-11-23",
+      "source": "Yorkshire Post（外部ソース参考）",
+      "sourceUrl": "https://www.yorkshirepost.co.uk/sport/football/bradford-city-v-barnsley-fc-patrick-kelly-tells-reds-to-stop-using-youth-as-an-excuse-9369239",
+      "url": "https://www.yorkshirepost.co.uk/sport/football/bradford-city-v-barnsley-fc-patrick-kelly-tells-reds-to-stop-using-youth-as-an-excuse-9369239",
       "title": "Bradford City v Barnsley FC: Patrick Kelly tells Reds to stop using youth as an excuse",
       "summary": "Much has been made of Barnsley's young team this season, but 22-year-old Patrick Kelly insists that is not why they go to Bradford City on Tuesday bottom of League One.",
-      "url": "https://www.yorkshirepost.co.uk/sport/football/bradford-city-v-barnsley-fc-patrick-kelly-tells-reds-to-stop-using-youth-as-an-excuse-9369239",
-      "publishedAt": "2026-11-23T16:55:59.000Z",
-      "originalTitle": "Bradford City v Barnsley FC: Patrick Kelly tells Reds to stop using youth as an excuse"
+      "body": [
+        "Much has been made of Barnsley's young team this season, but 22-year-old Patrick Kelly insists that is not why they go to Bradford City on Tuesday bottom of League One."
+      ]
     },
     {
       "id": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-smallbone-chaplin-cullen-11252753",
-      "source": "LEICESTERSHIRE LIVE",
+      "tag": "LEICESTERSHIRE LIVE",
+      "date": "2026-11-23",
+      "source": "Leicestershire Live（外部ソース参考）",
+      "sourceUrl": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-smallbone-chaplin-cullen-11252753",
+      "url": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-smallbone-chaplin-cullen-11252753",
       "title": "Will Smallbone injury blow gives Leicester City pair chance to kickstart seasons",
       "summary": "Leicester City's squad will need to come together during the Christmas period after Will Smallbone's injury",
-      "url": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-smallbone-chaplin-cullen-11252753",
-      "publishedAt": "2026-11-23T16:35:06.000Z",
-      "originalTitle": "Will Smallbone injury blow gives Leicester City pair chance to kickstart seasons"
+      "body": [
+        "Leicester City's squad will need to come together during the Christmas period after Will Smallbone's injury"
+      ]
     }
-  ]
+  ],
+  "seasonLabel": "Leicester City FC • EFL League One",
+  "recentFiveForm": [],
+  "upcomingFixtures": [],
+  "pastResults": []
 }
