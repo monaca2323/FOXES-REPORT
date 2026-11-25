@@ -3,7 +3,6 @@ import path from 'node:path';
 
 const DATA_PATH = path.resolve('data/lcfc.json');
 
-// TheSportsDB (Leicester City FC ID: 133866, EFL League One ID: 4398)
 const TEAM_ID = '133866';
 const LEAGUE_ID = '4398';
 const SDB_NEXT_URL = `https://www.thesportsdb.com/api/v1/json/3/eventsnext.php?id=${TEAM_ID}`;
@@ -62,34 +61,13 @@ function isLcfcRelated(title, summary, strictTeamFeed) {
   if (EXCLUDE_KEYWORDS.some((kw) => lowerAll.includes(kw))) return false;
   if (strictTeamFeed) return true;
 
-  // タイトルまたは本文にレスター関連ワードが含まれるものだけ許可
   return INCLUDE_KEYWORDS.some((kw) => lowerTitle.includes(kw) || lowerAll.includes(kw));
-}
-  return str
-    .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1')
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/&apos;/g, "'")
-    .replace(/<[^>]+>/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-}
-
-function isLcfcRelated(title, summary, strictTeamFeed) {
-  const text = `${title} ${summary}`.toLowerCase();
-  if (EXCLUDE_KEYWORDS.some((kw) => text.includes(kw))) return false;
-  if (strictTeamFeed) return true;
-  return INCLUDE_KEYWORDS.some((kw) => text.includes(kw));
 }
 
 async function translateChunkToJa(chunk) {
   if (!chunk) return '';
   if (/[\u3040-\u30ff\u4e00-\u9faf]/.test(chunk)) return chunk;
 
-  // 1) Google翻訳エンドポイント
   try {
     const gUrl = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=ja&dt=t&q=${encodeURIComponent(chunk)}`;
     const gRes = await fetch(gUrl, {
@@ -106,10 +84,9 @@ async function translateChunkToJa(chunk) {
       }
     }
   } catch {
-    // 次の手段へフォールバック
+    // fallback
   }
 
-  // 2) MyMemory APIへフォールバック
   try {
     const mUrl = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(chunk)}&langpair=en|ja`;
     const mRes = await fetch(mUrl, {
@@ -127,7 +104,7 @@ async function translateChunkToJa(chunk) {
       }
     }
   } catch {
-    // 翻訳失敗時は原文を返す
+    // fallback
   }
 
   return chunk;
@@ -203,12 +180,7 @@ function parseKickoffDate(ev) {
 
 function formatJstStrings(dateObj) {
   if (!dateObj || Number.isNaN(dateObj.getTime())) {
-    return {
-      iso: '',
-      jstText: '日時未定',
-      localText: '',
-      shortDate: ''
-    };
+    return { iso: '', jstText: '日時未定', localText: '', shortDate: '' };
   }
 
   const jstFormatter = new Intl.DateTimeFormat('ja-JP', {
@@ -300,8 +272,7 @@ function toCountryCode(nat = '') {
     Finland: 'FIN',
     'Bosnia and Herzegovina': 'BIH'
   };
-  if (map[s]) return map[s];
-  return s.slice(0, 3).toUpperCase() || 'UNK';
+  return map[s] || s.slice(0, 3).toUpperCase() || 'UNK';
 }
 
 function buildSquad(playersJson, fallbackSquad = []) {
@@ -348,7 +319,6 @@ function buildFixturesAndResults(nextJson, lastJson, standings, fallbackData) {
     .filter((item) => !item._dt || item._dt.getTime() >= now.getTime() - 2 * 60 * 60 * 1000)
     .map(({ _dt, ...rest }) => rest);
 
-  // 既存upcomingFixturesから、すでに日付が過ぎた試合を除外して自動繰り上げに活かす
   const existingUpcoming = (fallbackData.upcomingFixtures || []).filter((fx) => {
     if (!fx?.date) return true;
     const endOfDayJst = new Date(`${fx.date}T23:59:59+09:00`);
@@ -356,8 +326,7 @@ function buildFixturesAndResults(nextJson, lastJson, standings, fallbackData) {
     return endOfDayJst.getTime() >= now.getTime();
   });
 
-  const upcomingFixtures =
-    apiUpcoming.length > 0 ? apiUpcoming : existingUpcoming;
+  const upcomingFixtures = apiUpcoming.length > 0 ? apiUpcoming : existingUpcoming;
 
   const pastResults =
     pastRaw.length > 0
@@ -407,7 +376,6 @@ function buildFixturesAndResults(nextJson, lastJson, standings, fallbackData) {
 
   let nextMatch = fallbackData.nextMatch;
 
-  // APIに次戦があれば更新
   if (upcomingRaw.length > 0) {
     const first = upcomingRaw[0];
     const home = String(first.strHomeTeam || '').trim();
@@ -458,7 +426,6 @@ function buildFixturesAndResults(nextJson, lastJson, standings, fallbackData) {
     new Date(fallbackData.nextMatch.kickoffIso).getTime() < now.getTime() - 2 * 60 * 60 * 1000 &&
     upcomingFixtures.length > 0
   ) {
-    // APIが未反映でもキックオフ時刻を過ぎた次戦があれば、upcomingFixturesの先頭へ自動繰り上げ
     const nextFx = upcomingFixtures[0];
     const lcfcRow = standings.find((r) => /leicester/i.test(r.team));
     const oppRow = standings.find(
