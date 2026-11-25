@@ -18,82 +18,703 @@
     "source": "LCFC Match Centre / Sky Sports"
   },
   "recentFiveForm": [
-    { "leagueCode": "EFL1", "competition": "EFLリーグ1", "opponent": "ブラックプール", "isHome": false, "outcome": "D", "score": "1 - 1" },
-    { "leagueCode": "EFL1", "competition": "EFLリーグ1", "opponent": "ハダースフィールド", "isHome": false, "outcome": "W", "score": "0 - 1" },
-    { "leagueCode": "EFLT", "competition": "EFLトロフィー", "opponent": "ウォルソール", "isHome": true, "outcome": "W", "score": "2 - 1" },
-    { "leagueCode": "FA", "competition": "FAカップ", "opponent": "オックスフォード・シティ", "isHome": false, "outcome": "W", "score": "2 - 4" },
-    { "leagueCode": "EFL1", "competition": "EFLリーグ1", "opponent": "スティヴネイジ", "isHome": true, "outcome": "D", "score": "2 - 2" }
+    {
+      "leagueCode": "EFL1",
+      "competition": "EFLリーグ1",
+      "opponent": "ブラックプール",
+      "isHome": false,
+      "outcome": "D",
+      "score": "1 - 1"
+    },
+    {
+      "leagueCode": "EFL1",
+      "competition": "EFLリーグ1",
+      "opponent": "ハダースフィールド",
+      "isHome": false,
+      "outcome": "W",
+      "score": "0 - 1"
+    },
+    {
+      "leagueCode": "EFLT",
+      "competition": "EFLトロフィー",
+      "opponent": "ウォルソール",
+      "isHome": true,
+      "outcome": "W",
+      "score": "2 - 1"
+    },
+    {
+      "leagueCode": "FA",
+      "competition": "FAカップ",
+      "opponent": "オックスフォード・シティ",
+      "isHome": false,
+      "outcome": "W",
+      "score": "2 - 4"
+    },
+    {
+      "leagueCode": "EFL1",
+      "competition": "EFLリーグ1",
+      "opponent": "スティヴネイジ",
+      "isHome": true,
+      "outcome": "D",
+      "score": "2 - 2"
+    }
   ],
   "upcomingFixtures": [
-    { "date": "2026-11-29", "competition": "EFL1 (EFLリーグ1)", "opponent": "Mansfield Town", "isHome": true, "venue": "King Power Stadium" },
-    { "date": "2026-12-02", "competition": "EFL1 (EFLリーグ1)", "opponent": "Cambridge United", "isHome": false, "venue": "Cledara Abbey Stadium" },
-    { "date": "2026-12-06", "competition": "FA (FAカップ)", "opponent": "Dover Athletic", "isHome": false, "venue": "Crabble Athletic Ground" },
-    { "date": "2026-12-11", "competition": "EFL1 (EFLリーグ1)", "opponent": "Sheffield Wednesday", "isHome": true, "venue": "King Power Stadium" },
-    { "date": "2026-12-20", "competition": "EFL1 (EFLリーグ1)", "opponent": "Reading", "isHome": false, "venue": "Select Car Leasing Stadium" }
+    {
+      "date": "2026-11-29",
+      "competition": "EFL1 (EFLリーグ1)",
+      "opponent": "Mansfield Town",
+      "isHome": true,
+      "venue": "King Power Stadium"
+    },
+    {
+      "date": "2026-12-02",
+      "competition": "EFL1 (EFLリーグ1)",
+      "opponent": "Cambridge United",
+      "isHome": false,
+      "venue": "Cledara Abbey Stadium"
+    },
+    {
+      "date": "2026-12-06",
+      "competition": "FA (FAカップ)",
+      "opponent": "Dover Athletic",
+      "isHome": false,
+      "venue": "Crabble Athletic Ground"
+    },
+    {
+      "date": "2026-12-11",
+      "competition": "EFL1 (EFLリーグ1)",
+      "opponent": "Sheffield Wednesday",
+      "isHome": true,
+      "venue": "King Power Stadium"
+    },
+    {
+      "date": "2026-12-20",
+      "competition": "EFL1 (EFLリーグ1)",
+      "opponent": "Reading",
+      "isHome": false,
+      "venue": "Select Car Leasing Stadium"
+    }
   ],
   "pastResults": [
-    { "date": "2026-11-25", "competition": "EFL1 (EFLリーグ1)", "opponent": "Blackpool", "isHome": false, "score": "1 - 1", "outcome": "D" },
-    { "date": "2026-11-22", "competition": "EFL1 (EFLリーグ1)", "opponent": "Huddersfield Town", "isHome": false, "score": "0 - 1", "outcome": "W" },
-    { "date": "2026-11-11", "competition": "EFLT (EFLトロフィー)", "opponent": "Walsall", "isHome": true, "score": "2 - 1", "outcome": "W" },
-    { "date": "2026-11-07", "competition": "FA (FAカップ)", "opponent": "Oxford City", "isHome": false, "score": "2 - 4", "outcome": "W" },
-    { "date": "2026-11-01", "competition": "EFL1 (EFLリーグ1)", "opponent": "Stevenage", "isHome": true, "score": "2 - 2", "outcome": "D" },
-    { "date": "2026-10-28", "competition": "EFL1 (EFLリーグ1)", "opponent": "Wigan Athletic", "isHome": true, "score": "3 - 0", "outcome": "W" }
+    {
+      "date": "2026-11-25",
+      "competition": "EFL1 (EFLリーグ1)",
+      "opponent": "Blackpool",
+      "isHome": false,
+      "score": "1 - 1",
+      "outcome": "D"
+    },
+    {
+      "date": "2026-11-22",
+      "competition": "EFL1 (EFLリーグ1)",
+      "opponent": "Huddersfield Town",
+      "isHome": false,
+      "score": "0 - 1",
+      "outcome": "W"
+    },
+    {
+      "date": "2026-11-11",
+      "competition": "EFLT (EFLトロフィー)",
+      "opponent": "Walsall",
+      "isHome": true,
+      "score": "2 - 1",
+      "outcome": "W"
+    },
+    {
+      "date": "2026-11-07",
+      "competition": "FA (FAカップ)",
+      "opponent": "Oxford City",
+      "isHome": false,
+      "score": "2 - 4",
+      "outcome": "W"
+    },
+    {
+      "date": "2026-11-01",
+      "competition": "EFL1 (EFLリーグ1)",
+      "opponent": "Stevenage",
+      "isHome": true,
+      "score": "2 - 2",
+      "outcome": "D"
+    },
+    {
+      "date": "2026-10-28",
+      "competition": "EFL1 (EFLリーグ1)",
+      "opponent": "Wigan Athletic",
+      "isHome": true,
+      "score": "3 - 0",
+      "outcome": "W"
+    }
   ],
-"standings": [
-    { "pos": 1, "team": "Stockport County", "played": 16, "won": 10, "drawn": 2, "lost": 4, "gd": 17, "pts": 32 },
-    { "pos": 2, "team": "Huddersfield Town", "played": 15, "won": 8, "drawn": 5, "lost": 2, "gd": 15, "pts": 29 },
-    { "pos": 3, "team": "Oxford United", "played": 14, "won": 8, "drawn": 5, "lost": 1, "gd": 12, "pts": 29 },
-    { "pos": 4, "team": "Sheffield Wednesday", "played": 16, "won": 7, "drawn": 6, "lost": 3, "gd": 12, "pts": 27 },
-    { "pos": 5, "team": "Luton Town", "played": 15, "won": 8, "drawn": 3, "lost": 4, "gd": 7, "pts": 27 },
-    { "pos": 6, "team": "Bradford City", "played": 15, "won": 7, "drawn": 5, "lost": 3, "gd": 5, "pts": 26 },
-    { "pos": 7, "team": "Leicester City", "played": 15, "won": 6, "drawn": 5, "lost": 4, "gd": 4, "pts": 23 },
-    { "pos": 8, "team": "Plymouth Argyle", "played": 16, "won": 7, "drawn": 2, "lost": 7, "gd": -3, "pts": 23 },
-    { "pos": 9, "team": "Reading", "played": 16, "won": 6, "drawn": 4, "lost": 6, "gd": 7, "pts": 22 },
-    { "pos": 10, "team": "Milton Keynes Dons", "played": 15, "won": 5, "drawn": 7, "lost": 3, "gd": 6, "pts": 22 },
-    { "pos": 11, "team": "Cambridge United", "played": 15, "won": 5, "drawn": 6, "lost": 4, "gd": -3, "pts": 21 },
-    { "pos": 12, "team": "Leyton Orient", "played": 14, "won": 6, "drawn": 2, "lost": 6, "gd": 8, "pts": 20 },
-    { "pos": 13, "team": "Stevenage", "played": 14, "won": 5, "drawn": 5, "lost": 4, "gd": 5, "pts": 20 },
-    { "pos": 14, "team": "Mansfield Town", "played": 14, "won": 5, "drawn": 5, "lost": 4, "gd": 2, "pts": 20 },
-    { "pos": 15, "team": "Wycombe Wanderers", "played": 15, "won": 4, "drawn": 7, "lost": 4, "gd": -3, "pts": 19 },
-    { "pos": 16, "team": "Burton Albion", "played": 16, "won": 4, "drawn": 5, "lost": 7, "gd": -8, "pts": 17 },
-    { "pos": 17, "team": "Wigan Athletic", "played": 16, "won": 5, "drawn": 2, "lost": 9, "gd": -9, "pts": 17 },
-    { "pos": 18, "team": "AFC Wimbledon", "played": 15, "won": 4, "drawn": 4, "lost": 7, "gd": -14, "pts": 16 },
-    { "pos": 19, "team": "Notts County", "played": 13, "won": 3, "drawn": 5, "lost": 5, "gd": -2, "pts": 14 },
-    { "pos": 20, "team": "Blackpool", "played": 15, "won": 3, "drawn": 4, "lost": 8, "gd": -6, "pts": 13 },
-    { "pos": 21, "team": "Doncaster Rovers", "played": 14, "won": 3, "drawn": 4, "lost": 7, "gd": -8, "pts": 13 },
-    { "pos": 22, "team": "Peterborough United", "played": 14, "won": 3, "drawn": 4, "lost": 7, "gd": -10, "pts": 13 },
-    { "pos": 23, "team": "Bromley", "played": 15, "won": 3, "drawn": 4, "lost": 8, "gd": -19, "pts": 13 },
-    { "pos": 24, "team": "Barnsley", "played": 15, "won": 2, "drawn": 3, "lost": 10, "gd": -15, "pts": 9 }
+  "standings": [
+    {
+      "pos": 1,
+      "team": "Stockport County",
+      "played": 16,
+      "won": 10,
+      "drawn": 2,
+      "lost": 4,
+      "gd": 17,
+      "pts": 32
+    },
+    {
+      "pos": 2,
+      "team": "Huddersfield Town",
+      "played": 15,
+      "won": 8,
+      "drawn": 5,
+      "lost": 2,
+      "gd": 15,
+      "pts": 29
+    },
+    {
+      "pos": 3,
+      "team": "Oxford United",
+      "played": 14,
+      "won": 8,
+      "drawn": 5,
+      "lost": 1,
+      "gd": 12,
+      "pts": 29
+    },
+    {
+      "pos": 4,
+      "team": "Sheffield Wednesday",
+      "played": 16,
+      "won": 7,
+      "drawn": 6,
+      "lost": 3,
+      "gd": 12,
+      "pts": 27
+    },
+    {
+      "pos": 5,
+      "team": "Luton Town",
+      "played": 15,
+      "won": 8,
+      "drawn": 3,
+      "lost": 4,
+      "gd": 7,
+      "pts": 27
+    },
+    {
+      "pos": 6,
+      "team": "Bradford City",
+      "played": 15,
+      "won": 7,
+      "drawn": 5,
+      "lost": 3,
+      "gd": 5,
+      "pts": 26
+    },
+    {
+      "pos": 7,
+      "team": "Leicester City",
+      "played": 15,
+      "won": 6,
+      "drawn": 5,
+      "lost": 4,
+      "gd": 4,
+      "pts": 23
+    },
+    {
+      "pos": 8,
+      "team": "Plymouth Argyle",
+      "played": 16,
+      "won": 7,
+      "drawn": 2,
+      "lost": 7,
+      "gd": -3,
+      "pts": 23
+    },
+    {
+      "pos": 9,
+      "team": "Reading",
+      "played": 16,
+      "won": 6,
+      "drawn": 4,
+      "lost": 6,
+      "gd": 7,
+      "pts": 22
+    },
+    {
+      "pos": 10,
+      "team": "Milton Keynes Dons",
+      "played": 15,
+      "won": 5,
+      "drawn": 7,
+      "lost": 3,
+      "gd": 6,
+      "pts": 22
+    },
+    {
+      "pos": 11,
+      "team": "Cambridge United",
+      "played": 15,
+      "won": 5,
+      "drawn": 6,
+      "lost": 4,
+      "gd": -3,
+      "pts": 21
+    },
+    {
+      "pos": 12,
+      "team": "Leyton Orient",
+      "played": 14,
+      "won": 6,
+      "drawn": 2,
+      "lost": 6,
+      "gd": 8,
+      "pts": 20
+    },
+    {
+      "pos": 13,
+      "team": "Stevenage",
+      "played": 14,
+      "won": 5,
+      "drawn": 5,
+      "lost": 4,
+      "gd": 5,
+      "pts": 20
+    },
+    {
+      "pos": 14,
+      "team": "Mansfield Town",
+      "played": 14,
+      "won": 5,
+      "drawn": 5,
+      "lost": 4,
+      "gd": 2,
+      "pts": 20
+    },
+    {
+      "pos": 15,
+      "team": "Wycombe Wanderers",
+      "played": 15,
+      "won": 4,
+      "drawn": 7,
+      "lost": 4,
+      "gd": -3,
+      "pts": 19
+    },
+    {
+      "pos": 16,
+      "team": "Burton Albion",
+      "played": 16,
+      "won": 4,
+      "drawn": 5,
+      "lost": 7,
+      "gd": -8,
+      "pts": 17
+    },
+    {
+      "pos": 17,
+      "team": "Wigan Athletic",
+      "played": 16,
+      "won": 5,
+      "drawn": 2,
+      "lost": 9,
+      "gd": -9,
+      "pts": 17
+    },
+    {
+      "pos": 18,
+      "team": "AFC Wimbledon",
+      "played": 15,
+      "won": 4,
+      "drawn": 4,
+      "lost": 7,
+      "gd": -14,
+      "pts": 16
+    },
+    {
+      "pos": 19,
+      "team": "Notts County",
+      "played": 13,
+      "won": 3,
+      "drawn": 5,
+      "lost": 5,
+      "gd": -2,
+      "pts": 14
+    },
+    {
+      "pos": 20,
+      "team": "Blackpool",
+      "played": 15,
+      "won": 3,
+      "drawn": 4,
+      "lost": 8,
+      "gd": -6,
+      "pts": 13
+    },
+    {
+      "pos": 21,
+      "team": "Doncaster Rovers",
+      "played": 14,
+      "won": 3,
+      "drawn": 4,
+      "lost": 7,
+      "gd": -8,
+      "pts": 13
+    },
+    {
+      "pos": 22,
+      "team": "Peterborough United",
+      "played": 14,
+      "won": 3,
+      "drawn": 4,
+      "lost": 7,
+      "gd": -10,
+      "pts": 13
+    },
+    {
+      "pos": 23,
+      "team": "Bromley",
+      "played": 15,
+      "won": 3,
+      "drawn": 4,
+      "lost": 8,
+      "gd": -19,
+      "pts": 13
+    },
+    {
+      "pos": 24,
+      "team": "Barnsley",
+      "played": 15,
+      "won": 2,
+      "drawn": 3,
+      "lost": 10,
+      "gd": -15,
+      "pts": 9
+    }
   ],
   "squad": [
-    { "number": 17, "name": "Emil Riis", "position": "FW", "nationality": "DEN" },
-    { "number": 11, "name": "Liam Cullen", "position": "FW", "nationality": "WAL" },
-    { "number": 14, "name": "Bobby De Cordova-Reid", "position": "FW", "nationality": "JAM" },
-    { "number": 9, "name": "Admir Bristrić", "position": "FW", "nationality": "BIH" },
-    { "number": 23, "name": "Tom Watson", "position": "FW", "nationality": "ENG" },
-    { "number": 6, "name": "John Lundstram", "position": "MF", "nationality": "ENG" },
-    { "number": 8, "name": "Conor Chaplin", "position": "MF", "nationality": "ENG" },
-    { "number": 7, "name": "Wes Burns", "position": "MF", "nationality": "WAL" },
-    { "number": 12, "name": "Will Smallbone", "position": "MF", "nationality": "IRL" },
-    { "number": 20, "name": "Harry Howell", "position": "MF", "nationality": "ENG" },
-    { "number": 25, "name": "Louis Page", "position": "MF", "nationality": "ENG" },
-    { "number": 27, "name": "Kamari Doyle", "position": "MF", "nationality": "ENG" },
-    { "number": 36, "name": "Sammy Braybrooke", "position": "MF", "nationality": "ENG" },
-    { "number": 37, "name": "William Alves", "position": "MF", "nationality": "ENG" },
-    { "number": 5, "name": "Caleb Okoli", "position": "DF", "nationality": "ITA" },
-    { "number": 15, "name": "Harry Souttar", "position": "DF", "nationality": "AUS" },
-    { "number": 4, "name": "Ben Nelson", "position": "DF", "nationality": "ENG" },
-    { "number": 33, "name": "Luke Thomas", "position": "DF", "nationality": "ENG" },
-    { "number": 26, "name": "Woyo Coulibaly", "position": "DF", "nationality": "FRA" },
-    { "number": 16, "name": "Warren O'Hora", "position": "DF", "nationality": "IRL" },
-    { "number": 18, "name": "Christian McFarlane", "position": "DF", "nationality": "ENG" },
-    { "number": 2, "name": "Jayden Joseph", "position": "DF", "nationality": "ENG" },
-    { "number": 24, "name": "Ilari Kangasniemi", "position": "DF", "nationality": "FIN" },
-    { "number": 32, "name": "Olabade Aluko", "position": "DF", "nationality": "ENG" },
-    { "number": 1, "name": "Jakub Stolarczyk", "position": "GK", "nationality": "POL" },
-    { "number": 13, "name": "David Cornell", "position": "GK", "nationality": "WAL" },
-    { "number": 21, "name": "Franco Ravizzoli", "position": "GK", "nationality": "ARG" },
-    { "number": 29, "name": "Alex McCarthy", "position": "GK", "nationality": "ENG" }
+    {
+      "number": 17,
+      "name": "Emil Riis",
+      "position": "FW",
+      "nationality": "DEN"
+    },
+    {
+      "number": 11,
+      "name": "Liam Cullen",
+      "position": "FW",
+      "nationality": "WAL"
+    },
+    {
+      "number": 14,
+      "name": "Bobby De Cordova-Reid",
+      "position": "FW",
+      "nationality": "JAM"
+    },
+    {
+      "number": 9,
+      "name": "Admir Bristrić",
+      "position": "FW",
+      "nationality": "BIH"
+    },
+    {
+      "number": 23,
+      "name": "Tom Watson",
+      "position": "FW",
+      "nationality": "ENG"
+    },
+    {
+      "number": 6,
+      "name": "John Lundstram",
+      "position": "MF",
+      "nationality": "ENG"
+    },
+    {
+      "number": 8,
+      "name": "Conor Chaplin",
+      "position": "MF",
+      "nationality": "ENG"
+    },
+    {
+      "number": 7,
+      "name": "Wes Burns",
+      "position": "MF",
+      "nationality": "WAL"
+    },
+    {
+      "number": 12,
+      "name": "Will Smallbone",
+      "position": "MF",
+      "nationality": "IRL"
+    },
+    {
+      "number": 20,
+      "name": "Harry Howell",
+      "position": "MF",
+      "nationality": "ENG"
+    },
+    {
+      "number": 25,
+      "name": "Louis Page",
+      "position": "MF",
+      "nationality": "ENG"
+    },
+    {
+      "number": 27,
+      "name": "Kamari Doyle",
+      "position": "MF",
+      "nationality": "ENG"
+    },
+    {
+      "number": 36,
+      "name": "Sammy Braybrooke",
+      "position": "MF",
+      "nationality": "ENG"
+    },
+    {
+      "number": 37,
+      "name": "William Alves",
+      "position": "MF",
+      "nationality": "ENG"
+    },
+    {
+      "number": 5,
+      "name": "Caleb Okoli",
+      "position": "DF",
+      "nationality": "ITA"
+    },
+    {
+      "number": 15,
+      "name": "Harry Souttar",
+      "position": "DF",
+      "nationality": "AUS"
+    },
+    {
+      "number": 4,
+      "name": "Ben Nelson",
+      "position": "DF",
+      "nationality": "ENG"
+    },
+    {
+      "number": 33,
+      "name": "Luke Thomas",
+      "position": "DF",
+      "nationality": "ENG"
+    },
+    {
+      "number": 26,
+      "name": "Woyo Coulibaly",
+      "position": "DF",
+      "nationality": "FRA"
+    },
+    {
+      "number": 16,
+      "name": "Warren O'Hora",
+      "position": "DF",
+      "nationality": "IRL"
+    },
+    {
+      "number": 18,
+      "name": "Christian McFarlane",
+      "position": "DF",
+      "nationality": "ENG"
+    },
+    {
+      "number": 2,
+      "name": "Jayden Joseph",
+      "position": "DF",
+      "nationality": "ENG"
+    },
+    {
+      "number": 24,
+      "name": "Ilari Kangasniemi",
+      "position": "DF",
+      "nationality": "FIN"
+    },
+    {
+      "number": 32,
+      "name": "Olabade Aluko",
+      "position": "DF",
+      "nationality": "ENG"
+    },
+    {
+      "number": 1,
+      "name": "Jakub Stolarczyk",
+      "position": "GK",
+      "nationality": "POL"
+    },
+    {
+      "number": 13,
+      "name": "David Cornell",
+      "position": "GK",
+      "nationality": "WAL"
+    },
+    {
+      "number": 21,
+      "name": "Franco Ravizzoli",
+      "position": "GK",
+      "nationality": "ARG"
+    },
+    {
+      "number": 29,
+      "name": "Alex McCarthy",
+      "position": "GK",
+      "nationality": "ENG"
+    }
   ],
-  "news": []
+  "news": [
+    {
+      "id": "https://www.yorkshirepost.co.uk/sport/football/barnsley-fc-head-coach-daniel-stendel-on-fans-chants-after-latest-loss-to-bradford-city-9372303",
+      "tag": "YORKSHIRE POST",
+      "date": "2026-11-24",
+      "source": "Yorkshire Post（外部ソース参考）",
+      "sourceUrl": "https://www.yorkshirepost.co.uk/sport/football/barnsley-fc-head-coach-daniel-stendel-on-fans-chants-after-latest-loss-to-bradford-city-9372303",
+      "url": "https://www.yorkshirepost.co.uk/sport/football/barnsley-fc-head-coach-daniel-stendel-on-fans-chants-after-latest-loss-to-bradford-city-9372303",
+      "title": "Barnsley FC head coach Daniel Stendel on fans chants after latest loss to Bradford City",
+      "summary": "BARNSLEY head coach Daniel Stendel insists he had no issue with supporters having a pop at his side after the final whistle of his side’s 3-0 League One derby loss at Bradford C...",
+      "body": [
+        "BARNSLEY head coach Daniel Stendel insists he had no issue with supporters having a pop at his side after the final whistle of his side’s 3-0 League One derby loss at Bradford C..."
+      ]
+    },
+    {
+      "id": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-ruthless-streak-missing-11254389",
+      "tag": "LEICESTERSHIRE LIVE",
+      "date": "2026-11-24",
+      "source": "Leicestershire Live（外部ソース参考）",
+      "sourceUrl": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-ruthless-streak-missing-11254389",
+      "url": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-ruthless-streak-missing-11254389",
+      "title": "Leicester City have a ruthless streak missing as frustrating pattern continues",
+      "summary": "Leicester City struggled to take their chances at Blackpool on Tuesday night",
+      "body": [
+        "Leicester City struggled to take their chances at Blackpool on Tuesday night"
+      ]
+    },
+    {
+      "id": "https://www.yorkshirepost.co.uk/sport/football/bradford-v-barnsley-fc-ratings-some-rough-marks-for-reds-defence-as-ex-oakwell-man-takes-honours-9372212",
+      "tag": "YORKSHIRE POST",
+      "date": "2026-11-24",
+      "source": "Yorkshire Post（外部ソース参考）",
+      "sourceUrl": "https://www.yorkshirepost.co.uk/sport/football/bradford-v-barnsley-fc-ratings-some-rough-marks-for-reds-defence-as-ex-oakwell-man-takes-honours-9372212",
+      "url": "https://www.yorkshirepost.co.uk/sport/football/bradford-v-barnsley-fc-ratings-some-rough-marks-for-reds-defence-as-ex-oakwell-man-takes-honours-9372212",
+      "title": "Bradford v Barnsley FC ratings: Some rough marks for Reds defence as ex-Oakwell man takes honours",
+      "summary": "HERE are the Bradford City and Barnsley player ratings from Tuesday night’s League One derby at Valley Parade.",
+      "body": [
+        "HERE are the Bradford City and Barnsley player ratings from Tuesday night’s League One derby at Valley Parade."
+      ]
+    },
+    {
+      "id": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-player-ratings-blackpool-11254395",
+      "tag": "LEICESTERSHIRE LIVE",
+      "date": "2026-11-24",
+      "source": "Leicestershire Live（外部ソース参考）",
+      "sourceUrl": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-player-ratings-blackpool-11254395",
+      "url": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-player-ratings-blackpool-11254395",
+      "title": "Leicester City player ratings vs Blackpool as 4/10s see wasteful Foxes drop points",
+      "summary": "Josh Holland rates Leicester City's players from Tuesday night's League One clash at Blackpool",
+      "body": [
+        "Josh Holland rates Leicester City's players from Tuesday night's League One clash at Blackpool"
+      ]
+    },
+    {
+      "id": "https://www.leicestermercury.co.uk/sport/football/football-news/blackpool-leicester-city-tv-channel-11253354",
+      "tag": "LEICESTERSHIRE LIVE",
+      "date": "2026-11-24",
+      "source": "Leicestershire Live（外部ソース参考）",
+      "sourceUrl": "https://www.leicestermercury.co.uk/sport/football/football-news/blackpool-leicester-city-tv-channel-11253354",
+      "url": "https://www.leicestermercury.co.uk/sport/football/football-news/blackpool-leicester-city-tv-channel-11253354",
+      "title": "How to watch Blackpool vs Leicester City - TV channel, live stream and kick-off time",
+      "summary": "Leicester City travel to Blackpool for the first time since 2013 this evening in League One",
+      "body": [
+        "Leicester City travel to Blackpool for the first time since 2013 this evening in League One"
+      ]
+    },
+    {
+      "id": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-blackpool-lineups-chaplin-11253328",
+      "tag": "LEICESTERSHIRE LIVE",
+      "date": "2026-11-24",
+      "source": "Leicestershire Live（外部ソース参考）",
+      "sourceUrl": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-blackpool-lineups-chaplin-11253328",
+      "url": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-blackpool-lineups-chaplin-11253328",
+      "title": "Cullen and Chaplin decisions, Smallbone replacement - Leicester City line-ups vs Blackpool",
+      "summary": "Our writers have their say on the team that Leicester City should field at Blackpool tonight",
+      "body": [
+        "Our writers have their say on the team that Leicester City should field at Blackpool tonight"
+      ]
+    },
+    {
+      "id": "https://www.yorkshirepost.co.uk/sport/football/stevenage-sheffield-wednesday-tv-channel-streaming-league-one-9369817",
+      "tag": "YORKSHIRE POST",
+      "date": "2026-11-24",
+      "source": "Yorkshire Post（外部ソース参考）",
+      "sourceUrl": "https://www.yorkshirepost.co.uk/sport/football/stevenage-sheffield-wednesday-tv-channel-streaming-league-one-9369817",
+      "url": "https://www.yorkshirepost.co.uk/sport/football/stevenage-sheffield-wednesday-tv-channel-streaming-league-one-9369817",
+      "title": "Is Stevenage v Sheffield Wednesday on TV? Channel and streaming details ahead of League One clash",
+      "summary": "The key TV and streaming details ahead of Sheffield Wednesday’s trip to Stevenage",
+      "body": [
+        "The key TV and streaming details ahead of Sheffield Wednesday’s trip to Stevenage"
+      ]
+    },
+    {
+      "id": "https://www.yorkshirepost.co.uk/sport/football/bradford-city-barnsley-fc-tv-channel-streaming-yorkshire-derby-league-one-9369771",
+      "tag": "YORKSHIRE POST",
+      "date": "2026-11-24",
+      "source": "Yorkshire Post（外部ソース参考）",
+      "sourceUrl": "https://www.yorkshirepost.co.uk/sport/football/bradford-city-barnsley-fc-tv-channel-streaming-yorkshire-derby-league-one-9369771",
+      "url": "https://www.yorkshirepost.co.uk/sport/football/bradford-city-barnsley-fc-tv-channel-streaming-yorkshire-derby-league-one-9369771",
+      "title": "Is Bradford City v Barnsley FC on TV? Channel and streaming details for Yorkshire derby in League One",
+      "summary": "The key TV and streaming details ahead of Bradford City v Barnsley in League One",
+      "body": [
+        "The key TV and streaming details ahead of Bradford City v Barnsley in League One"
+      ]
+    },
+    {
+      "id": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-blackpool-players-injuries-11252989",
+      "tag": "LEICESTERSHIRE LIVE",
+      "date": "2026-11-24",
+      "source": "Leicestershire Live（外部ソース参考）",
+      "sourceUrl": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-blackpool-players-injuries-11252989",
+      "url": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-blackpool-players-injuries-11252989",
+      "title": "10 players to miss Blackpool vs Leicester City after new injury blows",
+      "summary": "Leicester City and Blackpool will be without regulars for tonight's League One clash at Bloomfield Road",
+      "body": [
+        "Leicester City and Blackpool will be without regulars for tonight's League One clash at Bloomfield Road"
+      ]
+    },
+    {
+      "id": "https://www.leicestermercury.co.uk/sport/football/football-news/ben-nelson-injury-update-contract-11253044",
+      "tag": "LEICESTERSHIRE LIVE",
+      "date": "2026-11-23",
+      "source": "Leicestershire Live（外部ソース参考）",
+      "sourceUrl": "https://www.leicestermercury.co.uk/sport/football/football-news/ben-nelson-injury-update-contract-11253044",
+      "url": "https://www.leicestermercury.co.uk/sport/football/football-news/ben-nelson-injury-update-contract-11253044",
+      "title": "Ben Nelson shares Leicester City injury update amid contract talks",
+      "summary": "The academy graduate has been out with an ACL injury since pre-season",
+      "body": [
+        "The academy graduate has been out with an ACL injury since pre-season"
+      ]
+    },
+    {
+      "id": "https://www.yorkshirepost.co.uk/sport/football/bradford-city-v-barnsley-fc-patrick-kelly-tells-reds-to-stop-using-youth-as-an-excuse-9369239",
+      "tag": "YORKSHIRE POST",
+      "date": "2026-11-23",
+      "source": "Yorkshire Post（外部ソース参考）",
+      "sourceUrl": "https://www.yorkshirepost.co.uk/sport/football/bradford-city-v-barnsley-fc-patrick-kelly-tells-reds-to-stop-using-youth-as-an-excuse-9369239",
+      "url": "https://www.yorkshirepost.co.uk/sport/football/bradford-city-v-barnsley-fc-patrick-kelly-tells-reds-to-stop-using-youth-as-an-excuse-9369239",
+      "title": "Bradford City v Barnsley FC: Patrick Kelly tells Reds to stop using youth as an excuse",
+      "summary": "Much has been made of Barnsley's young team this season, but 22-year-old Patrick Kelly insists that is not why they go to Bradford City on Tuesday bottom of League One.",
+      "body": [
+        "Much has been made of Barnsley's young team this season, but 22-year-old Patrick Kelly insists that is not why they go to Bradford City on Tuesday bottom of League One."
+      ]
+    },
+    {
+      "id": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-smallbone-chaplin-cullen-11252753",
+      "tag": "LEICESTERSHIRE LIVE",
+      "date": "2026-11-23",
+      "source": "Leicestershire Live（外部ソース参考）",
+      "sourceUrl": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-smallbone-chaplin-cullen-11252753",
+      "url": "https://www.leicestermercury.co.uk/sport/football/football-news/leicester-city-smallbone-chaplin-cullen-11252753",
+      "title": "Will Smallbone injury blow gives Leicester City pair chance to kickstart seasons",
+      "summary": "Leicester City's squad will need to come together during the Christmas period after Will Smallbone's injury",
+      "body": [
+        "Leicester City's squad will need to come together during the Christmas period after Will Smallbone's injury"
+      ]
+    }
+  ],
+  "updatedAt": "2026-11-25T04:57:27.478Z"
 }
