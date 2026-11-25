@@ -3,6 +3,14 @@ import path from 'node:path';
 
 const DATA_PATH = path.resolve('data/lcfc.json');
 
+// TheSportsDB (Leicester City FC ID: 133866, EFL League One ID: 4398)
+const TEAM_ID = '133866';
+const LEAGUE_ID = '4398';
+const SDB_NEXT_URL = `https://www.thesportsdb.com/api/v1/json/3/eventsnext.php?id=${TEAM_ID}`;
+const SDB_LAST_URL = `https://www.thesportsdb.com/api/v1/json/3/eventslast.php?id=${TEAM_ID}`;
+const SDB_TABLE_URL = `https://www.thesportsdb.com/api/v1/json/3/lookuptable.php?l=${LEAGUE_ID}&s=2026-2027`;
+const SDB_SQUAD_URL = `https://www.thesportsdb.com/api/v1/json/3/lookup_all_players.php?id=${TEAM_ID}`;
+
 const RSS_SOURCES = [
   {
     name: 'BBC Sport Leicester',
@@ -30,11 +38,6 @@ const INCLUDE_KEYWORDS = [
   'lcfc',
   'foxes',
   'king power',
-  'gary rowett',
-  'rowett',
-  'jamie vardy',
-  'vardy',
-  'stevenage',
   'league one'
 ];
 
@@ -44,43 +47,6 @@ const EXCLUDE_KEYWORDS = [
   'leicestershire ccc',
   'leicester riders'
 ];
-
-// ベースラインデータ（API取得前の初期補完・フォールバック用）
-const BASELINE_DATA = {
-  nextMatch: {
-    competition: 'EFL LEAGUE ONE',
-    dateLabel: '11月28日（土）24:00 KO（日本時間）',
-    homeTeam: 'Stevenage',
-    awayTeam: 'Leicester City',
-    venue: 'Lamex Stadium (A)',
-    round: '第18節',
-    note: '勝ち点差2の直接対決。勝利すれば自動昇格圏内（2位以内）浮上のチャンス。'
-  },
-  standings: [
-    { pos: 1, team: 'Birmingham City', p: 17, gd: '+21', pts: 39 },
-    { pos: 2, team: 'Wycombe Wanderers', p: 17, gd: '+18', pts: 36 },
-    { pos: 3, team: 'Leicester City', p: 17, gd: '+14', pts: 34, isLcfc: true },
-    { pos: 4, team: 'Wrexham', p: 17, gd: '+11', pts: 33 },
-    { pos: 5, team: 'Stevenage', p: 17, gd: '+8', pts: 32 },
-    { pos: 6, team: 'Stockport County', p: 17, gd: '+7', pts: 30 }
-  ],
-  recentResults: [
-    { date: '11/21', comp: 'League One', opponent: 'Barnsley (H)', score: '2 - 0', result: 'W' },
-    { date: '11/14', comp: 'League One', opponent: 'Charlton Athletic (A)', score: '1 - 1', result: 'D' },
-    { date: '11/07', comp: 'FA Cup 1R', opponent: 'Morecambe (H)', score: '3 - 1', result: 'W' },
-    { date: '10/31', comp: 'League One', opponent: 'Reading (A)', score: '2 - 1', result: 'W' }
-  ],
-  squad: [
-    { no: 1, name: 'Mads Hermansen', pos: 'GK', status: '主力・出場可能' },
-    { no: 2, name: 'James Justin', pos: 'DF', status: '主力・出場可能' },
-    { no: 4, name: 'Conor Coady', pos: 'DF', status: '主力・出場可能' },
-    { no: 8, name: 'Harry Winks', pos: 'MF', status: '主力・出場可能' },
-    { no: 9, name: 'Jamie Vardy', pos: 'FW', status: '主将・出場可能' },
-    { no: 10, name: 'Stephy Mavididi', pos: 'FW', status: '主力・出場可能' },
-    { no: 11, name: 'Bilal El Khannouss', pos: 'MF', status: '主力・出場可能' },
-    { no: 18, name: 'Abdul Fatawu', pos: 'FW', status: '別メニュー調整中' }
-  ]
-};
 
 function decodeXml(str = '') {
   return str
@@ -105,7 +71,6 @@ function isLcfcRelated(title, summary, strictTeamFeed) {
 
 async function translateToJapanese(text) {
   if (!text) return '';
-  // すでに日本語が多く含まれる場合はそのまま返す
   if (/[\u3040-\u30ff\u4e00-\u9faf]/.test(text)) return text;
 
   try {
@@ -115,11 +80,290 @@ async function translateToJapanese(text) {
     });
     if (!res.ok) return text;
     const data = await res.json();
-    const translated = data?.[0]?.map((chunk) => chunk?.[0] || '').join('').trim();
+    const translated = (data?.[0] || []).map((chunk) => chunk?.[0] || '').join('').trim();
     return translated || text;
   } catch {
     return text;
   }
+}
+
+async function fetchJsonSafe(url) {
+  try {
+    const res = await fetch(url, {
+      headers: { 'User-Agent': 'FOXES-REPORT-Bot/1.0' }
+    });
+    if (!res.ok) return null;
+    return await res.json();
+  } catch (err) {
+    console.warn(`[WARN] JSON fetch error (${url}):`, err.message);
+    return null;
+  }
+}
+
+function toCompetitionLabel(leagueName = '') {
+  const upper = String(leagueName).toUpperCase();
+  if (upper.includes('FA CUP')) return 'FA (FAカップ)';
+  if (upper.includes('EFL TROPHY') || upper.includes('TROPHY')) return 'EFLT (EFLトロフィー)';
+  if (upper.includes('CARABAO') || upper.includes('EFL CUP')) return 'EFLC (EFLカップ)';
+  return 'EFL1 (EFLリーグ1)';
+}
+
+function toLeagueShort(leagueName = '') {
+  const upper = String(leagueName).toUpperCase();
+  if (upper.includes('FA CUP')) return 'FA';
+  if (upper.includes('EFL TROPHY') || upper.includes('TROPHY')) return 'EFLT';
+  if (upper.includes('CARABAO') || upper.includes('EFL CUP')) return 'EFLC';
+  return 'EFL1';
+}
+
+function parseKickoffDate(ev) {
+  if (ev?.strTimestamp) {
+    const d = new Date(`${ev.strTimestamp}Z`);
+    if (!Number.isNaN(d.getTime())) return d;
+  }
+  const datePart = ev?.dateEvent || '';
+  const timePart = (ev?.strTime || '00:00:00').slice(0, 8);
+  if (datePart) {
+    const d = new Date(`${datePart}T${timePart}Z`);
+    if (!Number.isNaN(d.getTime())) return d;
+  }
+  return null;
+}
+
+function formatJstStrings(dateObj) {
+  if (!dateObj || Number.isNaN(dateObj.getTime())) {
+    return {
+      iso: '',
+      jstText: '日時未定',
+      localText: '',
+      shortDate: ''
+    };
+  }
+
+  const jstFormatter = new Intl.DateTimeFormat('ja-JP', {
+    timeZone: 'Asia/Tokyo',
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+    weekday: 'short',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false
+  });
+
+  const parts = Object.fromEntries(
+    jstFormatter.formatToParts(dateObj).map((p) => [p.type, p.value])
+  );
+
+  const gmtFormatter = new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'Europe/London',
+    month: 'short',
+    day: 'numeric',
+    weekday: 'short',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false
+  });
+
+  const jstDateParts = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Asia/Tokyo',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+  }).format(dateObj);
+
+  return {
+    iso: dateObj.toISOString(),
+    jstText: `${parts.year}年${parts.month}月${parts.day}日 (${parts.weekday}) ${parts.hour}:${parts.minute}`,
+    localText: `現地: ${gmtFormatter.format(dateObj)}`,
+    shortDate: jstDateParts
+  };
+}
+
+function buildStandings(tableJson, fallbackStandings = []) {
+  const list = tableJson?.table;
+  if (!Array.isArray(list) || list.length === 0) return fallbackStandings;
+
+  return list
+    .map((row, idx) => ({
+      pos: Number(row.intRank) || idx + 1,
+      team: String(row.strTeam || '').trim(),
+      played: Number(row.intPlayed) || 0,
+      won: Number(row.intWin) || 0,
+      drawn: Number(row.intDraw) || 0,
+      lost: Number(row.intLoss) || 0,
+      gd: Number(row.intGoalDifference) || 0,
+      pts: Number(row.intPoints) || 0
+    }))
+    .filter((r) => r.team)
+    .sort((a, b) => a.pos - b.pos);
+}
+
+function mapPositionCode(rawPos = '') {
+  const p = String(rawPos).toLowerCase();
+  if (p.includes('goal') || p === 'gk') return 'GK';
+  if (p.includes('back') || p.includes('def') || p.includes('centre-back') || p.includes('full-back') || p === 'df') return 'DF';
+  if (p.includes('mid') || p === 'mf') return 'MF';
+  if (p.includes('wing') || p.includes('forward') || p.includes('striker') || p.includes('attack') || p === 'fw') return 'FW';
+  return 'MF';
+}
+
+function toCountryCode(nat = '') {
+  const s = String(nat).trim();
+  const map = {
+    England: 'ENG',
+    Wales: 'WAL',
+    Scotland: 'SCO',
+    'Northern Ireland': 'NIR',
+    Ireland: 'IRL',
+    Denmark: 'DEN',
+    Poland: 'POL',
+    Italy: 'ITA',
+    France: 'FRA',
+    Australia: 'AUS',
+    Jamaica: 'JAM',
+    Argentina: 'ARG',
+    Finland: 'FIN',
+    'Bosnia and Herzegovina': 'BIH'
+  };
+  if (map[s]) return map[s];
+  return s.slice(0, 3).toUpperCase() || 'UNK';
+}
+
+function buildSquad(playersJson, fallbackSquad = []) {
+  const list = playersJson?.player;
+  if (!Array.isArray(list) || list.length === 0) return fallbackSquad;
+
+  const mapped = list
+    .filter((p) => p?.strPlayer && !/retired/i.test(String(p?.strStatus || '')))
+    .map((p) => {
+      const numRaw = String(p.strNumber || '').replace(/[^\d]/g, '');
+      return {
+        number: numRaw ? Number(numRaw) : 99,
+        name: String(p.strPlayer).trim(),
+        position: mapPositionCode(p.strPosition),
+        nationality: toCountryCode(p.strNationality)
+      };
+    });
+
+  return mapped.length > 0 ? mapped : fallbackSquad;
+}
+
+function buildFixturesAndResults(nextJson, lastJson, standings, fallbackData) {
+  const upcomingRaw = Array.isArray(nextJson?.events) ? nextJson.events : [];
+  const pastRaw = Array.isArray(lastJson?.results) ? lastJson.results : [];
+
+  const upcomingFixtures = upcomingRaw.map((ev) => {
+    const home = String(ev.strHomeTeam || '').trim();
+    const away = String(ev.strAwayTeam || '').trim();
+    const isHome = /leicester/i.test(home);
+    const opponent = isHome ? away : home;
+    const dt = parseKickoffDate(ev);
+    const fmt = formatJstStrings(dt);
+
+    return {
+      date: fmt.shortDate || ev.dateEvent || '',
+      competition: toCompetitionLabel(ev.strLeague),
+      opponent,
+      isHome,
+      venue: ev.strVenue || (isHome ? 'King Power Stadium' : 'Away Stadium')
+    };
+  });
+
+  const pastResults = pastRaw.map((ev) => {
+    const home = String(ev.strHomeTeam || '').trim();
+    const away = String(ev.strAwayTeam || '').trim();
+    const isHome = /leicester/i.test(home);
+    const opponent = isHome ? away : home;
+    const hGoals = Number(ev.intHomeScore);
+    const aGoals = Number(ev.intAwayScore);
+    const lcfcGoals = isHome ? hGoals : aGoals;
+    const oppGoals = isHome ? aGoals : hGoals;
+
+    let outcome = 'D';
+    if (!Number.isNaN(lcfcGoals) && !Number.isNaN(oppGoals)) {
+      if (lcfcGoals > oppGoals) outcome = 'W';
+      else if (lcfcGoals < oppGoals) outcome = 'L';
+    }
+
+    const dt = parseKickoffDate(ev);
+    const fmt = formatJstStrings(dt);
+    const score =
+      !Number.isNaN(hGoals) && !Number.isNaN(aGoals) ? `${hGoals} - ${aGoals}` : '0 - 0';
+
+    return {
+      date: fmt.shortDate || ev.dateEvent || '',
+      competition: toCompetitionLabel(ev.strLeague),
+      opponent,
+      isHome,
+      score,
+      outcome
+    };
+  });
+
+  const recentFiveForm = pastResults.slice(0, 5).map((r) => ({
+    leagueCode: toLeagueShort(r.competition),
+    competition: r.competition,
+    opponent: r.opponent,
+    isHome: r.isHome,
+    outcome: r.outcome,
+    score: r.score
+  }));
+
+  let nextMatch = fallbackData.nextMatch;
+  if (upcomingRaw.length > 0) {
+    const first = upcomingRaw[0];
+    const home = String(first.strHomeTeam || '').trim();
+    const away = String(first.strAwayTeam || '').trim();
+    const isHome = /leicester/i.test(home);
+    const opponent = isHome ? away : home;
+    const oppCode = String(first.strAwayTeam || first.strHomeTeam || 'OPP')
+      .replace(/[^A-Za-z]/g, '')
+      .slice(0, 3)
+      .toUpperCase();
+
+    const lcfcRow = standings.find((r) => /leicester/i.test(r.team));
+    const oppRow = standings.find(
+      (r) => r.team.toLowerCase() === opponent.toLowerCase()
+    );
+
+    const dt = parseKickoffDate(first);
+    const fmt = formatJstStrings(dt);
+    const latest = pastResults[0];
+    const highlightText = latest
+      ? `直近の${latest.opponent}戦は ${latest.score}（${latest.outcome === 'W' ? '勝利' : latest.outcome === 'L' ? '敗戦' : '引分'}）`
+      : fallbackData.nextMatch?.highlightText || '';
+
+    nextMatch = {
+      ...(fallbackData.nextMatch || {}),
+      competition: toLeagueShort(first.strLeague),
+      opponent,
+      opponentCode: oppCode || 'OPP',
+      opponentRank: oppRow?.pos ?? fallbackData.nextMatch?.opponentRank ?? 0,
+      opponentRecord: oppRow
+        ? `勝点 ${oppRow.pts} (${oppRow.won}勝${oppRow.drawn}分${oppRow.lost}敗)`
+        : fallbackData.nextMatch?.opponentRecord || '',
+      lcfcRank: lcfcRow?.pos ?? fallbackData.nextMatch?.lcfcRank ?? 0,
+      lcfcRecord: lcfcRow
+        ? `勝点 ${lcfcRow.pts} (${lcfcRow.won}勝${lcfcRow.drawn}分${lcfcRow.lost}敗)`
+        : fallbackData.nextMatch?.lcfcRecord || '',
+      isHome,
+      date: fmt.jstText ? `${fmt.jstText} (JST)` : '',
+      kickoffIso: fmt.iso,
+      jstText: fmt.jstText,
+      localText: fmt.localText,
+      venue: `${first.strVenue || 'Stadium'} (${isHome ? 'Home' : 'Away'})`,
+      highlightText,
+      source: 'TheSportsDB / LCFC Match Centre'
+    };
+  }
+
+  return {
+    nextMatch,
+    recentFiveForm: recentFiveForm.length > 0 ? recentFiveForm : fallbackData.recentFiveForm || [],
+    upcomingFixtures: upcomingFixtures.length > 0 ? upcomingFixtures : fallbackData.upcomingFixtures || [],
+    pastResults: pastResults.length > 0 ? pastResults : fallbackData.pastResults || []
+  };
 }
 
 function parseRssItems(xmlText, source) {
@@ -143,104 +387,26 @@ function parseRssItems(xmlText, source) {
     const summary = rawDesc.length > 180 ? `${rawDesc.slice(0, 177)}...` : rawDesc;
     const parsedDate = pubDateRaw ? new Date(pubDateRaw) : new Date();
     const validDate = Number.isNaN(parsedDate.getTime()) ? new Date() : parsedDate;
+    const dateStr = validDate.toISOString().slice(0, 10);
 
     items.push({
       id: link,
-      source: source.tag,
+      tag: source.tag,
+      date: dateStr,
+      source: `${source.name}（外部ソース参考）`,
+      sourceUrl: link,
+      url: link,
       title,
       summary: summary || `${source.name} によるレスター・シティ関連記事`,
-      url: link,
-      publishedAt: validDate.toISOString()
+      body: [summary || `${source.name} によるレスター・シティ関連記事`],
+      _publishedAt: validDate.toISOString()
     });
   }
 
   return items;
 }
 
-// TheSportsDB 公開APIから直近試合・次戦データを取得（取得できた場合のみ上書き）
-async function fetchLiveMatches() {
-  try {
-    // Leicester City team ID on TheSportsDB: 133626
-    const [nextRes, lastRes] = await Promise.all([
-      fetch('https://www.thesportsdb.com/api/v1/json/3/eventsnext.php?id=133626'),
-      fetch('https://www.thesportsdb.com/api/v1/json/3/eventslast.php?id=133626')
-    ]);
-
-    let nextMatch = null;
-    let recentResults = null;
-
-    if (nextRes.ok) {
-      const nextJson = await nextRes.json();
-      const ev = nextJson?.events?.[0];
-      if (ev && ev.strHomeTeam && ev.strAwayTeam) {
-        const dt = ev.strTimestamp ? new Date(ev.strTimestamp) : null;
-        const dateLabel = dt && !Number.isNaN(dt.getTime())
-          ? dt.toLocaleString('ja-JP', {
-              timeZone: 'Asia/Tokyo',
-              month: 'numeric',
-              day: 'numeric',
-              weekday: 'short',
-              hour: '2-digit',
-              minute: '2-digit'
-            }) + ' KO（日本時間）'
-          : `${ev.dateEvent || ''} ${ev.strTime || ''}`.trim();
-
-        nextMatch = {
-          competition: ev.strLeague || 'EFL LEAGUE ONE',
-          dateLabel,
-          homeTeam: ev.strHomeTeam,
-          awayTeam: ev.strAwayTeam,
-          venue: ev.strVenue || '未定',
-          round: ev.intRound ? `第${ev.intRound}節` : '公式戦',
-          note: `${ev.strHomeTeam} 対 ${ev.strAwayTeam} の公式戦カード。`
-        };
-      }
-    }
-
-    if (lastRes.ok) {
-      const lastJson = await lastRes.json();
-      const results = (lastJson?.results || []).slice(0, 5).map((ev) => {
-        const isHome = /leicester/i.test(ev.strHomeTeam || '');
-        const opponent = isHome ? `${ev.strAwayTeam} (H)` : `${ev.strHomeTeam} (A)`;
-        const hs = Number(ev.intHomeScore);
-        const as = Number(ev.intAwayScore);
-        let result = 'D';
-        if (!Number.isNaN(hs) && !Number.isNaN(as)) {
-          if (hs === as) result = 'D';
-          else if ((isHome && hs > as) || (!isHome && as > hs)) result = 'W';
-          else result = 'L';
-        }
-        const datePart = (ev.dateEvent || '').slice(5).replace('-', '/');
-        return {
-          date: datePart || '--/--',
-          comp: ev.strLeague || 'League',
-          opponent,
-          score: `${ev.intHomeScore ?? '-'} - ${ev.intAwayScore ?? '-'}`,
-          result
-        };
-      });
-      if (results.length > 0) {
-        recentResults = results;
-      }
-    }
-
-    return { nextMatch, recentResults };
-  } catch (err) {
-    console.warn('[WARN] Live match fetch skipped:', err.message);
-    return { nextMatch: null, recentResults: null };
-  }
-}
-
-async function main() {
-  let existingData = {};
-  try {
-    const raw = await fs.readFile(DATA_PATH, 'utf8');
-    existingData = JSON.parse(raw);
-  } catch {
-    existingData = {};
-  }
-
-  // 1. RSSニュース取得＆レスター絞り込み
+async function fetchTranslatedNews(fallbackNews = []) {
   const fetchedNews = [];
   for (const source of RSS_SOURCES) {
     try {
@@ -262,51 +428,64 @@ async function main() {
   }
 
   const sortedNews = Array.from(dedupMap.values())
-    .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt))
+    .sort((a, b) => new Date(b._publishedAt) - new Date(a._publishedAt))
     .slice(0, 12);
 
-  // 2. ニュースのタイトル・要約を日本語に翻訳
   const translatedNews = [];
   for (const item of sortedNews) {
     const jaTitle = await translateToJapanese(item.title);
     const jaSummary = await translateToJapanese(item.summary);
+    const { _publishedAt, ...cleanItem } = item;
     translatedNews.push({
-      ...item,
+      ...cleanItem,
       title: jaTitle,
       summary: jaSummary,
-      originalTitle: item.title
+      body: [jaSummary]
     });
   }
 
-  // 3. 試合情報の自動取得（取得できた場合のみ反映し、欠損項目は既存またはベースラインで補完）
-  const liveMatches = await fetchLiveMatches();
+  return translatedNews.length > 0 ? translatedNews : fallbackNews;
+}
 
-  const updatedData = {
+async function main() {
+  let existingData = {};
+  try {
+    const raw = await fs.readFile(DATA_PATH, 'utf8');
+    existingData = JSON.parse(raw);
+  } catch {
+    existingData = {};
+  }
+
+  const [nextJson, lastJson, tableJson, squadJson, translatedNews] = await Promise.all([
+    fetchJsonSafe(SDB_NEXT_URL),
+    fetchJsonSafe(SDB_LAST_URL),
+    fetchJsonSafe(SDB_TABLE_URL),
+    fetchJsonSafe(SDB_SQUAD_URL),
+    fetchTranslatedNews(existingData.news || [])
+  ]);
+
+  const standings = buildStandings(tableJson, existingData.standings || []);
+  const squad = buildSquad(squadJson, existingData.squad || []);
+  const fixturesPack = buildFixturesAndResults(nextJson, lastJson, standings, existingData);
+
+  const nextData = {
+    ...existingData,
+    seasonLabel: existingData.seasonLabel || 'Leicester City FC • EFL League One',
     updatedAt: new Date().toISOString(),
-    nextMatch:
-      liveMatches.nextMatch ||
-      (existingData.nextMatch && Object.keys(existingData.nextMatch).length > 0
-        ? existingData.nextMatch
-        : BASELINE_DATA.nextMatch),
-    standings:
-      Array.isArray(existingData.standings) && existingData.standings.length > 0
-        ? existingData.standings
-        : BASELINE_DATA.standings,
-    recentResults:
-      liveMatches.recentResults ||
-      (Array.isArray(existingData.recentResults) && existingData.recentResults.length > 0
-        ? existingData.recentResults
-        : BASELINE_DATA.recentResults),
-    squad:
-      Array.isArray(existingData.squad) && existingData.squad.length > 0
-        ? existingData.squad
-        : BASELINE_DATA.squad,
-    news: translatedNews.length > 0 ? translatedNews : existingData.news || []
+    nextMatch: fixturesPack.nextMatch,
+    recentFiveForm: fixturesPack.recentFiveForm,
+    upcomingFixtures: fixturesPack.upcomingFixtures,
+    pastResults: fixturesPack.pastResults,
+    standings,
+    squad,
+    news: translatedNews
   };
 
   await fs.mkdir(path.dirname(DATA_PATH), { recursive: true });
-  await fs.writeFile(DATA_PATH, `${JSON.stringify(updatedData, null, 2)}\n`, 'utf8');
-  console.log(`Updated data/lcfc.json successfully. Translated news items: ${updatedData.news.length}`);
+  await fs.writeFile(DATA_PATH, `${JSON.stringify(nextData, null, 2)}\n`, 'utf8');
+  console.log(
+    `Updated all LCFC data -> news:${nextData.news.length}, standings:${nextData.standings.length}, squad:${nextData.squad.length}, upcoming:${nextData.upcomingFixtures.length}, results:${nextData.pastResults.length}`
+  );
 }
 
 main().catch((err) => {
