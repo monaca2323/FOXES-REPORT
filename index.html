@@ -1385,9 +1385,9 @@
             activeEl.isContentEditable);
 
         // カレンダー表示中や横スクロール領域上の操作は誤爆防止でスキップ
-        const inHorizontalScroll = target?.closest?.('.overflow-x-auto, #fixtures-calendar-view');
+        const inHorizontalScroll = false;
 
-        return Boolean(anyOverlayOpen || isTyping || inHorizontalScroll);
+        return Boolean(anyOverlayOpen || isTyping || );
       }
 
       document.addEventListener(
