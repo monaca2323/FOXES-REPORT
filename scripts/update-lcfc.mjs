@@ -69,22 +69,77 @@ function isLcfcRelated(title, summary, strictTeamFeed) {
   return INCLUDE_KEYWORDS.some((kw) => text.includes(kw));
 }
 
+async function translateChunkToJa(chunk) {
+  if (!chunk) return '';
+  if (/[\u3040-\u30ff\u4e00-\u9faf]/.test(chunk)) return chunk;
+
+  // 1) Google翻訳エンドポイント
+  try {
+    const gUrl = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=ja&dt=t&q=${encodeURIComponent(chunk)}`;
+    const gRes = await fetch(gUrl, {
+      headers: { 'User-Agent': 'Mozilla/5.0' }
+    });
+    if (gRes.ok) {
+      const gData = await gRes.json();
+      const translated = (gData?.[0] || [])
+        .map((part) => part?.[0] || '')
+        .join('')
+        .trim();
+      if (translated && /[\u3040-\u30ff\u4e00-\u9faf]/.test(translated)) {
+        return translated;
+      }
+    }
+  } catch {
+    // 次の手段へフォールバック
+  }
+
+  // 2) MyMemory APIへフォールバック
+  try {
+    const mUrl = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(chunk)}&langpair=en|ja`;
+    const mRes = await fetch(mUrl, {
+      headers: { 'User-Agent': 'FOXES-REPORT-Bot/1.0' }
+    });
+    if (mRes.ok) {
+      const mData = await mRes.json();
+      const mText = mData?.responseData?.translatedText?.trim() || '';
+      if (
+        mText &&
+        !/MYMEMORY WARNING/i.test(mText) &&
+        /[\u3040-\u30ff\u4e00-\u9faf]/.test(mText)
+      ) {
+        return mText;
+      }
+    }
+  } catch {
+    // 翻訳失敗時は原文を返す
+  }
+
+  return chunk;
+}
+
 async function translateToJapanese(text) {
   if (!text) return '';
   if (/[\u3040-\u30ff\u4e00-\u9faf]/.test(text)) return text;
 
-  try {
-    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=ja&dt=t&q=${encodeURIComponent(text)}`;
-    const res = await fetch(url, {
-      headers: { 'User-Agent': 'Mozilla/5.0' }
-    });
-    if (!res.ok) return text;
-    const data = await res.json();
-    const translated = (data?.[0] || []).map((chunk) => chunk?.[0] || '').join('').trim();
-    return translated || text;
-  } catch {
-    return text;
+  const sentences = text.match(/[^.!?]+[.!?]*\s*/g) || [text];
+  const chunks = [];
+  let current = '';
+
+  for (const s of sentences) {
+    if ((current + s).length > 180) {
+      if (current) chunks.push(current.trim());
+      current = s;
+    } else {
+      current += s;
+    }
   }
+  if (current.trim()) chunks.push(current.trim());
+
+  const results = [];
+  for (const ch of chunks) {
+    results.push(await translateChunkToJa(ch));
+  }
+  return results.join(' ').trim() || text;
 }
 
 async function fetchJsonSafe(url) {
