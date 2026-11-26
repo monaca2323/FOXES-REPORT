@@ -1387,8 +1387,7 @@
         // カレンダー表示中や横スクロール領域上の操作は誤爆防止でスキップ
         const inHorizontalScroll = false;
 
-        return Boolean(anyOverlayOpen || isTyping || );
-      }
+       return Boolean(anyOverlayOpen || isTyping);
 
       document.addEventListener(
         'touchstart',
