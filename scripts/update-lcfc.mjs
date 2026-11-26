@@ -8,6 +8,7 @@ const LEAGUE_ID = '4398';
 const SDB_NEXT_URL = `https://www.thesportsdb.com/api/v1/json/3/eventsnext.php?id=${TEAM_ID}`;
 const SDB_LAST_URL = `https://www.thesportsdb.com/api/v1/json/3/eventslast.php?id=${TEAM_ID}`;
 const SDB_TABLE_URL = `https://www.thesportsdb.com/api/v1/json/3/lookuptable.php?l=${LEAGUE_ID}&s=2026-2027`;
+const FISHY_TABLE_URL = 'https://thefishy.co.uk/leaguetable.php?table=3';
 const SDB_SQUAD_URL = `https://www.thesportsdb.com/api/v1/json/3/lookup_all_players.php?id=${TEAM_ID}`;
 
 const RSS_SOURCES = [
@@ -294,38 +295,115 @@ function formatJstStrings(dateObj) {
   };
 }
 
-function buildStandings(tableJson, fallbackStandings = []) {
-  const list = tableJson?.table;
-  if (!Array.isArray(list) || list.length < 10) {
-    console.warn('[WARN] standings fallback: table length < 10', {
-      hasTable: Array.isArray(list),
-      length: list?.length ?? 0,
-      rawKeys: tableJson ? Object.keys(tableJson) : []
+async function fetchFishyStandings() {
+  try {
+    const res = await fetch(FISHY_TABLE_URL, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (compatible; FOXES-REPORT-Bot/1.0)',
+        'Accept-Language': 'en-GB,en;q=0.9'
+      }
     });
-    return fallbackStandings;
-  }
+    if (!res.ok) {
+      console.warn(`[WARN] Fishy standings fetch failed: HTTP ${res.status}`);
+      return [];
+    }
 
-  const totalPlayed = list.reduce((acc, r) => acc + (Number(r.intPlayed) || 0), 0);
-  if (totalPlayed === 0) {
-    console.warn('[WARN] standings fallback: totalPlayed === 0');
-    return fallbackStandings;
-  }
+    const html = await res.text();
+    const trMatches = html.match(/<tr\b[^>]*>[\s\S]*?<\/tr>/gi) || [];
+    const parsed = [];
 
-  return list
-    .map((row, idx) => ({
-      pos: Number(row.intRank) || idx + 1,
-      team: String(row.strTeam || '').trim(),
-      played: Number(row.intPlayed) || 0,
-      won: Number(row.intWin) || 0,
-      drawn: Number(row.intDraw) || 0,
-      lost: Number(row.intLoss) || 0,
-      gd: Number(row.intGoalDifference) || 0,
-      pts: Number(row.intPoints) || 0
-    }))
-    .filter((r) => r.team)
-    .sort((a, b) => a.pos - b.pos);
+    for (const rawTr of trMatches) {
+      const cellMatches = rawTr.match(/<t[dh]\b[^>]*>[\s\S]*?<\/t[dh]>/gi) || [];
+      const cells = cellMatches.map((c) => decodeHtmlText(c).replace(/\s+/g, ' ').trim());
+      if (cells.length < 10) continue;
+
+      const pos = Number(cells[0]);
+      const team = cells[1];
+      if (!Number.isInteger(pos) || pos < 1 || pos > 30 || !team) continue;
+
+      const played = Number(cells[2]);
+      if (Number.isNaN(played)) continue;
+
+      let won;
+      let drawn;
+      let lost;
+      let gd;
+      let pts;
+
+      if (cells.length >= 20) {
+        won = Number(cells[13]);
+        drawn = Number(cells[14]);
+        lost = Number(cells[15]);
+        gd = Number(String(cells[18]).replace(/^\+/, ''));
+        pts = Number(cells[19]);
+      } else {
+        const nums = cells
+          .slice(2)
+          .map((v) => Number(String(v).replace(/^\+/, '')))
+          .filter((n) => !Number.isNaN(n));
+        if (nums.length < 6) continue;
+        won = nums[1];
+        drawn = nums[2];
+        lost = nums[3];
+        gd = nums[nums.length - 3];
+        pts = nums[nums.length - 2];
+      }
+
+      if ([won, drawn, lost, gd, pts].some((n) => Number.isNaN(n))) continue;
+
+      parsed.push({
+        pos,
+        team,
+        played,
+        won,
+        drawn,
+        lost,
+        gd,
+        pts
+      });
+    }
+
+    return Array.from(
+      new Map(parsed.map((row) => [row.team.toLowerCase(), row])).values()
+    ).sort((a, b) => a.pos - b.pos);
+  } catch (err) {
+    console.warn('[WARN] Fishy standings parse error:', err.message);
+    return [];
+  }
 }
 
+async function buildStandings(tableJson, fallbackStandings = []) {
+  const list = tableJson?.table;
+  const totalPlayed = Array.isArray(list)
+    ? list.reduce((acc, r) => acc + (Number(r.intPlayed) || 0), 0)
+    : 0;
+
+  if (Array.isArray(list) && list.length >= 10 && totalPlayed > 0) {
+    return list
+      .map((row, idx) => ({
+        pos: Number(row.intRank) || idx + 1,
+        team: String(row.strTeam || '').trim(),
+        played: Number(row.intPlayed) || 0,
+        won: Number(row.intWin) || 0,
+        drawn: Number(row.intDraw) || 0,
+        lost: Number(row.intLoss) || 0,
+        gd: Number(row.intGoalDifference) || 0,
+        pts: Number(row.intPoints) || 0
+      }))
+      .filter((r) => r.team)
+      .sort((a, b) => a.pos - b.pos);
+  }
+
+  console.warn('[WARN] TheSportsDB standings unavailable; trying The Fishy...');
+  const fishyStandings = await fetchFishyStandings();
+  if (fishyStandings.length >= 10) {
+    console.log(`[INFO] Loaded ${fishyStandings.length} teams from The Fishy`);
+    return fishyStandings;
+  }
+
+  console.warn('[WARN] standings fallback: keeping existing standings');
+  return fallbackStandings;
+}
 function buildSquad(playersJson, fallbackSquad = []) {
   const list = playersJson?.player;
   if (!Array.isArray(list) || list.length < 5) return fallbackSquad;
@@ -628,7 +706,7 @@ async function main() {
     fetchTranslatedNews(existingData.news || [])
   ]);
 
-  const standings = buildStandings(tableJson, existingData.standings || []);
+  const standings = await buildStandings(tableJson, existingData.standings || []);
   const squad = buildSquad(squadJson, existingData.squad || []);
   const fixturesPack = buildFixturesAndResults(nextJson, lastJson, standings, existingData);
 
