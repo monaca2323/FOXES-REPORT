@@ -299,8 +299,10 @@ async function fetchFishyStandings() {
   try {
     const res = await fetch(FISHY_TABLE_URL, {
       headers: {
-        'User-Agent': 'Mozilla/5.0 (compatible; FOXES-REPORT-Bot/1.0)',
-        'Accept-Language': 'en-GB,en;q=0.9'
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        'Accept-Language': 'en-GB,en;q=0.9',
+        'Cache-Control': 'no-cache'
       }
     });
     if (!res.ok) {
@@ -310,48 +312,33 @@ async function fetchFishyStandings() {
 
     const html = await res.text();
     const trMatches = html.match(/<tr\b[^>]*>[\s\S]*?<\/tr>/gi) || [];
-    const parsed = [];
+    const candidates = [];
 
     for (const rawTr of trMatches) {
       const cellMatches = rawTr.match(/<t[dh]\b[^>]*>[\s\S]*?<\/t[dh]>/gi) || [];
       const cells = cellMatches.map((c) => decodeHtmlText(c).replace(/\s+/g, ' ').trim());
-      if (cells.length < 10) continue;
+      if (cells.length < 18) continue;
 
       const pos = Number(cells[0]);
       const team = cells[1];
-      if (!Number.isInteger(pos) || pos < 1 || pos > 30 || !team) continue;
-
       const played = Number(cells[2]);
-      if (Number.isNaN(played)) continue;
 
-      let won;
-      let drawn;
-      let lost;
-      let gd;
-      let pts;
+      if (!Number.isInteger(pos) || pos < 1 || pos > 24) continue;
+      if (!team || /^\d+$/.test(team)) continue;
+      if (!Number.isInteger(played) || played < 1 || played > 46) continue;
 
-      if (cells.length >= 20) {
-        won = Number(cells[13]);
-        drawn = Number(cells[14]);
-        lost = Number(cells[15]);
-        gd = Number(String(cells[18]).replace(/^\+/, ''));
-        pts = Number(cells[19]);
-      } else {
-        const nums = cells
-          .slice(2)
-          .map((v) => Number(String(v).replace(/^\+/, '')))
-          .filter((n) => !Number.isNaN(n));
-        if (nums.length < 6) continue;
-        won = nums[1];
-        drawn = nums[2];
-        lost = nums[3];
-        gd = nums[nums.length - 3];
-        pts = nums[nums.length - 2];
-      }
+      // The Fishy の標準レイアウト:
+      // 0:Pos, 1:Team, 2:P, 3..12:Home/Away内訳, 13:W, 14:D, 15:L, 16:F, 17:A, 18:GD, 19:Pts
+      const won = Number(cells[13]);
+      const drawn = Number(cells[14]);
+      const lost = Number(cells[15]);
+      const gd = Number(String(cells[18]).replace(/^\+/, ''));
+      const pts = Number(cells[19]);
 
       if ([won, drawn, lost, gd, pts].some((n) => Number.isNaN(n))) continue;
+      if (pts > played * 3) continue;
 
-      parsed.push({
+      candidates.push({
         pos,
         team,
         played,
@@ -363,9 +350,16 @@ async function fetchFishyStandings() {
       });
     }
 
-    return Array.from(
-      new Map(parsed.map((row) => [row.team.toLowerCase(), row])).values()
-    ).sort((a, b) => a.pos - b.pos);
+    // 1〜24位の連続した順位ブロックを優先的に取り出す
+    const byPos = new Map();
+    for (const row of candidates) {
+      if (!byPos.has(row.pos)) {
+        byPos.set(row.pos, row);
+      }
+    }
+
+    const ordered = Array.from(byPos.values()).sort((a, b) => a.pos - b.pos);
+    return ordered;
   } catch (err) {
     console.warn('[WARN] Fishy standings parse error:', err.message);
     return [];
