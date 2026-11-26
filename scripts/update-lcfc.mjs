@@ -296,10 +296,20 @@ function formatJstStrings(dateObj) {
 
 function buildStandings(tableJson, fallbackStandings = []) {
   const list = tableJson?.table;
-  if (!Array.isArray(list) || list.length < 10) return fallbackStandings;
+  if (!Array.isArray(list) || list.length < 10) {
+    console.warn('[WARN] standings fallback: table length < 10', {
+      hasTable: Array.isArray(list),
+      length: list?.length ?? 0,
+      rawKeys: tableJson ? Object.keys(tableJson) : []
+    });
+    return fallbackStandings;
+  }
 
   const totalPlayed = list.reduce((acc, r) => acc + (Number(r.intPlayed) || 0), 0);
-  if (totalPlayed === 0) return fallbackStandings;
+  if (totalPlayed === 0) {
+    console.warn('[WARN] standings fallback: totalPlayed === 0');
+    return fallbackStandings;
+  }
 
   return list
     .map((row, idx) => ({
@@ -314,36 +324,6 @@ function buildStandings(tableJson, fallbackStandings = []) {
     }))
     .filter((r) => r.team)
     .sort((a, b) => a.pos - b.pos);
-}
-
-function mapPositionCode(rawPos = '') {
-  const p = String(rawPos).toLowerCase();
-  if (p.includes('goal') || p === 'gk') return 'GK';
-  if (p.includes('back') || p.includes('def') || p.includes('centre-back') || p.includes('full-back') || p === 'df') return 'DF';
-  if (p.includes('mid') || p === 'mf') return 'MF';
-  if (p.includes('wing') || p.includes('forward') || p.includes('striker') || p.includes('attack') || p === 'fw') return 'FW';
-  return 'MF';
-}
-
-function toCountryCode(nat = '') {
-  const s = String(nat).trim();
-  const map = {
-    England: 'ENG',
-    Wales: 'WAL',
-    Scotland: 'SCO',
-    'Northern Ireland': 'NIR',
-    Ireland: 'IRL',
-    Denmark: 'DEN',
-    Poland: 'POL',
-    Italy: 'ITA',
-    France: 'FRA',
-    Australia: 'AUS',
-    Jamaica: 'JAM',
-    Argentina: 'ARG',
-    Finland: 'FIN',
-    'Bosnia and Herzegovina': 'BIH'
-  };
-  return map[s] || s.slice(0, 3).toUpperCase() || 'UNK';
 }
 
 function buildSquad(playersJson, fallbackSquad = []) {
