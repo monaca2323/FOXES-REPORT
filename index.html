@@ -44,9 +44,7 @@
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
-   #fixtures-calendar-view {
-  touch-action: pan-y;
-}
+   
    .card-surface {
       background-color: #ffffff;
       border: 1px solid #e2e8f0;
@@ -1410,19 +1408,19 @@
       document.addEventListener(
         'touchend',
         (e) => {
-          if (!tracking || e.changedTouches.length !== 1) return;
+          if (!tracking || !e.changedTouches?.length) {
+            tracking = false;
+            return;
+          }
           tracking = false;
 
-          const endX = e.changedTouches[0].clientX;
-          const endY = e.changedTouches[0].clientY;
-          const diffX = endX - startX;
-          const diffY = endY - startY;
-
+          const touch = e.changedTouches[0];
+          const diffX = touch.clientX - startX;
+          const diffY = touch.clientY - startY;
           const absX = Math.abs(diffX);
           const absY = Math.abs(diffY);
 
-          if (absX < 65 || absX <= absY * 1.5) return;
-
+          if (absX < 50 || absX <= absY * 1.2) return;
           const currentIndex = TAB_ORDER.indexOf(getCurrentTabId());
           if (currentIndex === -1) return;
 
