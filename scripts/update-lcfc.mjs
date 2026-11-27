@@ -703,12 +703,75 @@ async function main() {
   const standings = await buildStandings(tableJson, existingData.standings || []);
   const squad = buildSquad(squadJson, existingData.squad || []);
   const fixturesPack = buildFixturesAndResults(nextJson, lastJson, standings, existingData);
+const TEAM_ALIASES = {
+  blackpool: ['blackpool', 'ブラックプール'],
+  'mansfield town': ['mansfield', 'mansfield town', 'マンスフィールド'],
+  'cambridge united': ['cambridge', 'cambridge utd', 'cambridge united', 'ケンブリッジ'],
+  'dover athletic': ['dover', 'dover athletic', 'ドーバー'],
+  'sheffield wednesday': ['sheffield wed', 'sheffield wednesday', 'シェフィールド・ウェンズデイ', 'シェフィールド'],
+  reading: ['reading', 'レディング'],
+  'afc wimbledon': ['wimbledon', 'afc wimbledon', 'ウィンブルドン'],
+  'leyton orient': ['leyton orient', 'orient', 'レイトン・オリエント'],
+  'wycombe wanderers': ['wycombe', 'wycombe wanderers', 'ウィコム'],
+  'doncaster rovers': ['doncaster', 'doncaster rovers', 'ドンカスター'],
+  bromley: ['bromley', 'ブロムリー'],
+  'luton town': ['luton', 'luton town', 'ルートン'],
+  stevenage: ['stevenage', 'スティヴネイジ', 'スティーブネイジ'],
+  huddersfield: ['huddersfield', 'huddersfield town', 'ハダースフィールド'],
+  stockport: ['stockport', 'stockport county', 'ストックポート'],
+  oxford: ['oxford', 'oxford utd', 'oxford united', 'オックスフォード'],
+  plymouth: ['plymouth', 'plymouth argyle', 'プリマス'],
+  'mk dons': ['mk dons', 'milton keynes', 'mkドンズ'],
+  wigan: ['wigan', 'wigan athletic', 'ウィガン'],
+  burton: ['burton', 'burton albion', 'バートン'],
+  'notts county': ['notts county', 'notts co', 'ノッツ・カウンティ'],
+  peterborough: ['peterborough', 'peterborough united', 'ピーターバラ'],
+  barnsley: ['barnsley', 'バーンズリー']
+};
 
+function normalizeTeamKey(name = '') {
+  return String(name)
+    .toLowerCase()
+    .replace(/\b(fc|afc|utd|united|city|town|rovers|wanderers|albion|county|athletic)\b/g, ' ')
+    .replace(/[^a-z0-9\u3040-\u30ff\u4e00-\u9faf]+/g, ' ')
+    .trim();
+}
+
+function findStandingsPos(standings = [], rawName = '') {
+  if (!Array.isArray(standings) || standings.length === 0 || !rawName) return null;
+  const rawLower = String(rawName).toLowerCase().trim();
+  const normInput = normalizeTeamKey(rawName);
+
+  const expandedKeys = new Set([rawLower, normInput].filter(Boolean));
+  for (const aliases of Object.values(TEAM_ALIASES)) {
+    if (aliases.some(a => a.toLowerCase() === rawLower || normalizeTeamKey(a) === normInput)) {
+      aliases.forEach(a => {
+        expandedKeys.add(a.toLowerCase());
+        const nk = normalizeTeamKey(a);
+        if (nk) expandedKeys.add(nk);
+      });
+    }
+  }
+
+  for (const row of standings) {
+    const teamLower = String(row.team || '').toLowerCase().trim();
+    const normTeam = normalizeTeamKey(row.team || '');
+    for (const key of expandedKeys) {
+      if (
+        teamLower === key ||
+        (normTeam && key && (normTeam === key || normTeam.includes(key) || key.includes(normTeam)))
+      ) {
+        return Number(row.pos);
+      }
+    }
+  }
+  return null;
+}
   const nextData = {
     ...existingData,
     seasonLabel: existingData.seasonLabel || 'Leicester City FC • EFL League One',
     updatedAt: new Date().toISOString(),
-    nextMatch: fixturesPack.nextMatch,
+   nextMatch: nextMatchWithRanks, 
     recentFiveForm: fixturesPack.recentFiveForm,
     upcomingFixtures: fixturesPack.upcomingFixtures,
     pastResults: fixturesPack.pastResults,
