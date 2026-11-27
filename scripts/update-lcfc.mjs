@@ -767,6 +767,21 @@ function findStandingsPos(standings = [], rawName = '') {
   }
   return null;
 }
+ const nextMatchWithRanks = fixturesPack?.nextMatch
+    ? {
+        ...fixturesPack.nextMatch,
+        lcfcRank: findStandingsPos(standings, 'leicester') ?? fixturesPack.nextMatch.lcfcRank,
+        opponentRank:
+          findStandingsPos(standings, fixturesPack.nextMatch.opponent) ??
+          fixturesPack.nextMatch.opponentRank
+      }
+    : fixturesPack?.nextMatch;
+
+  const nextData = {
+    ...existingData,
+    seasonLabel: existingData.seasonLabel || 'Leicester City FC • EFL League One',
+    updatedAt: new Date().toISOString(),
+    nextMatch: nextMatchWithRanks, 
   const nextData = {
     ...existingData,
     seasonLabel: existingData.seasonLabel || 'Leicester City FC • EFL League One',
