@@ -2052,8 +2052,10 @@
       rows.forEach(r => {
         const tr = document.createElement('tr');
         const zone = getZoneClasses(Number(r.pos));
-        const isLcfc = r.team === 'Leicester City';
-        tr.className = `${isLcfc ? 'font-bold bg-blue-100/90 text-[#002878]' : ''}`;
+        const isLcfc = String(r.team || '').toLowerCase().includes('leicester');
+        tr.className = isLcfc
+          ? 'font-extrabold bg-blue-200/85 text-[#002060] shadow-[inset_3px_0_0_#003899]'
+          : 'hover:bg-slate-50/80 transition';
 
         const posTd = document.createElement('td');
         posTd.className = 'py-2 sm:py-3 px-1 sm:px-2 text-center';
@@ -2063,7 +2065,7 @@
         posTd.appendChild(posSpan);
 
         const teamTd = document.createElement('td');
-        teamTd.className = `py-2 sm:py-3 px-1 sm:px-2 min-w-0 ${isLcfc ? 'text-[#002878]' : 'text-slate-900'}`;
+        teamTd.className = `py-2 sm:py-3 px-1 sm:px-2 min-w-0 ${isLcfc ? 'text-[#002060]' : 'text-slate-900'}`;
         const teamWrap = document.createElement('div');
         teamWrap.className = 'flex items-center gap-1 min-w-0';
 
@@ -2076,13 +2078,13 @@
 
         const cells = [r.played, r.won, r.drawn, r.lost, r.gd >= 0 ? `+${r.gd}` : r.gd].map(val => {
           const td = document.createElement('td');
-          td.className = 'py-2 sm:py-3 px-0.5 sm:px-1.5 text-center text-slate-700 tabular-nums';
+          td.className = `py-2 sm:py-3 px-0.5 sm:px-1.5 text-center tabular-nums ${isLcfc ? 'text-[#002878] font-bold' : 'text-slate-700'}`;
           td.textContent = String(val);
           return td;
         });
 
         const ptsTd = document.createElement('td');
-        ptsTd.className = 'py-2 sm:py-3 px-1 sm:px-2 text-right font-extrabold text-[#003090] tabular-nums';
+        ptsTd.className = `py-2 sm:py-3 px-1 sm:px-2 text-right font-extrabold tabular-nums ${isLcfc ? 'text-[#002060]' : 'text-[#003090]'}`;
         ptsTd.textContent = String(r.pts);
 
         tr.appendChild(posTd);
