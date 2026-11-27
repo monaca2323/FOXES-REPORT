@@ -782,12 +782,7 @@ function findStandingsPos(standings = [], rawName = '') {
     seasonLabel: existingData.seasonLabel || 'Leicester City FC • EFL League One',
     updatedAt: new Date().toISOString(),
     nextMatch: nextMatchWithRanks, 
-  const nextData = {
-    ...existingData,
-    seasonLabel: existingData.seasonLabel || 'Leicester City FC • EFL League One',
-    updatedAt: new Date().toISOString(),
-   nextMatch: nextMatchWithRanks, 
-    recentFiveForm: fixturesPack.recentFiveForm,
+      recentFiveForm: fixturesPack.recentFiveForm,
     upcomingFixtures: fixturesPack.upcomingFixtures,
     pastResults: fixturesPack.pastResults,
     standings,
